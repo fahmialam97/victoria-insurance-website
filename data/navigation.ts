@@ -1,3 +1,4 @@
+import { productsHref } from "./products";
 import { official } from "./site";
 
 export type NavLink = {
@@ -7,35 +8,79 @@ export type NavLink = {
 };
 
 export type NavGroup = {
-  title?: string;
+  title: string;
   links: NavLink[];
 };
 
+export const servicesHref = "/layanan";
+export const companyInfoHref = "/informasi-perusahaan";
+
 export type NavItem = {
   label: string;
+  /** Link langsung (item tanpa dropdown). */
   href?: string;
-  groups?: NavGroup[];
+  /** Isi dropdown. */
+  groups?: { title?: string; links: NavLink[] }[];
+  /** Link "lihat semua" di bagian bawah dropdown. */
+  viewAll?: NavLink;
+  /** Path internal lain yang membuat menu ini tampil aktif. */
+  activePaths?: string[];
 };
 
-/** Item dari KB Bagian 3; pengelompokan "Informasi Perusahaan" adalah usulan baru. */
+/** Isi halaman /informasi-perusahaan dan dropdown-nya; pengelompokan adalah usulan baru dari item KB Bagian 3. */
+export const companyInfoGroups: NavGroup[] = [
+  {
+    title: "Pengumuman",
+    links: [
+      { label: "RUPSLB 2026", href: "/rupslb/2026", description: "Pengumuman dan dokumen RUPSLB 2026." },
+      {
+        label: "Arsip RUPS & Keterbukaan Informasi",
+        href: official("/informasi-perusahaan/"),
+        description: "Dokumen RUPST, RUPSLB, dan PMTHMETD tahun 2020–2026.",
+      },
+    ],
+  },
+  {
+    title: "Tata Kelola Perusahaan",
+    links: [
+      { label: "Pedoman Tata Kelola", href: official("/pedoman-tata-kelola/") },
+      { label: "Komite – komite", href: official("/komite-audit/") },
+      { label: "Sekretaris Perusahaan", href: official("/sekretaris-perusahaan/") },
+      { label: "Anggaran Dasar (AD/ART)", href: official("/anggaran-dasar-ad-art/") },
+    ],
+  },
+  {
+    title: "Hubungan Investor",
+    links: [
+      { label: "Laporan Bulanan", href: official("/laporan-bulanan/") },
+      { label: "Laporan Keuangan", href: official("/laporan-keuangan-2/") },
+      { label: "Laporan Tahunan", href: official("/laporan-tahunan-2/") },
+      { label: "Lembaga Penunjang", href: official("/lembaga-penunjang-2/") },
+    ],
+  },
+];
+
+/** Produk tanpa dropdown; menu lain memakai dropdown seperti struktur website resmi (KB Bagian 3). */
 export const mainNav: NavItem[] = [
   { label: "Beranda", href: "/" },
-  { label: "Produk", href: official("/produk/") },
+  { label: "Produk", href: productsHref },
   {
     label: "Layanan",
     groups: [
       {
         links: [
-          { label: "Kantor", href: official("/kantor-cabang/") },
-          { label: "Digital Product", href: official("/digital-product/") },
-          { label: "Bengkel Rekanan", href: official("/bengkel-rekanan/") },
-          { label: "Pengaduan Konsumen", href: official("/pengaduan-konsumen/") },
+          { label: "Kantor", href: "/layanan/kantor" },
+          { label: "Digital Product", href: "/layanan/digital-product" },
+          { label: "Bengkel Rekanan", href: "/layanan/bengkel-rekanan" },
+          { label: "Pengaduan Konsumen", href: "/layanan/pengaduan-konsumen" },
           { label: "Form Pengaduan", href: "/pengaduan" },
-          { label: "Literasi & Inklusi", href: official("/lit-ink/") },
-          { label: "Informasi Transaksi", href: official("/literasi-inklusi-keuangan/") },
+          { label: "Literasi & Inklusi", href: "/layanan/literasi-inklusi" },
+          { label: "Informasi Transaksi", href: "/layanan/informasi-transaksi" },
         ],
       },
     ],
+    viewAll: { label: "Lihat Semua Layanan", href: servicesHref },
+    activePaths: [servicesHref, "/pengaduan"],
   },
   {
     label: "Berita",
@@ -53,7 +98,7 @@ export const mainNav: NavItem[] = [
     groups: [
       {
         links: [
-          { label: "Tentang Kami", href: official("/tentang-kami/") },
+          { label: "Profil Perusahaan", href: official("/tentang-kami/") },
           { label: "Visi dan Misi", href: official("/visi-dan-misi/") },
           { label: "Jaringan Bisnis", href: official("/jaringan-bisnis/") },
           { label: "Penghargaan", href: official("/penghargaan/") },
@@ -72,33 +117,9 @@ export const mainNav: NavItem[] = [
   },
   {
     label: "Informasi Perusahaan",
-    groups: [
-      {
-        title: "Pengumuman",
-        links: [
-          { label: "RUPSLB 2026", href: "/rupslb/2026" },
-          { label: "Arsip RUPS & Keterbukaan Informasi", href: official("/informasi-perusahaan/") },
-        ],
-      },
-      {
-        title: "Tata Kelola Perusahaan",
-        links: [
-          { label: "Pedoman Tata Kelola", href: official("/pedoman-tata-kelola/") },
-          { label: "Komite – komite", href: official("/komite-audit/") },
-          { label: "Sekretaris Perusahaan", href: official("/sekretaris-perusahaan/") },
-          { label: "Anggaran Dasar (AD/ART)", href: official("/anggaran-dasar-ad-art/") },
-        ],
-      },
-      {
-        title: "Hubungan Investor",
-        links: [
-          { label: "Laporan Bulanan", href: official("/laporan-bulanan/") },
-          { label: "Laporan Keuangan", href: official("/laporan-keuangan-2/") },
-          { label: "Laporan Tahunan", href: official("/laporan-tahunan-2/") },
-          { label: "Lembaga Penunjang", href: official("/lembaga-penunjang-2/") },
-        ],
-      },
-    ],
+    groups: companyInfoGroups,
+    viewAll: { label: "Lihat Semua Informasi Perusahaan", href: companyInfoHref },
+    activePaths: [companyInfoHref, "/rupslb"],
   },
 ];
 
@@ -122,11 +143,11 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
   {
     title: "Layanan",
     links: [
-      { label: "Produk", href: official("/produk/") },
-      { label: "Kantor", href: official("/kantor-cabang/") },
-      { label: "Bengkel Rekanan", href: official("/bengkel-rekanan/") },
+      { label: "Produk", href: productsHref },
+      { label: "Semua Layanan", href: servicesHref },
+      { label: "Bengkel Rekanan", href: "/layanan/bengkel-rekanan" },
       { label: "Form Pengaduan", href: "/pengaduan" },
-      { label: "Informasi Transaksi", href: official("/literasi-inklusi-keuangan/") },
+      { label: "Informasi Transaksi", href: "/layanan/informasi-transaksi" },
     ],
   },
   {

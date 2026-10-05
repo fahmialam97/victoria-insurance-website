@@ -3,18 +3,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu, Search, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, Search, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { contactAnchor, mainNav, searchAction, type NavItem } from "@/data/navigation";
 import { isExternal } from "@/lib/format";
 import { SmartLink } from "./ui/SmartLink";
 
-/** Item aktif bila link internalnya cocok dengan path saat ini. */
+/** Item aktif bila salah satu link internal atau activePaths-nya cocok dengan path saat ini. */
 function isItemActive(item: NavItem, pathname: string): boolean {
-  const hrefs = [item.href, ...(item.groups?.flatMap((g) => g.links.map((l) => l.href)) ?? [])].filter(
-    (h): h is string => !!h && !isExternal(h),
-  );
-  return hrefs.some((h) => (h === "/" ? pathname === "/" : pathname.startsWith(h)));
+  const paths = [
+    item.href,
+    item.viewAll?.href,
+    ...(item.activePaths ?? []),
+    ...(item.groups?.flatMap((g) => g.links.map((l) => l.href)) ?? []),
+  ].filter((h): h is string => !!h && !isExternal(h));
+  return paths.some((h) => (h === "/" ? pathname === "/" : pathname.startsWith(h)));
 }
 
 export function Navbar() {
@@ -83,7 +86,7 @@ export function Navbar() {
               const active = isItemActive(item, pathname);
               // Dropdown di ujung kanan diratakan kanan agar tidak keluar viewport.
               const alignRight = index >= mainNav.length - 2;
-              const panelId = `${baseId}-${item.label}`;
+              const panelId = `${baseId}-${index}`;
               const linkClass = `relative inline-flex items-center gap-1 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                 active ? "text-brand-600" : "text-navy-800 hover:text-brand-600"
               }`;
@@ -133,32 +136,44 @@ export function Navbar() {
                     }}
                   >
                     <div
-                      className={`flex gap-6 rounded-xl border border-line bg-white p-4 shadow-card-hover ${
-                        item.groups.length > 1 ? "w-max" : "w-60"
+                      className={`rounded-xl border border-line bg-white p-4 shadow-card-hover ${
+                        item.groups.length > 1 ? "w-max" : "w-64"
                       }`}
                     >
-                      {item.groups.map((group, gi) => (
-                        <div key={group.title ?? gi} className="min-w-48">
-                          {group.title && (
-                            <p className="px-3 pb-1 text-xs font-semibold uppercase tracking-wider text-muted">
-                              {group.title}
-                            </p>
-                          )}
-                          <ul>
-                            {group.links.map((link) => (
-                              <li key={link.href}>
-                                <SmartLink
-                                  href={link.href}
-                                  onClick={closeAll}
-                                  className="block rounded-md px-3 py-2 text-sm text-navy-800 hover:bg-surface hover:text-brand-600"
-                                >
-                                  {link.label}
-                                </SmartLink>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
+                      <div className="flex gap-6">
+                        {item.groups.map((group, gi) => (
+                          <div key={group.title ?? gi} className="min-w-48">
+                            {group.title && (
+                              <p className="px-3 pb-1 text-xs font-semibold uppercase tracking-wider text-muted">
+                                {group.title}
+                              </p>
+                            )}
+                            <ul>
+                              {group.links.map((link) => (
+                                <li key={link.href}>
+                                  <SmartLink
+                                    href={link.href}
+                                    onClick={closeAll}
+                                    className="block rounded-md px-3 py-2 text-sm text-navy-800 hover:bg-surface hover:text-brand-600"
+                                  >
+                                    {link.label}
+                                  </SmartLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                      {item.viewAll && (
+                        <SmartLink
+                          href={item.viewAll.href}
+                          onClick={closeAll}
+                          className="mt-3 flex items-center justify-between gap-2 border-t border-line px-3 pt-3 text-sm font-semibold text-brand-600 hover:text-brand-700"
+                        >
+                          {item.viewAll.label}
+                          <ArrowRight aria-hidden="true" className="size-4" />
+                        </SmartLink>
+                      )}
                     </div>
                   </div>
                 </li>
@@ -279,6 +294,16 @@ export function Navbar() {
                           </ul>
                         </div>
                       ))}
+                      {item.viewAll && (
+                        <SmartLink
+                          href={item.viewAll.href}
+                          onClick={closeAll}
+                          className="flex items-center gap-2 py-2 text-sm font-semibold text-brand-600"
+                        >
+                          {item.viewAll.label}
+                          <ArrowRight aria-hidden="true" className="size-4" />
+                        </SmartLink>
+                      )}
                     </div>
                   </details>
                 </li>
