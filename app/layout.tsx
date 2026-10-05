@@ -51,7 +51,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="id" className={jakarta.variable}>
+    <html lang="id" className={jakarta.variable} data-scroll-behavior="smooth">
       <body className="flex min-h-dvh flex-col overflow-x-clip">
         <a
           href="#konten-utama"
