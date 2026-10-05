@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { ArrowRight, PhoneCall } from "lucide-react";
 import { contact, site } from "@/data/site";
+import { heroImages } from "@/data/hero";
 import { productsHref } from "@/data/products";
+import { HeroCarousel } from "./HeroCarousel";
 import { Container } from "./ui/Container";
 import { SmartLink } from "./ui/SmartLink";
 
@@ -53,20 +55,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative">
-          <div aria-hidden="true" className="absolute -inset-3 -z-10 rounded-[2rem] bg-brand-600/5" />
-          <div className="overflow-hidden rounded-3xl border border-line bg-white shadow-card-hover">
-            <Image
-              src="/images/official/home-banner-graha-bip.jpg"
-              alt="Banner resmi Victoria Insurance: Hotline Victoria Call +62 21 1500 977 dengan latar Gedung Graha BIP"
-              width={989}
-              height={561}
-              preload
-              sizes="(min-width: 1024px) 560px, 100vw"
-              className="h-auto w-full"
-            />
-          </div>
-        </div>
+        <HeroCarousel images={heroImages} />
       </Container>
     </section>
   );

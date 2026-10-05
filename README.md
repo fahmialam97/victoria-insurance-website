@@ -65,6 +65,11 @@ Disalin dari website resmi; tidak ada stock image.
 | `logo-light.png` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/logo-victoria-insurance_2-1.png |
 | `site-icon-192.png` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/cropped-logo-victoria-insurance_2-192x192.png |
 | `home-banner-graha-bip.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2022/12/Home_web00.jpg (slide hero #4) |
+| `ilustrasi-klaim-kendaraan.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/Wallpaper_klaim1.jpg (slide hero #1) |
+| `banner-csr-victoria-peduli.png` | https://victoriainsurance.co.id/wp-content/uploads/2021/11/CSR_webBanner01.png (slide hero #2) |
+| `survey-penutupan-mobil-1.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/IMG-20181003-WA0021.jpg (slide hero #3) |
+| `survey-penutupan-mobil-2.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/IMG-20181003-WA0013.jpg (slide hero #3) |
+| `survey-penutupan-mobil-3.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/IMG-20181003-WA0022.jpg (slide hero #3) |
 | `pattern-product-icons.png` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/Wall1-8.png (latar slide hero #3) |
 | `gedung-graha-bip.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/08/gd_bip.jpg (halaman Kantor) |
 
