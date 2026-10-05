@@ -79,7 +79,6 @@ export const mainNav: NavItem[] = [
         ],
       },
     ],
-    viewAll: { label: "Lihat Semua Layanan", href: servicesHref },
     activePaths: [servicesHref, "/pengaduan"],
   },
   {
@@ -92,7 +91,6 @@ export const mainNav: NavItem[] = [
         ],
       },
     ],
-    viewAll: { label: "Lihat Semua Berita", href: "/berita" },
     activePaths: ["/berita"],
   },
   {
