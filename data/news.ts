@@ -7,6 +7,7 @@ export type NewsItem = {
   summary: string;
   href: string;
   category?: string;
+  image?: { src: string; width: number; height: number };
 };
 
 export const newsHref = "/berita";
@@ -19,6 +20,7 @@ export const toNewsItem = (article: (typeof articles)[number]): NewsItem => ({
   summary: article.excerpt,
   href: articleHref(article),
   category: categoryLabel(article.category),
+  image: article.cover,
 });
 
 /** Kategori bawaan WordPress "Uncategorized" tidak ditampilkan. */
