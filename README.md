@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Victoria Insurance — Homepage Redesign
 
-## Getting Started
+Rebuild homepage website PT Victoria Insurance, Tbk dengan Next.js (App Router), TypeScript, Tailwind CSS v4, dan Lucide React.
 
-First, run the development server:
+Sumber konten tunggal: [`../VICTORIA_INSURANCE_KNOWLEDGE.md`](../VICTORIA_INSURANCE_KNOWLEDGE.md) (audit website resmi, 1 Oktober 2026).
+
+## Menjalankan
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run lint
+npx tsc --noEmit
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Variabel opsional: `NEXT_PUBLIC_SITE_URL` (default `https://victoriainsurance.co.id`) — dipakai untuk `metadataBase`, canonical, Open Graph, dan sitemap.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Struktur
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  layout.tsx            Root layout, font, metadata SEO, Navbar + Footer, skip link
+  page.tsx              Homepage + JSON-LD Organization
+  rupslb/[year]/page.tsx  Detail pengumuman RUPSLB (SSG dari data/rupslb.ts)
+  sitemap.ts, not-found.tsx, globals.css (design tokens)
+components/
+  Navbar, Hero, ProductSection, ProductCard, ServiceSection, ServiceCard,
+  NewsSection, NewsCard, RupslbAnnouncement, AboutSection, ContactSection, Footer
+  ui/ Container, SectionHeader, SmartLink, InstagramIcon
+data/
+  site.ts        Identitas perusahaan, kontak, grup usaha, sosial media
+  navigation.ts  Menu utama & footer
+  products.ts    6 produk homepage + RIPLAY
+  services.ts    6 layanan (submenu Layanan)
+  news.ts        3 artikel terbaru
+  rupslb.ts      Event & dokumen RUPSLB (tambah entri baru di awal array)
+  about.ts       Ringkasan Tentang Kami + visi
+lib/format.ts    Format tanggal id-ID, helper link
+```
 
-## Learn More
+## Aturan konten
 
-To learn more about Next.js, take a look at the following resources:
+- Semua teks, URL, dan dokumen berasal dari knowledge base; tidak ada konten karangan.
+- Halaman detail (produk, layanan, tentang kami, dsb.) belum dibangun ulang, jadi link mengarah ke website resmi `victoriainsurance.co.id`.
+- Info yang tidak tersedia di website resmi (jam operasional, privacy policy, terms, WhatsApp) **tidak ditampilkan**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Aset resmi (`public/images/official/`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Disalin dari website resmi; tidak ada stock image.
 
-## Deploy on Vercel
+| File lokal | Sumber |
+|---|---|
+| `logo-dark.png` | https://victoriainsurance.co.id/wp-content/uploads/2018/09/Logo.png |
+| `logo-light.png` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/logo-victoria-insurance_2-1.png |
+| `site-icon-192.png` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/cropped-logo-victoria-insurance_2-192x192.png |
+| `home-banner-graha-bip.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2022/12/Home_web00.jpg (slide hero #4) |
+| `pattern-product-icons.png` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/Wall1-8.png (latar slide hero #3) |
+| `gedung-graha-bip.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/08/gd_bip.jpg (halaman Kantor) |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Aset yang masih dibutuhkan
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Foto hero resolusi tinggi (banner resmi saat ini 989×561 dan memuat teks bawaan).
+- Logo vektor (SVG) — logo saat ini PNG 418×46.
+- Foto produk resmi (kartu produk sementara memakai ikon).
+- Foto/visual untuk section Hubungi Kami (sementara memakai pola ikon resmi).
