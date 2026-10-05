@@ -72,7 +72,7 @@ export function Navbar() {
             width={418}
             height={46}
             preload
-            className="h-auto w-40 sm:w-44"
+            className="h-auto w-48 sm:w-56 xl:w-60"
           />
         </Link>
 
