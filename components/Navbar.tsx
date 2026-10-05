@@ -67,7 +67,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
-      <div ref={navRef} className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:h-[72px] lg:px-8">
+      <div ref={navRef} className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
         <Link href="/" className="shrink-0" aria-label="Victoria Insurance — Beranda" onClick={closeAll}>
           <Image
             src="/images/official/logo-dark.png"
@@ -75,7 +75,7 @@ export function Navbar() {
             width={418}
             height={46}
             preload
-            className="h-auto w-48 sm:w-56 xl:w-60"
+            className="h-auto w-52 sm:w-60 xl:w-64"
           />
         </Link>
 
@@ -87,7 +87,7 @@ export function Navbar() {
               // Dropdown di ujung kanan diratakan kanan agar tidak keluar viewport.
               const alignRight = index >= mainNav.length - 2;
               const panelId = `${baseId}-${index}`;
-              const linkClass = `relative inline-flex items-center gap-1 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+              const linkClass = `relative inline-flex items-center gap-1 whitespace-nowrap rounded-md px-3 py-2 text-[16px] font-medium transition-colors ${
                 active ? "text-brand-600" : "text-navy-800 hover:text-brand-600"
               }`;
               const indicator = active && (
