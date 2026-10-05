@@ -1,4 +1,5 @@
 import { aboutHref, aboutLinks, aboutMenu } from "./company";
+import { companyInfoGroups, companyInfoHref, companyInfoLinks } from "./companyInfo";
 import { productsHref } from "./products";
 import { official } from "./site";
 
@@ -14,7 +15,8 @@ export type NavGroup = {
 };
 
 export const servicesHref = "/layanan";
-export const companyInfoHref = "/informasi-perusahaan";
+
+export { companyInfoGroups, companyInfoHref };
 
 export type NavItem = {
   label: string;
@@ -27,39 +29,6 @@ export type NavItem = {
   /** Path internal lain yang membuat menu ini tampil aktif. */
   activePaths?: string[];
 };
-
-/** Isi halaman /informasi-perusahaan dan dropdown-nya; pengelompokan adalah usulan baru dari item KB Bagian 3. */
-export const companyInfoGroups: NavGroup[] = [
-  {
-    title: "Pengumuman",
-    links: [
-      { label: "RUPSLB 2026", href: "/rupslb/2026", description: "Pengumuman dan dokumen RUPSLB 2026." },
-      {
-        label: "Arsip RUPS & Keterbukaan Informasi",
-        href: official("/informasi-perusahaan/"),
-        description: "Dokumen RUPST, RUPSLB, dan PMTHMETD tahun 2020–2026.",
-      },
-    ],
-  },
-  {
-    title: "Tata Kelola Perusahaan",
-    links: [
-      { label: "Pedoman Tata Kelola", href: official("/pedoman-tata-kelola/") },
-      { label: "Komite – komite", href: official("/komite-audit/") },
-      { label: "Sekretaris Perusahaan", href: official("/sekretaris-perusahaan/") },
-      { label: "Anggaran Dasar (AD/ART)", href: official("/anggaran-dasar-ad-art/") },
-    ],
-  },
-  {
-    title: "Hubungan Investor",
-    links: [
-      { label: "Laporan Bulanan", href: official("/laporan-bulanan/") },
-      { label: "Laporan Keuangan", href: official("/laporan-keuangan-2/") },
-      { label: "Laporan Tahunan", href: official("/laporan-tahunan-2/") },
-      { label: "Lembaga Penunjang", href: official("/lembaga-penunjang-2/") },
-    ],
-  },
-];
 
 /** Produk tanpa dropdown; menu lain memakai dropdown seperti struktur website resmi (KB Bagian 3). */
 export const mainNav: NavItem[] = [
@@ -137,11 +106,11 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
   {
     title: "Informasi Perusahaan",
     links: [
-      { label: "RUPSLB 2026", href: "/rupslb/2026" },
-      { label: "Arsip RUPS", href: official("/informasi-perusahaan/") },
-      { label: "Tata Kelola", href: official("/pedoman-tata-kelola/") },
-      { label: "Laporan Keuangan", href: official("/laporan-keuangan-2/") },
-      { label: "Laporan Tahunan", href: official("/laporan-tahunan-2/") },
+      { label: "RUPSLB 2026", href: companyInfoLinks.rupslb2026.href },
+      { label: "Arsip RUPS", href: companyInfoLinks.rupsArchive.href },
+      { label: "Tata Kelola", href: companyInfoLinks.governance.href },
+      { label: "Laporan Keuangan", href: companyInfoLinks.financial.href },
+      { label: "Laporan Tahunan", href: companyInfoLinks.annual.href },
     ],
   },
 ];

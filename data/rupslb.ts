@@ -1,5 +1,3 @@
-import { official } from "./site";
-
 export type RupslbDocument = {
   title: string;
   shortTitle: string;
@@ -21,7 +19,7 @@ export type RupslbEvent = {
   documents: RupslbDocument[];
 };
 
-export const rupsArchiveHref = official("/informasi-perusahaan/");
+export const rupsArchiveHref = "/informasi-perusahaan/arsip-rups";
 
 /** Sumber KB Bagian 9.1; RUPSLB baru ditambahkan di awal array. */
 export const rupslbEvents: RupslbEvent[] = [

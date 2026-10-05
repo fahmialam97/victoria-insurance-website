@@ -35,6 +35,7 @@ app/
   rupslb/[year]/page.tsx  Detail pengumuman RUPSLB (SSG dari data/rupslb.ts)
   berita/                Hub Berita, Artikel (+ detail SSG per slug), CSR
   tentang-kami/          Profil, Visi Misi, Jaringan Bisnis, Penghargaan, Karir, Struktur, Komisaris, Direksi
+  informasi-perusahaan/  Hub + Arsip RUPS, Tata Kelola (4 halaman), Hubungan Investor (4 halaman)
   sitemap.ts, not-found.tsx, globals.css (design tokens)
 components/
   Navbar, Hero, ProductSection, ProductCard, ServiceSection, ServiceCard,
@@ -48,6 +49,7 @@ data/
   articles.ts    10 artikel resmi (HTML dibersihkan dari WP REST API)
   csr.ts         Konten halaman CSR
   company.ts     Konten halaman Tentang Kami & Manajemen
+  companyInfo.ts Menu & konten Informasi Perusahaan; companyReports.ts arsip RUPS & laporan (hasil scrape resmi)
   news.ts        3 artikel terbaru untuk homepage
   rupslb.ts      Event & dokumen RUPSLB (tambah entri baru di awal array)
   about.ts       Ringkasan Tentang Kami + visi
@@ -57,7 +59,7 @@ lib/format.ts    Format tanggal id-ID, helper link
 ## Aturan konten
 
 - Semua teks, URL, dan dokumen berasal dari knowledge base; tidak ada konten karangan.
-- Halaman detail (produk, layanan, tentang kami, dsb.) belum dibangun ulang, jadi link mengarah ke website resmi `victoriainsurance.co.id`.
+- Semua halaman menu sudah dibangun ulang; dokumen PDF tetap di-host di website resmi `victoriainsurance.co.id`.
 - Info yang tidak tersedia di website resmi (jam operasional, privacy policy, terms, WhatsApp) **tidak ditampilkan**.
 
 ## Aset resmi (`public/images/official/`)
@@ -102,6 +104,7 @@ Disalin dari website resmi; tidak ada stock image.
 | `tentang-kami/struktur-dewan-komisaris.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2026/07/BOC-WEBSITE_page-0001.jpg |
 | `tentang-kami/struktur-direksi.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2026/10/BOD_WEBSITE_01102026.jpg (bagan terbaru, menggantikan versi 2026/07 di KB) |
 | `tentang-kami/penghargaan-*.{jpg,png}` | https://victoriainsurance.co.id/wp-content/uploads/2023/12/2018.jpg, 2021.jpg; 2025/06/PENGHARGAAN-2020.png, PENGHARGAAN-2022.png, PENGHARGAAN-2023-2024.png, PENGHARGAAN-2024-1.png |
+| `informasi-perusahaan/sekretaris-perusahaan-2026.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2026/03/CORSEC-2026.jpg |
 
 ### Aset yang masih dibutuhkan
 
