@@ -14,6 +14,16 @@ npx tsc --noEmit
 npm run build && npm start
 ```
 
+## Form Pengaduan (`/pengaduan`)
+
+Pengaduan dikirim lewat email (Nodemailer + SMTP) ke `COMPLAINT_TO_EMAIL`. Sementara: `alamfahmi76@gmail.com`, ganti ke email resmi Victoria saat tersedia.
+
+1. Salin `.env.example` menjadi `.env.local`.
+2. Isi `SMTP_USER` dan `SMTP_PASS`. Untuk Gmail, `SMTP_PASS` adalah **App Password** (Google Account → Security → 2-Step Verification → App passwords), bukan password login.
+3. Restart `npm run dev`. Saat deploy, set variabel yang sama di environment hosting.
+
+Tanpa konfigurasi SMTP, form tetap tampil tetapi menolak kiriman dengan pesan bahwa layanan belum dikonfigurasi. Field wajib: email & isi pengaduan; email pengadu dipasang sebagai `Reply-To`.
+
 Variabel opsional: `NEXT_PUBLIC_SITE_URL` (default `https://victoriainsurance.co.id`) — dipakai untuk `metadataBase`, canonical, Open Graph, dan sitemap.
 
 ## Struktur

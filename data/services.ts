@@ -25,9 +25,9 @@ export const services: Service[] = [
   },
   {
     name: "Pengaduan Konsumen",
-    description: "Prosedur layanan pengaduan, laporan pengaduan, dan kanal whistleblowing.",
+    description: "Kirim pengaduan secara online, serta prosedur dan kanal whistleblowing.",
     icon: "complaint",
-    href: official("/pengaduan-konsumen/"),
+    href: "/pengaduan",
   },
   {
     name: "Kantor",
