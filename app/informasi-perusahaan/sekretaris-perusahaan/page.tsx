@@ -23,14 +23,14 @@ export default function CorporateSecretaryPage() {
           <div className="flex gap-3 sm:col-span-2">
             <MapPin aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
             <div>
-              <dt className="text-muted">Alamat</dt>
+              <dt className="text-[14px] text-muted">Alamat</dt>
               <dd className="text-navy-900">{address}</dd>
             </div>
           </div>
           <div className="flex gap-3">
             <Phone aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
             <div>
-              <dt className="text-muted">Telepon</dt>
+              <dt className="text-[14px] text-muted">Telepon</dt>
               <dd>
                 <a href={`tel:${phone.tel}`} className="font-medium text-navy-900 hover:text-brand-600">
                   {phone.display}
@@ -41,7 +41,7 @@ export default function CorporateSecretaryPage() {
           <div className="flex gap-3">
             <Mail aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
             <div>
-              <dt className="text-muted">Email</dt>
+              <dt className="text-[14px] text-muted">Email</dt>
               <dd>
                 <a href={`mailto:${email}`} className="break-all font-medium text-navy-900 hover:text-brand-600">
                   {email}

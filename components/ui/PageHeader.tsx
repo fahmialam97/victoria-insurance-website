@@ -14,7 +14,7 @@ export function PageHeader({ title, description, trail = [], children }: PageHea
   return (
     <section className="border-b border-line bg-surface">
       <Container className="py-12 sm:py-14">
-        <nav aria-label="Breadcrumb" className="text-sm text-muted">
+        <nav aria-label="Breadcrumb" className="text-[14px] text-muted">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
               <Link href="/" className="hover:text-brand-600">

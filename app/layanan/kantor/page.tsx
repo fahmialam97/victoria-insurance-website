@@ -36,7 +36,7 @@ export default function OfficePage() {
             {headOffice.label}
           </span>
           <h2 className="mt-4 text-2xl font-bold text-navy-900">{headOffice.city}</h2>
-          <dl className="mt-5 space-y-4 text-sm">
+          <dl className="mt-5 space-y-4 text-[17px] leading-relaxed">
             <div className="flex gap-3">
               <MapPin aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
               <div>
@@ -55,7 +55,7 @@ export default function OfficePage() {
             <div className="flex gap-3">
               <Phone aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
               <div>
-                <dt className="text-muted">Telepon</dt>
+                <dt className="text-[14px] text-muted">Telepon</dt>
                 <dd>
                   <a href={`tel:${headOffice.phone.tel}`} className="font-medium text-navy-900 hover:text-brand-600">
                     {headOffice.phone.display}
@@ -66,7 +66,7 @@ export default function OfficePage() {
             <div className="flex gap-3">
               <PhoneCall aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
               <div>
-                <dt className="text-muted">{hotline.label}</dt>
+                <dt className="text-[14px] text-muted">{hotline.label}</dt>
                 <dd>
                   <a href={`tel:${hotline.tel}`} className="font-medium text-navy-900 hover:text-brand-600">
                     {hotline.display}
@@ -77,7 +77,7 @@ export default function OfficePage() {
             <div className="flex gap-3">
               <Mail aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
               <div>
-                <dt className="text-muted">Email</dt>
+                <dt className="text-[14px] text-muted">Email</dt>
                 <dd>
                   <a href={`mailto:${email}`} className="break-all font-medium text-navy-900 hover:text-brand-600">
                     {email}
@@ -95,18 +95,18 @@ export default function OfficePage() {
           {marketingOffice.label}
         </span>
         <h2 className="mt-4 text-2xl font-bold text-navy-900">{marketingOffice.city}</h2>
-        <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2">
+        <dl className="mt-5 grid gap-4 text-[17px] leading-relaxed sm:grid-cols-2">
           <div className="flex gap-3">
             <UserRound aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
             <div>
-              <dt className="text-muted">Kepala Kantor Pemasaran</dt>
+              <dt className="text-[14px] text-muted">Kepala Kantor Pemasaran</dt>
               <dd className="font-medium text-navy-900">{marketingOffice.head}</dd>
             </div>
           </div>
           <div className="flex gap-3">
             <MapPin aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
             <div>
-              <dt className="text-muted">Alamat</dt>
+              <dt className="text-[14px] text-muted">Alamat</dt>
               <dd>
                 <address className="not-italic text-navy-800">
                   {marketingOffice.addressLines.map((line) => (
@@ -121,14 +121,14 @@ export default function OfficePage() {
           <div className="flex gap-3">
             <Phone aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
             <div>
-              <dt className="text-muted">Telepon</dt>
+              <dt className="text-[14px] text-muted">Telepon</dt>
               <dd className="font-medium text-navy-900">{marketingOffice.phones.join(" / ")}</dd>
             </div>
           </div>
           <div className="flex gap-3">
             <Printer aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
             <div>
-              <dt className="text-muted">Facsimile</dt>
+              <dt className="text-[14px] text-muted">Facsimile</dt>
               <dd className="font-medium text-navy-900">{marketingOffice.fax}</dd>
             </div>
           </div>
