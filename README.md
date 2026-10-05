@@ -34,6 +34,7 @@ app/
   page.tsx              Homepage + JSON-LD Organization
   rupslb/[year]/page.tsx  Detail pengumuman RUPSLB (SSG dari data/rupslb.ts)
   berita/                Hub Berita, Artikel (+ detail SSG per slug), CSR
+  tentang-kami/          Profil, Visi Misi, Jaringan Bisnis, Penghargaan, Karir, Struktur, Komisaris, Direksi
   sitemap.ts, not-found.tsx, globals.css (design tokens)
 components/
   Navbar, Hero, ProductSection, ProductCard, ServiceSection, ServiceCard,
@@ -46,6 +47,7 @@ data/
   services.ts    6 layanan (submenu Layanan)
   articles.ts    10 artikel resmi (HTML dibersihkan dari WP REST API)
   csr.ts         Konten halaman CSR
+  company.ts     Konten halaman Tentang Kami & Manajemen
   news.ts        3 artikel terbaru untuk homepage
   rupslb.ts      Event & dokumen RUPSLB (tambah entri baru di awal array)
   about.ts       Ringkasan Tentang Kami + visi
@@ -94,6 +96,12 @@ Disalin dari website resmi; tidak ada stock image.
 | `csr/agenda-csr-2025.png` | https://victoriainsurance.co.id/wp-content/uploads/2025/06/CSR-ANAK-YATIM-MAR-2025.png |
 | `csr/victoria-peduli-2021.png` | https://victoriainsurance.co.id/wp-content/uploads/2021/11/CSR_web02.png |
 | `csr/victoria-peduli-galeri-1..3.png` | https://victoriainsurance.co.id/wp-content/uploads/2021/11/CSR04.png, CSR05.png, CSR06.png |
+| `tentang-kami/corporate-capital.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2026/03/Corporate-Capital_Edit.jpg (Profil Perusahaan) |
+| `tentang-kami/sulistijowati.jpg`, `tomi-parisianto-wibowo.jpg`, `suwandi-suharto.jpg`, `rosalina-gunawan.jpg`, `fatchurhuda.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2025/03/Bu-Sulis.jpg, Pak-Tomi.jpg, Pak-Suwandi.jpg, Bu-Rosa.jpg, Pak-Huda.jpg (diperkecil ke 600×600) |
+| `tentang-kami/jimmy-paulus-watulingas.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/01/JW-update-Website2026_warna3.png |
+| `tentang-kami/struktur-dewan-komisaris.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2026/07/BOC-WEBSITE_page-0001.jpg |
+| `tentang-kami/struktur-direksi.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2026/10/BOD_WEBSITE_01102026.jpg (bagan terbaru, menggantikan versi 2026/07 di KB) |
+| `tentang-kami/penghargaan-*.{jpg,png}` | https://victoriainsurance.co.id/wp-content/uploads/2023/12/2018.jpg, 2021.jpg; 2025/06/PENGHARGAAN-2020.png, PENGHARGAAN-2022.png, PENGHARGAAN-2023-2024.png, PENGHARGAAN-2024-1.png |
 
 ### Aset yang masih dibutuhkan
 

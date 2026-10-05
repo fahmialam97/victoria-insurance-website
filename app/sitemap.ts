@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { articleHref, articles, articlesHref } from "@/data/articles";
+import { aboutMenu } from "@/data/company";
 import { csrHref } from "@/data/csr";
 import { rupslbEvents, rupslbHref } from "@/data/rupslb";
 import { services } from "@/data/services";
@@ -24,6 +25,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     })),
     { url: new URL(csrHref, site.url).toString(), changeFrequency: "yearly", priority: 0.5 },
+    ...aboutMenu.flatMap((group) => group.links).map((link) => ({
+      url: new URL(link.href, site.url).toString(),
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    })),
     { url: new URL("/informasi-perusahaan", site.url).toString(), changeFrequency: "monthly", priority: 0.6 },
     { url: new URL("/pengaduan", site.url).toString(), changeFrequency: "yearly", priority: 0.5 },
     ...rupslbEvents.map((event) => ({

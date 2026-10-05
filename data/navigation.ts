@@ -1,3 +1,4 @@
+import { aboutHref, aboutLinks, aboutMenu } from "./company";
 import { productsHref } from "./products";
 import { official } from "./site";
 
@@ -95,25 +96,8 @@ export const mainNav: NavItem[] = [
   },
   {
     label: "Tentang Kami",
-    groups: [
-      {
-        links: [
-          { label: "Profil Perusahaan", href: official("/tentang-kami/") },
-          { label: "Visi dan Misi", href: official("/visi-dan-misi/") },
-          { label: "Jaringan Bisnis", href: official("/jaringan-bisnis/") },
-          { label: "Penghargaan", href: official("/penghargaan/") },
-          { label: "Karir", href: official("/karir/") },
-        ],
-      },
-      {
-        title: "Manajemen",
-        links: [
-          { label: "Struktur Organisasi", href: official("/struktur-organisasi/") },
-          { label: "Dewan Komisaris", href: official("/dewan-komisaris/") },
-          { label: "Direksi", href: official("/dewan-direksi/") },
-        ],
-      },
-    ],
+    groups: aboutMenu,
+    activePaths: [aboutHref],
   },
   {
     label: "Informasi Perusahaan",
@@ -132,12 +116,12 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
   {
     title: "Perusahaan",
     links: [
-      { label: "Tentang Kami", href: official("/tentang-kami/") },
-      { label: "Visi dan Misi", href: official("/visi-dan-misi/") },
-      { label: "Dewan Komisaris", href: official("/dewan-komisaris/") },
-      { label: "Direksi", href: official("/dewan-direksi/") },
-      { label: "Penghargaan", href: official("/penghargaan/") },
-      { label: "Karir", href: official("/karir/") },
+      { label: "Profil Perusahaan", href: aboutLinks.profile.href },
+      { label: "Visi dan Misi", href: aboutLinks.vision.href },
+      { label: "Dewan Komisaris", href: aboutLinks.commissioners.href },
+      { label: "Direksi", href: aboutLinks.directors.href },
+      { label: "Penghargaan", href: aboutLinks.awards.href },
+      { label: "Karir", href: aboutLinks.career.href },
     ],
   },
   {
