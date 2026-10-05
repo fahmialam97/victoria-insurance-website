@@ -36,6 +36,7 @@ export const contact = {
   marketingOffice: {
     label: "Kantor Pemasaran",
     city: "Surabaya",
+    head: "Danny Linggadibya P",
     addressLines: ["Gedung Bank Victoria Lt. 5", "Jl. Raya Darmo No. 173 Surabaya"],
     phones: ["031-567 8023", "031-567 8040"],
     fax: "031-567 8156",
@@ -44,7 +45,7 @@ export const contact = {
   whistleblowingEmail: "vinswbs@victoriainsurance.co.id",
   // Jam operasional: tidak ditemukan pada website saat audit.
   operationalHours: null,
-  fullContactUrl: official("/kantor-cabang/"),
+  fullContactUrl: "/layanan/kantor",
 } as const;
 
 /** Hanya akun yang mengarah ke profil Victoria Insurance (link Facebook & LinkedIn di website resmi bersifat generik). */

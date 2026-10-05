@@ -72,6 +72,9 @@ Disalin dari website resmi; tidak ada stock image.
 | `survey-penutupan-mobil-3.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/IMG-20181003-WA0022.jpg (slide hero #3) |
 | `pattern-product-icons.png` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/Wall1-8.png (latar slide hero #3) |
 | `gedung-graha-bip.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/08/gd_bip.jpg (halaman Kantor) |
+| `digital-product.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2024/12/4-3.jpg (halaman Digital Product) |
+| `tim-klaim-kendaraan.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2026/04/WhatsApp-Image-2026-04-23-at-4.17.11-PM.jpeg (halaman Bengkel Rekanan) |
+| `literasi-inklusi-2026.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/07/Untitled-design.png (halaman Literasi & Inklusi) |
 
 ### Aset yang masih dibutuhkan
 
