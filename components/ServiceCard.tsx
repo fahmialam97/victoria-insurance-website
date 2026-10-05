@@ -20,8 +20,10 @@ const icons: Record<ServiceIcon, LucideIcon> = {
   literacy: BookOpen,
 };
 
-export function ServiceCard({ service }: { service: Service }) {
-  const Icon = icons[service.icon];
+type ServiceCardItem = Omit<Service, "icon"> & { icon: ServiceIcon | LucideIcon };
+
+export function ServiceCard({ service }: { service: ServiceCardItem }) {
+  const Icon = typeof service.icon === "string" ? icons[service.icon] : service.icon;
 
   return (
     <SmartLink

@@ -33,6 +33,7 @@ app/
   layout.tsx            Root layout, font, metadata SEO, Navbar + Footer, skip link
   page.tsx              Homepage + JSON-LD Organization
   rupslb/[year]/page.tsx  Detail pengumuman RUPSLB (SSG dari data/rupslb.ts)
+  berita/                Hub Berita, Artikel (+ detail SSG per slug), CSR
   sitemap.ts, not-found.tsx, globals.css (design tokens)
 components/
   Navbar, Hero, ProductSection, ProductCard, ServiceSection, ServiceCard,
@@ -43,7 +44,9 @@ data/
   navigation.ts  Menu utama & footer
   products.ts    6 produk homepage + RIPLAY
   services.ts    6 layanan (submenu Layanan)
-  news.ts        3 artikel terbaru
+  articles.ts    10 artikel resmi (HTML dibersihkan dari WP REST API)
+  csr.ts         Konten halaman CSR
+  news.ts        3 artikel terbaru untuk homepage
   rupslb.ts      Event & dokumen RUPSLB (tambah entri baru di awal array)
   about.ts       Ringkasan Tentang Kami + visi
 lib/format.ts    Format tanggal id-ID, helper link
@@ -75,6 +78,22 @@ Disalin dari website resmi; tidak ada stock image.
 | `digital-product.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2024/12/4-3.jpg (halaman Digital Product) |
 | `tim-klaim-kendaraan.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2026/04/WhatsApp-Image-2026-04-23-at-4.17.11-PM.jpeg (halaman Bengkel Rekanan) |
 | `literasi-inklusi-2026.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/07/Untitled-design.png (halaman Literasi & Inklusi) |
+| `artikel/apa-itu-act-of-god-dalam-asuransi-ini.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/02/Apa-Itu-Act-of-God-dalam-Asuransi-Ini-Penjelasan-dan-Manfaatnya.png (artikel "Apa Itu Act of God dalam Asuransi? Ini Penjelasan dan Manfaatnya") |
+| `artikel/apa-yang-terjadi-jika-kita-telat-bayar-premi.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/02/Apa-yang-Terjadi-Jika-kita-Telat-Bayar-Premi-Asuransi.png (artikel "Apa yang Terjadi Jika kita Telat Bayar Premi Asuransi?") |
+| `artikel/langkah-cerdas-miliki-asuransi-sebelum-investasi.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/02/Langkah-Cerdas-Miliki-Asuransi-Sebelum-Investasi.png (artikel "Langkah Cerdas: Miliki Asuransi Sebelum Investasi") |
+| `artikel/6-prinsip-dasar-asuransi-yang-wajib-diketahui.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/02/6-Prinsip-Dasar-Asuransi-yang-Wajib-Diketahui-Sebelum-Membeli-Polis.png (artikel "6 Prinsip Dasar Asuransi yang Wajib Diketahui Sebelum Membeli Polis") |
+| `artikel/apa-itu-polis-asuransi-pahami-bersama-vins.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/02/Apa-Itu-Polis-Asuransi-Pahami-bersama-VIns.png (artikel "Apa Itu Polis Asuransi? Pahami bersama #VIns") |
+| `artikel/7-kesalahan-umum-yang-bikin-klaim-asuransi.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/02/7-Kesalahan-Umum-yang-Bikin-Klaim-Asuransi-Mobil-kamu-Ditolak.png (artikel "7 Kesalahan Umum yang Bikin Klaim Asuransi Mobil kamu Ditolak") |
+| `artikel/asuransi-properti-all-risk-perlindungan.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/02/Asuransi-Properti-All-Risk-Perlindungan-Menyeluruh-untuk-Aset-Usaha-dan-Rumah-Anda-1.png (artikel "Asuransi Properti All Risk: Perlindungan Menyeluruh untuk Aset, Usaha, dan Rumah Anda") |
+| `artikel/bagaimana-cara-klaim-asuransi-mobil-setelah.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/02/Bagaimana-Cara-Klaim-Asuransi-Mobil-Setelah-Kecelakaan-Intip-Caranya-bersama-VIns.png (artikel "Bagaimana Cara Klaim Asuransi Mobil Setelah Kecelakaan? Intip Caranya bersama #VIns") |
+| `artikel/tips-memilih-asuransi-kendaraan-bermotor-secara.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/02/Tips-Memilih-Asuransi-Kendaraan-Bermotor-secara-Tepat.png (artikel "Tips Memilih Asuransi Kendaraan Bermotor secara Tepat bersama #VIns") |
+| `artikel/klaim-sebesar-rp173-miliar-untuk-rafenso.jpeg` | https://victoriainsurance.co.id/wp-content/uploads/2025/06/PEGANG-PLAKAT-BER-5.jpeg (artikel "Klaim sebesar Rp1,73 Miliar untuk Rafenso Printing: Victoria Insurance Tunjukkan Proteksi yang Nyata") |
+| `csr/csr-banner.png` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/CSR_jadi1.png (halaman CSR) |
+| `csr/agenda-csr-2021.png` | https://victoriainsurance.co.id/wp-content/uploads/2021/11/CSR_web01.png |
+| `csr/agenda-csr-2023-1.jpg`, `csr/agenda-csr-2023-2.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2024/01/Slide1.jpg, Slide2.jpg |
+| `csr/agenda-csr-2025.png` | https://victoriainsurance.co.id/wp-content/uploads/2025/06/CSR-ANAK-YATIM-MAR-2025.png |
+| `csr/victoria-peduli-2021.png` | https://victoriainsurance.co.id/wp-content/uploads/2021/11/CSR_web02.png |
+| `csr/victoria-peduli-galeri-1..3.png` | https://victoriainsurance.co.id/wp-content/uploads/2021/11/CSR04.png, CSR05.png, CSR06.png |
 
 ### Aset yang masih dibutuhkan
 

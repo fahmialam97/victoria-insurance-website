@@ -43,6 +43,37 @@
   }
 }
 
+/* Isi artikel (HTML statis dari website resmi) */
+.article-body {
+  @apply text-base leading-relaxed text-navy-800 sm:text-[17px];
+
+  & > * + * {
+    @apply mt-5;
+  }
+  & h3 {
+    @apply mt-10 text-xl font-bold leading-snug text-navy-900;
+  }
+  & strong {
+    @apply font-semibold text-navy-900;
+  }
+  & ul,
+  & ol {
+    @apply space-y-2 pl-6;
+  }
+  & ul {
+    @apply list-disc;
+  }
+  & ol {
+    @apply list-decimal;
+  }
+  & li::marker {
+    @apply text-brand-600;
+  }
+  & a {
+    @apply font-medium text-brand-600 underline underline-offset-2 hover:text-brand-700;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

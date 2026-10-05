@@ -87,11 +87,13 @@ export const mainNav: NavItem[] = [
     groups: [
       {
         links: [
-          { label: "Artikel", href: official("/artikel/") },
-          { label: "CSR", href: official("/csr-2/") },
+          { label: "Artikel", href: "/berita/artikel" },
+          { label: "CSR", href: "/berita/csr" },
         ],
       },
     ],
+    viewAll: { label: "Lihat Semua Berita", href: "/berita" },
+    activePaths: ["/berita"],
   },
   {
     label: "Tentang Kami",

@@ -6,10 +6,15 @@ import { SmartLink } from "./ui/SmartLink";
 export function NewsCard({ item }: { item: NewsItem }) {
   return (
     <article className="group relative flex h-full flex-col rounded-2xl border border-line bg-white p-6 shadow-card transition-shadow hover:shadow-card-hover">
-      <p className="flex items-center gap-1.5 text-xs font-medium text-muted">
-        <CalendarDays aria-hidden="true" className="size-4" />
-        <time dateTime={item.date}>{formatDate(item.date)}</time>
-      </p>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-medium text-muted">
+        <p className="flex items-center gap-1.5">
+          <CalendarDays aria-hidden="true" className="size-4" />
+          <time dateTime={item.date}>{formatDate(item.date)}</time>
+        </p>
+        {item.category && (
+          <span className="rounded-full bg-brand-50 px-2.5 py-0.5 font-semibold text-brand-700">{item.category}</span>
+        )}
+      </div>
       <h3 className="mt-3 text-lg font-semibold leading-snug text-navy-900">
         <SmartLink href={item.href} className="after:absolute after:inset-0 group-hover:text-brand-600">
           {item.title}
