@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { services } from "@/data/services";
+import { serviceMenuLinks } from "@/data/services";
 import { SidebarPageLayout } from "./SidebarPageLayout";
 
 type ServicePageLayoutProps = {
@@ -10,14 +10,7 @@ type ServicePageLayoutProps = {
   children: ReactNode;
 };
 
-const serviceMenu = [
-  {
-    links: [
-      ...services.map((service) => ({ label: service.name, href: service.href })),
-      { label: "Form Pengaduan", href: "/pengaduan" },
-    ],
-  },
-];
+const serviceMenu = [{ links: serviceMenuLinks }];
 
 /** Kerangka halaman layanan dengan menu layanan di samping. */
 export function ServicePageLayout({ title, description, activeHref, children }: ServicePageLayoutProps) {

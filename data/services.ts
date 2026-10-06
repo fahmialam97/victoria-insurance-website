@@ -7,13 +7,19 @@ export type Service = {
   href: string;
 };
 
-/** Submenu "Layanan" website resmi (KB Bagian 6), kini memiliki halaman sendiri di /layanan/*. */
+/** Submenu "Layanan" website resmi (KB Bagian 6), urutan sesuai menu resmi; tiap layanan punya halaman di /layanan/*. */
 export const services: Service[] = [
   {
-    name: "Informasi Transaksi",
-    description: "Prosedur pembelian polis dan tahapan pengajuan klaim.",
-    icon: "claim",
-    href: "/layanan/informasi-transaksi",
+    name: "Kantor",
+    description: "Kantor Pusat Jakarta dan Kantor Pemasaran Surabaya.",
+    icon: "office",
+    href: "/layanan/kantor",
+  },
+  {
+    name: "Digital Product",
+    description: "Informasi mengenai produk asuransi digital.",
+    icon: "digital",
+    href: "/layanan/digital-product",
   },
   {
     name: "Bengkel Rekanan",
@@ -28,21 +34,23 @@ export const services: Service[] = [
     href: "/layanan/pengaduan-konsumen",
   },
   {
-    name: "Kantor",
-    description: "Kantor Pusat Jakarta dan Kantor Pemasaran Surabaya.",
-    icon: "office",
-    href: "/layanan/kantor",
-  },
-  {
-    name: "Digital Product",
-    description: "Informasi mengenai produk asuransi digital.",
-    icon: "digital",
-    href: "/layanan/digital-product",
-  },
-  {
     name: "Literasi & Inklusi",
     description: "Arsip kegiatan literasi dan inklusi keuangan tahun 2023–2026.",
     icon: "literacy",
     href: "/layanan/literasi-inklusi",
   },
+  {
+    name: "Informasi Transaksi",
+    description: "Prosedur pembelian polis dan tahapan pengajuan klaim.",
+    icon: "claim",
+    href: "/layanan/informasi-transaksi",
+  },
 ];
+
+export const complaintFormLink = { label: "Form Pengaduan", href: "/pengaduan" };
+
+/** Menu Layanan untuk dropdown header dan menu samping; Form Pengaduan menyusul Pengaduan Konsumen. */
+export const serviceMenuLinks = services.flatMap((service) => {
+  const link = { label: service.name, href: service.href };
+  return service.href === "/layanan/pengaduan-konsumen" ? [link, complaintFormLink] : [link];
+});

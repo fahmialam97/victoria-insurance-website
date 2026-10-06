@@ -1,6 +1,7 @@
 import { aboutHref, aboutLinks, aboutMenu } from "./company";
 import { companyInfoGroups, companyInfoHref, companyInfoLinks } from "./companyInfo";
 import { productsHref } from "./products";
+import { serviceMenuLinks } from "./services";
 import { official } from "./site";
 
 export type NavLink = {
@@ -38,15 +39,7 @@ export const mainNav: NavItem[] = [
     label: "Layanan",
     groups: [
       {
-        links: [
-          { label: "Kantor", href: "/layanan/kantor" },
-          { label: "Digital Product", href: "/layanan/digital-product" },
-          { label: "Bengkel Rekanan", href: "/layanan/bengkel-rekanan" },
-          { label: "Pengaduan Konsumen", href: "/layanan/pengaduan-konsumen" },
-          { label: "Form Pengaduan", href: "/pengaduan" },
-          { label: "Literasi & Inklusi", href: "/layanan/literasi-inklusi" },
-          { label: "Informasi Transaksi", href: "/layanan/informasi-transaksi" },
-        ],
+        links: serviceMenuLinks,
       },
     ],
     activePaths: [servicesHref, "/pengaduan"],
@@ -71,7 +64,6 @@ export const mainNav: NavItem[] = [
   {
     label: "Informasi Perusahaan",
     groups: companyInfoGroups,
-    viewAll: { label: "Lihat Semua Informasi Perusahaan", href: companyInfoHref },
     activePaths: [companyInfoHref, "/rupslb"],
   },
 ];
