@@ -63,7 +63,7 @@ export default function CorporateSecretaryPage() {
             alt={image.alt}
             width={image.width}
             height={image.height}
-            sizes="(min-width: 1280px) 900px, 100vw"
+            sizes="(min-width: 1600px) 1248px, 100vw"
             className="h-auto w-full"
           />
         </div>

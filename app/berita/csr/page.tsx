@@ -37,7 +37,7 @@ export default function CsrPage() {
               alt={banner.alt}
               width={banner.width}
               height={banner.height}
-              sizes="(min-width: 1280px) 1216px, 100vw"
+              sizes="(min-width: 1600px) 1536px, 100vw"
               preload
               className="h-auto w-full"
             />
@@ -123,7 +123,7 @@ export default function CsrPage() {
                         alt={image.alt}
                         width={image.width}
                         height={image.height}
-                        sizes={agenda.images.length > 1 ? "(min-width: 768px) 560px, 100vw" : "(min-width: 1280px) 1150px, 100vw"}
+                        sizes={agenda.images.length > 1 ? "(min-width: 768px) 760px, 100vw" : "(min-width: 1600px) 1470px, 100vw"}
                         className={`h-auto w-full rounded-xl border border-line ${
                           agenda.images.length === 1 && image.width < 1000 ? "mx-auto max-w-2xl" : ""
                         }`}
@@ -169,7 +169,7 @@ export default function CsrPage() {
                     alt={image.alt}
                     width={image.width}
                     height={image.height}
-                    sizes="(min-width: 1280px) 1216px, 100vw"
+                    sizes="(min-width: 1600px) 1536px, 100vw"
                     className="h-auto w-full rounded-xl border border-line"
                   />
                 </li>

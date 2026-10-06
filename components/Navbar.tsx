@@ -67,7 +67,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
-      <div ref={navRef} className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
+      <div ref={navRef} className="mx-auto flex h-16 max-w-[1600px] items-center gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
         <Link href="/" className="shrink-0" aria-label="Victoria Insurance — Beranda" onClick={closeAll}>
           <Image
             src="/images/official/logo-dark.png"
@@ -75,7 +75,7 @@ export function Navbar() {
             width={418}
             height={46}
             preload
-            className="h-auto w-52 sm:w-60 xl:w-64"
+            className="h-auto w-56 sm:w-64 xl:w-64 2xl:w-80"
           />
         </Link>
 
