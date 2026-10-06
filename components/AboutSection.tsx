@@ -15,11 +15,18 @@ export function AboutSection() {
               alt={about.image.alt}
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              // Skala untuk menyembunyikan bingkai putih pada foto asli
-              className="scale-[1.18] object-cover object-[50%_45%]"
+              className="object-cover object-[50%_25%]"
             />
           </div>
-          <div className="px-6 pb-10 sm:px-10 lg:py-14">
+          <div className="relative isolate px-6 pb-10 sm:px-10 lg:py-14">
+            {/* Ornamen logo Victoria sebagai watermark */}
+            <Image
+              src="/images/official/site-icon-192.png"
+              alt=""
+              width={192}
+              height={192}
+              className="pointer-events-none absolute -bottom-16 right-4 -z-10 size-48 opacity-[0.07] select-none"
+            />
             <span aria-hidden="true" className="mb-3 block h-1 w-10 rounded-full bg-brand-600" />
             <h2 id="tentang-heading" className="text-2xl font-bold tracking-tight text-navy-900 sm:text-3xl">
               Tentang Victoria Insurance

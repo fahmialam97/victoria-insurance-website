@@ -7,8 +7,11 @@ export const about = {
   // Visi dari halaman /visi-dan-misi/
   vision: "Menjadi perusahaan asuransi umum nasional yang sehat, kuat, efisien dan terpercaya",
   href: aboutHref,
+  // Foto dari folder "Aset Gambar/Gedung BIP" milik user
   image: {
-    src: "/images/official/gedung-graha-bip.jpg",
+    src: "/images/gedung-bip.jpg",
+    width: 1604,
+    height: 981,
     alt: "Gedung Graha BIP, lokasi Kantor Pusat PT Victoria Insurance, Tbk di Jakarta Selatan",
   },
 } as const;

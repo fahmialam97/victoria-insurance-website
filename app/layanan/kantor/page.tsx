@@ -20,13 +20,13 @@ export default function OfficePage() {
       activeHref="/layanan/kantor"
     >
       <div className="grid gap-6 md:grid-cols-[1fr_1.2fr]">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-surface md:aspect-auto">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-surface md:aspect-auto md:min-h-[380px]">
           <Image
-            src="/images/official/gedung-graha-bip.jpg"
+            src="/images/gedung-bip.jpg"
             alt="Gedung Graha BIP, lokasi Kantor Pusat PT Victoria Insurance, Tbk"
             fill
-            sizes="(min-width: 768px) 360px, 100vw"
-            className="scale-[1.15] object-cover"
+            sizes="(min-width: 768px) 560px, 100vw"
+            className="object-cover object-[50%_25%]"
           />
         </div>
 

@@ -64,7 +64,7 @@ lib/format.ts    Format tanggal id-ID, helper link
 
 ## Aset resmi (`public/images/official/`)
 
-Disalin dari website resmi; tidak ada stock image.
+Disalin dari website resmi; tidak ada stock image. Gambar banner homepage ada di `public/images/banner/` (lihat di bawah).
 
 | File lokal | Sumber |
 |---|---|
@@ -78,7 +78,7 @@ Disalin dari website resmi; tidak ada stock image.
 | `survey-penutupan-mobil-2.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/IMG-20181003-WA0013.jpg (slide hero #3) |
 | `survey-penutupan-mobil-3.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/IMG-20181003-WA0022.jpg (slide hero #3) |
 | `pattern-product-icons.png` | https://victoriainsurance.co.id/wp-content/uploads/2019/04/Wall1-8.png (latar slide hero #3) |
-| `gedung-graha-bip.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/08/gd_bip.jpg (halaman Kantor) |
+| `gedung-graha-bip.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2019/08/gd_bip.jpg (tidak dipakai lagi; diganti `public/images/gedung-bip.jpg`) |
 | `digital-product.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2024/12/4-3.jpg (halaman Digital Product) |
 | `tim-klaim-kendaraan.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2026/04/WhatsApp-Image-2026-04-23-at-4.17.11-PM.jpeg (halaman Bengkel Rekanan) |
 | `literasi-inklusi-2026.png` | https://victoriainsurance.co.id/wp-content/uploads/2026/07/Untitled-design.png (halaman Literasi & Inklusi) |
@@ -106,9 +106,19 @@ Disalin dari website resmi; tidak ada stock image.
 | `tentang-kami/penghargaan-*.{jpg,png}` | https://victoriainsurance.co.id/wp-content/uploads/2023/12/2018.jpg, 2021.jpg; 2025/06/PENGHARGAAN-2020.png, PENGHARGAAN-2022.png, PENGHARGAAN-2023-2024.png, PENGHARGAAN-2024-1.png |
 | `informasi-perusahaan/sekretaris-perusahaan-2026.jpg` | https://victoriainsurance.co.id/wp-content/uploads/2026/03/CORSEC-2026.jpg |
 
+### Banner homepage (`public/images/banner/`)
+
+Dari folder `Aset Gambar Benner` milik user, dikonversi ke JPG (kualitas 88).
+
+| File lokal | Sumber |
+|---|---|
+| `keluarga-skyline.jpg` | `Aset Gambar Benner/Hopeful Family by the Skyline.png` |
+| `keluarga-rumah-modern.jpg` | `Aset Gambar Benner/Joyful Family Moment by a Modern Home.png` |
+
+Foto Gedung BIP (section Tentang Kami homepage & halaman Kantor): `public/images/gedung-bip.jpg` dari `Aset Gambar/Gedung BIP/Modern Office Tower Beneath a Blue Sky.png` (JPG kualitas 88).
+
 ### Aset yang masih dibutuhkan
 
-- Foto hero resolusi tinggi (banner resmi saat ini 989×561 dan memuat teks bawaan).
 - Logo vektor (SVG) — logo saat ini PNG 418×46.
 - Foto produk resmi (kartu produk sementara memakai ikon).
 - Foto/visual untuk section Hubungi Kami (sementara memakai pola ikon resmi).
