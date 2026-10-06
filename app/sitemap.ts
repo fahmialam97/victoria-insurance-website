@@ -7,6 +7,9 @@ import { rupslbEvents, rupslbHref } from "@/data/rupslb";
 import { services } from "@/data/services";
 import { site } from "@/data/site";
 
+// Wajib untuk output: "export" agar sitemap.xml dibuat statis saat build
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: site.url, changeFrequency: "weekly", priority: 1 },

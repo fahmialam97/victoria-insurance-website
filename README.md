@@ -11,18 +11,22 @@ npm install
 npm run dev        # http://localhost:3000
 npm run lint
 npx tsc --noEmit
-npm run build && npm start
+npm run build      # static export ke folder out/
 ```
+
+## Deploy (static mockup, cPanel)
+
+`next.config.ts` memakai `output: "export"`, `trailingSlash: true`, dan `images.unoptimized`, jadi build menghasilkan folder `out/` berisi HTML/CSS/JS statis tanpa server Node.js. `npm start` tidak dipakai.
+
+```bash
+npm run build:mockup   # build dengan NEXT_PUBLIC_SITE_URL=https://mockup.victoriainsurance.co.id
+```
+
+Upload **isi** folder `out/` (termasuk `_next/`) ke document root `mockup.victoriainsurance.co.id` lewat FTP. `npm run build` biasa tetap memakai URL default (`https://victoriainsurance.co.id`).
 
 ## Form Pengaduan (`/pengaduan`)
 
-Pengaduan dikirim lewat email (Nodemailer + SMTP) ke `COMPLAINT_TO_EMAIL`. Sementara: `alamfahmi76@gmail.com`, ganti ke email resmi Victoria saat tersedia.
-
-1. Salin `.env.example` menjadi `.env.local`.
-2. Isi `SMTP_USER` dan `SMTP_PASS`. Untuk Gmail, `SMTP_PASS` adalah **App Password** (Google Account → Security → 2-Step Verification → App passwords), bukan password login.
-3. Restart `npm run dev`. Saat deploy, set variabel yang sama di environment hosting.
-
-Tanpa konfigurasi SMTP, form tetap tampil tetapi menolak kiriman dengan pesan bahwa layanan belum dikonfigurasi. Semua field wajib diisi (email, nama, telepon, nomor polis, isi pengaduan); email pengadu dipasang sebagai `Reply-To`.
+Mockup UI saja: validasi berjalan di browser (semua field wajib diisi: email, nama, telepon, nomor polis, isi pengaduan), lalu pengiriman **disimulasikan** dan menampilkan nomor referensi. Tidak ada data yang dikirim ke server atau email.
 
 Variabel opsional: `NEXT_PUBLIC_SITE_URL` (default `https://victoriainsurance.co.id`) — dipakai untuk `metadataBase`, canonical, Open Graph, dan sitemap.
 
@@ -54,6 +58,7 @@ data/
   rupslb.ts      Event & dokumen RUPSLB (tambah entri baru di awal array)
   about.ts       Ringkasan Tentang Kami + visi
 lib/format.ts    Format tanggal id-ID, helper link
+lib/complaint.ts Validasi & nomor referensi form pengaduan (client-side)
 ```
 
 ## Aturan konten

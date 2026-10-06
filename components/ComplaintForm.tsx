@@ -1,10 +1,19 @@
 "use client";
 
 import { CheckCircle2, Loader2, Send, TriangleAlert } from "lucide-react";
-import { useActionState, useState } from "react";
-import { submitComplaint, type ComplaintField, type ComplaintState } from "@/app/pengaduan/actions";
+import { useState, type FormEvent } from "react";
+import {
+  createReferenceId,
+  readComplaint,
+  validateComplaint,
+  type ComplaintField,
+  type ComplaintState,
+} from "@/lib/complaint";
 
 const initialState: ComplaintState = { status: "idle" };
+
+// Mockup statis: pengiriman hanya disimulasikan, tidak ada data yang dikirim ke server
+const SIMULATED_DELAY_MS = 800;
 
 type FieldProps = {
   name: ComplaintField;
@@ -67,7 +76,26 @@ function Field({ name, label, required, hint, state, children }: FieldProps) {
 }
 
 function ComplaintFormInner({ onReset }: { onReset: () => void }) {
-  const [state, formAction, pending] = useActionState(submitComplaint, initialState);
+  const [state, setState] = useState<ComplaintState>(initialState);
+  const [pending, setPending] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    // Honeypot: diisi berarti bot, pura-pura sukses
+    if (String(formData.get("website") ?? "") !== "") return setState({ status: "success", referenceId: "-" });
+
+    const values = readComplaint(formData);
+    const errors = validateComplaint(values);
+    if (errors && Object.keys(errors).length > 0) {
+      return setState({ status: "error", message: "Periksa kembali data yang Anda isi.", errors, values });
+    }
+
+    setPending(true);
+    await new Promise((resolve) => setTimeout(resolve, SIMULATED_DELAY_MS));
+    setPending(false);
+    setState({ status: "success", referenceId: createReferenceId() });
+  }
 
   if (state.status === "success") {
     return (
@@ -94,7 +122,7 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
   }
 
   return (
-    <form action={formAction} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit} noValidate className="space-y-5">
       {state.status === "error" && state.message && (
         <div
           role="alert"
