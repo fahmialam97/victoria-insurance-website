@@ -31,11 +31,7 @@ export function RupslbAnnouncement() {
                 <h2 id="rupslb-heading" className="mt-1 text-2xl font-bold tracking-tight text-navy-900 sm:text-3xl">
                   {event.title}
                 </h2>
-                <p className="mt-3 max-w-lg text-base leading-relaxed text-muted">{description}</p>
-                <p className="mt-2 max-w-lg text-sm leading-relaxed text-muted">
-                  <span className="font-semibold text-navy-800">Mata acara:</span> {event.agenda}
-                </p>
-                <Link
+                <p className="mt-3 max-w-lg text-base leading-relaxed text-muted">{description}</p>                <Link
                   href={rupslbHref(event)}
                   className="group mt-6 inline-flex items-center whitespace-nowrap gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
                 >

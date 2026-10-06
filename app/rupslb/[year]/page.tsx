@@ -63,9 +63,6 @@ export default async function RupslbPage(props: PageProps<"/rupslb/[year]">) {
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
             Rapat Umum Pemegang Saham Luar Biasa (RUPSLB) {event.year}
           </h1>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted">
-            <span className="font-semibold text-navy-800">Mata acara:</span> {event.agenda}
-          </p>
 
           <dl className="mt-8 grid gap-4 sm:grid-cols-3">
             {details.map(({ icon: Icon, label, value }) => (
