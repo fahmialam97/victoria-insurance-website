@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { Pause, Play } from "lucide-react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import type { HeroImage } from "@/data/hero";
 
-const INTERVAL_MS = 5000;
+const INTERVAL_MS = 6000;
 
-export function HeroCarousel({ images }: { images: HeroImage[] }) {
+/** Slider banner selebar layar; `children` adalah konten tetap di atas gambar. */
+export function HeroCarousel({ images, children }: { images: HeroImage[]; children: ReactNode }) {
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
@@ -33,10 +34,10 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
   }, [playing, count]);
 
   return (
-    <section
+    <div
       aria-roledescription="carousel"
-      aria-label="Galeri foto Victoria Insurance"
-      className="relative"
+      aria-label="Banner Victoria Insurance"
+      className="relative flex flex-col overflow-hidden bg-surface sm:block sm:h-[480px] lg:h-auto lg:aspect-[2160/728] lg:max-h-[640px] lg:min-h-[460px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onFocusCapture={() => setHovered(true)}
@@ -48,70 +49,45 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
         if (e.key === "ArrowRight") go(index + 1);
       }}
     >
-      <div className="relative overflow-hidden rounded-3xl border border-line bg-white shadow-card-hover">
+      {/* Mobile: foto di bawah teks; sm ke atas: foto memenuhi banner di belakang teks */}
+      <div className="relative aspect-[4/3] sm:absolute sm:inset-0 sm:aspect-auto">
+      {images.map((image, i) => (
         <div
-          className="flex transition-transform duration-700 ease-out motion-reduce:transition-none"
-          style={{ transform: `translateX(-${index * 100}%)` }}
+          key={image.src}
+          role="group"
+          aria-roledescription="slide"
+          aria-label={`${i + 1} dari ${count}`}
+          aria-hidden={i !== index}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-out motion-reduce:transition-none ${
+            i === index ? "opacity-100" : "opacity-0"
+          }`}
         >
-          {images.map((image, i) => (
-            <div
-              key={image.src}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${i + 1} dari ${count}`}
-              aria-hidden={i !== index}
-              inert={i !== index}
-              className="relative aspect-[16/10] w-full shrink-0 bg-white"
-            >
-              {/* object-contain agar seluruh foto terlihat tanpa terpotong */}
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                preload={i === 0}
-                sizes="(min-width: 1024px) 560px, 100vw"
-                className="object-contain p-2"
-              />
-              {image.caption && (
-                <p className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-950/70 to-transparent px-5 pb-3 pt-8 text-sm font-medium text-white">
-                  {image.caption}
-                </p>
-              )}
-            </div>
-          ))}
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            preload={i === 0}
+            // Slide berikutnya dimuat lebih awal agar tidak kosong saat fade
+            loading={i === 0 ? undefined : "eager"}
+            sizes="100vw"
+            className="object-cover"
+            style={{ objectPosition: image.focus }}
+          />
         </div>
+      ))}
 
-        {count > 1 && (
-          <>
-            <button
-              type="button"
-              onClick={() => go(index - 1)}
-              aria-label="Foto sebelumnya"
-              className="absolute left-3 top-1/2 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-navy-900 shadow-card hover:bg-white hover:text-brand-600"
-            >
-              <ChevronLeft aria-hidden="true" className="size-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => go(index + 1)}
-              aria-label="Foto berikutnya"
-              className="absolute right-3 top-1/2 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-navy-900 shadow-card hover:bg-white hover:text-brand-600"
-            >
-              <ChevronRight aria-hidden="true" className="size-5" />
-            </button>
-          </>
-        )}
-      </div>
+      {/* Gradasi tipis di kiri agar teks tetap terbaca di atas langit */}
+      <div aria-hidden="true" className="absolute inset-0 hidden bg-gradient-to-r from-white/50 via-white/10 to-transparent sm:block" />
 
       {count > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-3">
+        <div className="absolute inset-x-0 bottom-4 z-10 flex items-center justify-center gap-3 sm:bottom-5">
           <button
             type="button"
             onClick={() => setUserPaused((p) => !p)}
-            aria-label={userPaused ? "Putar slide otomatis" : "Jeda slide otomatis"}
-            className="inline-flex size-7 items-center justify-center rounded-full text-navy-700 hover:text-brand-600"
+            aria-label={userPaused ? "Putar banner otomatis" : "Jeda banner otomatis"}
+            className="inline-flex size-7 items-center justify-center rounded-full bg-white/80 text-navy-800 shadow-card hover:text-brand-600"
           >
-            {userPaused ? <Play aria-hidden="true" className="size-4" /> : <Pause aria-hidden="true" className="size-4" />}
+            {userPaused ? <Play aria-hidden="true" className="size-3.5" /> : <Pause aria-hidden="true" className="size-3.5" />}
           </button>
           <div className="flex items-center gap-2">
             {images.map((image, i) => (
@@ -119,19 +95,22 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
                 key={image.src}
                 type="button"
                 onClick={() => go(i)}
-                aria-label={`Tampilkan foto ${i + 1}`}
+                aria-label={`Tampilkan banner ${i + 1}`}
                 aria-current={i === index}
-                className={`h-2 rounded-full transition-all ${
-                  i === index ? "w-7 bg-brand-600" : "w-2 bg-navy-900/20 hover:bg-navy-900/40"
+                className={`h-1.5 rounded-full transition-all ${
+                  i === index ? "w-8 bg-brand-600" : "w-5 bg-white/80 hover:bg-white"
                 }`}
               />
             ))}
           </div>
         </div>
       )}
+      </div>
+
+      <div className="relative order-first py-10 sm:order-none sm:h-full sm:py-0">{children}</div>
       <p className="sr-only" aria-live="polite">
-        Foto {index + 1} dari {count}
+        Banner {index + 1} dari {count}
       </p>
-    </section>
+    </div>
   );
 }
