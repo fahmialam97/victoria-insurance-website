@@ -115,13 +115,13 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
         <Field name="email" label="Email" required hint="Tanggapan akan dikirim ke email ini." state={state}>
           {(props) => <input {...props} type="email" autoComplete="email" maxLength={254} placeholder="nama@email.com" />}
         </Field>
-        <Field name="name" label="Nama Lengkap" state={state}>
+        <Field name="name" label="Nama Lengkap" required state={state}>
           {(props) => <input {...props} type="text" autoComplete="name" maxLength={100} />}
         </Field>
-        <Field name="phone" label="Nomor Telepon" state={state}>
+        <Field name="phone" label="Nomor Telepon" required state={state}>
           {(props) => <input {...props} type="tel" autoComplete="tel" inputMode="tel" maxLength={20} />}
         </Field>
-        <Field name="policyNumber" label="Nomor Polis" state={state}>
+        <Field name="policyNumber" label="Nomor Polis" required state={state}>
           {(props) => <input {...props} type="text" maxLength={50} />}
         </Field>
       </div>

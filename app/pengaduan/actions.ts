@@ -46,9 +46,12 @@ export async function submitComplaint(_prev: ComplaintState, formData: FormData)
   const errors: ComplaintState["errors"] = {};
   if (!values.email) errors.email = "Email wajib diisi.";
   else if (!EMAIL_PATTERN.test(values.email)) errors.email = "Format email tidak valid.";
+  if (!values.name) errors.name = "Nama lengkap wajib diisi.";
+  if (!values.phone) errors.phone = "Nomor telepon wajib diisi.";
+  else if (!/^[0-9+\-\s()]+$/.test(values.phone)) errors.phone = "Nomor telepon hanya boleh berisi angka.";
+  if (!values.policyNumber) errors.policyNumber = "Nomor polis wajib diisi.";
   if (!values.message) errors.message = "Isi pengaduan wajib diisi.";
   else if (values.message.length < 10) errors.message = "Isi pengaduan minimal 10 karakter.";
-  if (values.phone && !/^[0-9+\-\s()]+$/.test(values.phone)) errors.phone = "Nomor telepon hanya boleh berisi angka.";
   for (const key of Object.keys(LIMITS) as ComplaintField[]) {
     if (!errors[key] && values[key].length > LIMITS[key]) errors[key] = `Maksimal ${LIMITS[key]} karakter.`;
   }
