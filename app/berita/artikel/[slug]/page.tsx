@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays } from "lucide-react";
 import { NewsCard } from "@/components/NewsCard";
 import { Container } from "@/components/ui/Container";
+import { HeaderDecor } from "@/components/ui/HeaderDecor";
 import { articleHref, articles, articlesHref, getArticle } from "@/data/articles";
 import { categoryLabel, toNewsItem } from "@/data/news";
 import { formatDate } from "@/lib/format";
@@ -46,7 +47,8 @@ export default async function ArticlePage(props: PageProps<"/berita/artikel/[slu
   return (
     <>
       <article>
-        <header className="border-b border-line bg-surface">
+        <header className="relative isolate overflow-hidden border-b border-line bg-surface">
+          <HeaderDecor />
           <div className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
             <nav aria-label="Breadcrumb" className="text-sm text-muted">
               <ol className="flex flex-wrap items-center gap-2">

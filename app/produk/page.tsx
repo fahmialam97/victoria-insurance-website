@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, FileText, Headset } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { HeaderDecor } from "@/components/ui/HeaderDecor";
 import { productIcons } from "@/components/ui/productIcons";
 import { SmartLink } from "@/components/ui/SmartLink";
 import { contactAnchor } from "@/data/navigation";
@@ -16,7 +17,8 @@ export const metadata: Metadata = {
 export default function ProductsPage() {
   return (
     <>
-      <section className="border-b border-line bg-surface">
+      <section className="relative isolate overflow-hidden border-b border-line bg-surface">
+        <HeaderDecor />
         <Container className="py-10">
           <nav aria-label="Breadcrumb" className="text-sm text-muted">
             <ol className="flex flex-wrap items-center gap-2">

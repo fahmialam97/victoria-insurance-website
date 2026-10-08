@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FileText, Mail, PhoneCall, ShieldAlert } from "lucide-react";
 import { ComplaintForm } from "@/components/ComplaintForm";
 import { Container } from "@/components/ui/Container";
+import { HeaderDecor } from "@/components/ui/HeaderDecor";
 import { SmartLink } from "@/components/ui/SmartLink";
 import { complaintDocs } from "@/data/complaint";
 import { contact } from "@/data/site";
@@ -16,7 +17,8 @@ export const metadata: Metadata = {
 export default function ComplaintPage() {
   return (
     <>
-      <section className="border-b border-line bg-surface">
+      <section className="relative isolate overflow-hidden border-b border-line bg-surface">
+        <HeaderDecor />
         <Container className="py-10">
           <nav aria-label="Breadcrumb" className="text-sm text-muted">
             <ol className="flex flex-wrap items-center gap-2">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AboutPageLayout } from "@/components/AboutPageLayout";
+import { BrandFlower } from "@/components/ui/BrandFlower";
 import { aboutLinks, businessNetwork } from "@/data/company";
 
 export const metadata: Metadata = {
@@ -35,7 +36,11 @@ export default function BusinessNetworkPage() {
             ))}
           </ol>
         </section>
-        <section aria-labelledby="prospek" className="rounded-2xl bg-navy-900 p-6 text-white sm:p-8">
+        <section
+          aria-labelledby="prospek"
+          className="relative isolate overflow-hidden rounded-2xl bg-navy-900 p-6 text-white sm:p-8"
+        >
+          <BrandFlower className="-bottom-8 -right-8 -z-10 size-48 text-white opacity-[0.07]" />
           <h2 id="prospek" className="text-xl font-bold">
             Prospek Usaha
           </h2>

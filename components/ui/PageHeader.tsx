@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Container } from "./Container";
+import { HeaderDecor } from "./HeaderDecor";
 
 type PageHeaderProps = {
   title: string;
@@ -12,7 +13,8 @@ type PageHeaderProps = {
 
 export function PageHeader({ title, description, trail = [], children }: PageHeaderProps) {
   return (
-    <section className="border-b border-line bg-surface">
+    <section className="relative isolate overflow-hidden border-b border-line bg-surface">
+      <HeaderDecor />
       <Container className="py-10">
         <nav aria-label="Breadcrumb" className="text-[14px] text-muted">
           <ol className="flex flex-wrap items-center gap-2">

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays, Clock, Download, FileText, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { HeaderDecor } from "@/components/ui/HeaderDecor";
 import { SmartLink } from "@/components/ui/SmartLink";
 import { rupsArchiveHref, rupslbEvents, rupslbHref } from "@/data/rupslb";
 import { formatDate } from "@/lib/format";
@@ -42,7 +43,8 @@ export default async function RupslbPage(props: PageProps<"/rupslb/[year]">) {
 
   return (
     <>
-      <section className="border-b border-line bg-surface">
+      <section className="relative isolate overflow-hidden border-b border-line bg-surface">
+        <HeaderDecor />
         <Container className="py-12 sm:py-16">
           <nav aria-label="Breadcrumb" className="text-sm text-muted">
             <ol className="flex flex-wrap items-center gap-2">

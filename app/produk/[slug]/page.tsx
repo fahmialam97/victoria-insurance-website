@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, CircleCheck, CircleX, Download, FileText, Headset, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { HeaderDecor } from "@/components/ui/HeaderDecor";
 import { productIcons } from "@/components/ui/productIcons";
 import { SmartLink } from "@/components/ui/SmartLink";
 import { contactAnchor } from "@/data/navigation";
@@ -41,7 +42,8 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
 
   return (
     <>
-      <section className="border-b border-line bg-surface">
+      <section className="relative isolate overflow-hidden border-b border-line bg-surface">
+        <HeaderDecor />
         <Container className="py-10">
           <nav aria-label="Breadcrumb" className="text-sm text-muted">
             <ol className="flex flex-wrap items-center gap-2">
@@ -64,10 +66,10 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
           </nav>
 
           <div className="mt-4 flex items-start gap-4">
-            <span className="inline-flex size-14 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
-              <Icon aria-hidden="true" className="size-7" />
+            <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+              <Icon aria-hidden="true" className="size-6" />
             </span>
-            <h1 className="pt-2 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">{product.name}</h1>
+            <h1 className="pt-1 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">{product.name}</h1>
           </div>
           <div className="mt-5 max-w-3xl space-y-3 text-base leading-relaxed text-muted">
             {product.description.map((paragraph) => (
