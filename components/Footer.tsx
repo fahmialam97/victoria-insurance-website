@@ -10,8 +10,9 @@ import { SmartLink } from "./ui/SmartLink";
 export function Footer() {
   const { headOffice, hotline, email, marketingOffice } = contact;
 
+  // Warna mengikuti footer website resmi: abu-abu arang + bilah bawah hitam
   return (
-    <footer className="bg-navy-950 text-white/75">
+    <footer className="bg-charcoal-800 text-white/75">
       <Container className="py-14">
         <div className="grid gap-10 lg:grid-cols-[1.3fr_2fr]">
           <div>
@@ -106,7 +107,7 @@ export function Footer() {
         </div>
       </Container>
 
-      <div className="border-t border-white/10">
+      <div className="bg-black">
         <Container className="flex flex-col gap-4 py-6 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {site.legalName}

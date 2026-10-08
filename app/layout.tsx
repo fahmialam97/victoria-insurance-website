@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { PageTransition } from "@/components/PageTransition";
 import { site } from "@/data/site";
 import { buildSearchIndex } from "@/lib/searchIndex";
 import "./globals.css";
@@ -62,7 +63,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <Navbar searchIndex={buildSearchIndex()} />
         <main id="konten-utama" className="flex-1">
-          {children}
+          <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
       </body>

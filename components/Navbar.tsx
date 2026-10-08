@@ -4,7 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ArrowRight, ChevronDown, Menu, Search, X } from "lucide-react";
-import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import {
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+} from "react";
 import { contactAnchor, mainNav, type NavItem } from "@/data/navigation";
 import { isExternal } from "@/lib/format";
 import { searchEntries, type SearchEntry } from "@/lib/search";
@@ -54,8 +62,45 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
     [searchIndex],
   );
   const navRef = useRef<HTMLDivElement>(null);
+  const desktopNavRef = useRef<HTMLElement>(null);
+  const indicatorRef = useRef<HTMLSpanElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const baseId = useId();
+
+  // Posisikan garis aktif di bawah menu yang aktif; langsung (tanpa animasi) saat pertama tampil.
+  useLayoutEffect(() => {
+    const nav = desktopNavRef.current;
+    const bar = indicatorRef.current;
+    if (!nav || !bar) return;
+
+    const place = () => {
+      const index = mainNav.findIndex((item) => isItemActive(item, pathname));
+      const target = nav.querySelector("ul")?.children[index]?.firstElementChild;
+      const navBox = nav.getBoundingClientRect();
+      if (!target || navBox.width === 0) {
+        bar.style.opacity = "0";
+        return;
+      }
+      const box = target.getBoundingClientRect();
+      const firstPlacement = bar.dataset.placed !== "true";
+      if (firstPlacement) bar.style.transition = "none";
+      // Sejajar dengan padding px-3 link, sama seperti garis per-item sebelumnya
+      bar.style.width = `${box.width - 24}px`;
+      bar.style.transform = `translateX(${box.left - navBox.left + 12}px)`;
+      bar.style.opacity = "1";
+      if (firstPlacement) {
+        void bar.offsetWidth; // terapkan posisi awal sebelum transisi diaktifkan
+        bar.style.transition = "";
+        bar.dataset.placed = "true";
+      }
+    };
+
+    place();
+    // Ukur ulang saat lebar berubah (font selesai dimuat, resize, nav muncul di ≥ xl)
+    const observer = new ResizeObserver(place);
+    observer.observe(nav);
+    return () => observer.disconnect();
+  }, [pathname]);
 
   // Tutup dropdown saat klik di luar atau tekan Escape.
   useEffect(() => {
@@ -77,7 +122,8 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
   }, []);
 
   useEffect(() => {
-    if (searchOpen) searchInputRef.current?.focus();
+    // preventScroll: tanpa ini browser memaksa input langsung terlihat sehingga animasi buka terlewati
+    if (searchOpen) searchInputRef.current?.focus({ preventScroll: true });
   }, [searchOpen]);
 
   // Kunci scroll body saat menu mobile terbuka.
@@ -120,19 +166,33 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
       <div ref={navRef} className="mx-auto flex h-16 max-w-[1600px] items-center gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
-        <Link href="/" className="shrink-0" aria-label="Victoria Insurance — Beranda" onClick={closeAll}>
-          <Image
-            src="/images/official/logo-dark.png"
-            alt="Victoria Insurance"
-            width={418}
-            height={46}
-            preload
-            className="h-auto w-56 sm:w-64 xl:w-64 2xl:w-80"
-          />
-        </Link>
+        {/*
+          ≥ xl: logo di tengah antara tepi kiri dan teks "Beranda"; di bawahnya tetap rata kiri.
+          Padding kiri 28px (= gap-4 + padding px-3 link) agar acuannya teks yang terlihat; menyusut ke 0
+          di sekitar 1280px karena di sana ruang antara logo dan menu memang tinggal ±16px.
+        */}
+        <div className="shrink-0 xl:flex xl:min-w-fit xl:flex-1 xl:justify-center xl:pl-[clamp(0px,calc(100vw_-_1290px),28px)]">
+          <Link href="/" className="block shrink-0" aria-label="Victoria Insurance — Beranda" onClick={closeAll}>
+            <Image
+              src="/images/official/logo-dark.png"
+              alt="Victoria Insurance"
+              width={418}
+              height={46}
+              preload
+              // xl (1280px) mentok: ruang ke menu tinggal ±16px; 2xl dibatasi ±lebar asli file (418px) agar tetap tajam
+              className="h-auto w-60 sm:w-80 xl:w-64 2xl:w-[400px]"
+            />
+          </Link>
+        </div>
 
         {/* Navigasi desktop */}
-        <nav aria-label="Navigasi utama" className="ml-auto hidden xl:block">
+        <nav ref={desktopNavRef} aria-label="Navigasi utama" className="relative ml-auto hidden xl:block">
+          {/* Satu garis aktif yang meluncur ke menu tujuan saat berpindah halaman */}
+          <span
+            ref={indicatorRef}
+            aria-hidden="true"
+            className="absolute -bottom-[17px] left-0 h-0.5 rounded-full bg-brand-600 opacity-0 transition-[transform,width,opacity] duration-300 ease-nav motion-reduce:transition-none"
+          />
           <ul className="flex items-center gap-1">
             {mainNav.map((item, index) => {
               const active = isItemActive(item, pathname);
@@ -142,16 +202,12 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
               const linkClass = `relative inline-flex items-center gap-1 whitespace-nowrap rounded-md px-3 py-2 text-[16px] font-medium transition-colors ${
                 active ? "text-brand-600" : "text-navy-800 hover:text-brand-600"
               }`;
-              const indicator = active && (
-                <span aria-hidden="true" className="absolute inset-x-3 -bottom-[17px] h-0.5 rounded-full bg-brand-600" />
-              );
 
               if (!item.groups) {
                 return (
                   <li key={item.label}>
                     <SmartLink href={item.href!} className={linkClass} aria-current={active ? "page" : undefined}>
                       {item.label}
-                      {indicator}
                     </SmartLink>
                   </li>
                 );
@@ -177,14 +233,16 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                     {item.label}
                     <ChevronDown
                       aria-hidden="true"
-                      className={`size-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      className={`size-4 transition-transform duration-200 ease-nav ${isOpen ? "rotate-180" : ""}`}
                     />
-                    {indicator}
                   </button>
+                  {/* Fade + translateY ringan; `inert` saat tertutup agar link di dalamnya tidak bisa difokus */}
                   <div
                     id={panelId}
-                    hidden={!isOpen}
-                    className={`absolute top-full pt-3 ${alignRight ? "right-0" : "left-1/2 -translate-x-1/2"}`}
+                    inert={!isOpen}
+                    className={`absolute top-full pt-3 transition duration-[180ms] ease-nav motion-reduce:transition-none ${
+                      alignRight ? "right-0" : "left-1/2 -translate-x-1/2"
+                    } ${isOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"}`}
                     onBlur={(e) => {
                       if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpenMenu(null);
                     }}
@@ -278,7 +336,14 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
       </div>
 
       {/* Pencarian lokal (mockup statis): hasil langsung dari indeks halaman yang disusun saat build */}
-      <div id={`${baseId}-search`} hidden={!searchOpen} className="border-t border-line bg-white">
+      {/* Panel melayang di bawah header, slide-down + fade; `inert` saat tertutup agar tidak bisa difokus/diklik */}
+      <div
+        id={`${baseId}-search`}
+        inert={!searchOpen}
+        className={`absolute inset-x-0 top-full border-y border-line bg-white shadow-card-hover transition duration-200 ease-nav motion-reduce:transition-none ${
+          searchOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
+        }`}
+      >
         <div className="mx-auto max-w-3xl px-4 py-4 sm:px-6">
           <form
             role="search"
@@ -380,7 +445,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
       <div
         id={`${baseId}-mobile`}
         hidden={!mobileOpen}
-        className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-white xl:hidden"
+        className="max-h-[calc(100dvh-4rem)] animate-menu-enter overflow-y-auto border-t border-line bg-white xl:hidden"
       >
         <nav aria-label="Navigasi utama (seluler)" className="px-4 py-4 sm:px-6">
           <ul className="divide-y divide-line">

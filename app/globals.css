@@ -24,6 +24,9 @@
   --color-brand-600: #c8202f;
   --color-brand-700: #a91a27;
 
+  /* Abu-abu arang footer website resmi (rata-rata home-pattern.jpg) */
+  --color-charcoal-800: #3d4049;
+
   /* Permukaan netral */
   --color-surface: #f5f7fb;
   --color-line: #e3e8ef;
@@ -31,6 +34,33 @@
 
   --shadow-card: 0 1px 2px rgb(12 36 68 / 0.04), 0 4px 16px rgb(12 36 68 / 0.05);
   --shadow-card-hover: 0 2px 4px rgb(12 36 68 / 0.05), 0 10px 28px rgb(12 36 68 / 0.08);
+
+  /* Motion system: satu kurva ease-out untuk semua navigasi, durasi pendek agar tidak terasa lambat */
+  --ease-nav: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-page-enter: page-enter 250ms var(--ease-nav) both;
+  --animate-menu-enter: menu-enter 180ms var(--ease-nav) both;
+
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes menu-enter {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
 
 @layer base {
