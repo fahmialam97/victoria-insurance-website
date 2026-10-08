@@ -19,7 +19,7 @@ export default function OrgStructurePage() {
       <div className="space-y-8">
         {orgStructure.map(({ title, image }) => (
           <section key={title} aria-label={`Struktur ${title}`}>
-            <h2 className="text-xl font-bold text-navy-900">{title}</h2>
+            <h2 className="text-xl font-bold text-ink-900">{title}</h2>
             <a
               href={image.src}
               target="_blank"

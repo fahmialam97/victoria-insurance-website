@@ -7,12 +7,12 @@ import { companyInfoGroups } from "@/data/navigation";
 
 export const metadata: Metadata = {
   title: "Informasi Perusahaan",
-  description: "Arsip RUPS, tata kelola perusahaan, dan hubungan investor PT Victoria Insurance, Tbk.",
+  description: "Publikasi, berita, tata kelola perusahaan, dan hubungan investor PT Victoria Insurance, Tbk.",
   alternates: { canonical: "/informasi-perusahaan" },
 };
 
 const groupIcons: Record<string, LucideIcon> = {
-  "Arsip RUPS & Keterbukaan Informasi": Megaphone,
+  Publikasi: Megaphone,
   "Tata Kelola Perusahaan": Landmark,
   "Hubungan Investor": FileText,
 };
@@ -24,7 +24,7 @@ export default function CompanyInfoPage() {
     <>
       <PageHeader
         title="Informasi Perusahaan"
-        description="Arsip RUPS, tata kelola perusahaan, dan informasi bagi investor PT Victoria Insurance, Tbk."
+        description="Publikasi dan berita, tata kelola perusahaan, serta informasi bagi investor PT Victoria Insurance, Tbk."
       />
       <section aria-label="Kategori informasi perusahaan" className="py-12 sm:py-16">
         <Container className="grid gap-6 lg:grid-cols-3">
@@ -42,7 +42,7 @@ export default function CompanyInfoPage() {
                   <span className="inline-flex size-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                     <Icon aria-hidden="true" className="size-6" />
                   </span>
-                  <h2 id={`grup-${slug(heading)}`} className="text-lg font-bold text-navy-900">
+                  <h2 id={`grup-${slug(heading)}`} className="text-lg font-bold text-ink-900">
                     {heading}
                   </h2>
                 </div>
@@ -51,7 +51,7 @@ export default function CompanyInfoPage() {
                     <li key={link.href}>
                       <SmartLink
                         href={link.href}
-                        className="group flex items-start gap-3 py-3 text-navy-800 hover:text-brand-600"
+                        className="group flex items-start gap-3 py-3 text-ink-800 hover:text-brand-600"
                       >
                         <span className="flex-1">
                           <span className="block text-sm font-medium">{link.label}</span>

@@ -19,10 +19,10 @@ export default function ProfilePage() {
       activeHref={aboutLinks.profile.href}
     >
       <section aria-labelledby="peristiwa-penting" className="rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8">
-        <h2 id="peristiwa-penting" className="text-xl font-bold text-navy-900">
+        <h2 id="peristiwa-penting" className="text-xl font-bold text-ink-900">
           Peristiwa Penting
         </h2>
-        <div className="mt-4 space-y-4 leading-relaxed text-navy-800">
+        <div className="mt-4 space-y-4 leading-relaxed text-ink-800">
           {profile.paragraphs.map((text) => (
             <p key={text}>{text}</p>
           ))}
@@ -30,7 +30,7 @@ export default function ProfilePage() {
       </section>
 
       <section aria-labelledby="perjalanan" className="mt-10">
-        <h2 id="perjalanan" className="text-xl font-bold text-navy-900">
+        <h2 id="perjalanan" className="text-xl font-bold text-ink-900">
           Perjalanan Perusahaan
         </h2>
         <ol className="relative mt-6 space-y-6 border-l-2 border-brand-200 pl-6 sm:pl-8">
@@ -44,7 +44,7 @@ export default function ProfilePage() {
                 <span className="text-2xl font-bold text-brand-600">{item.year}</span>
                 <span className="text-sm font-semibold uppercase tracking-wider text-muted">{item.label}</span>
               </p>
-              <p className="mt-2 rounded-2xl border border-line bg-white p-5 text-sm leading-relaxed text-navy-800 shadow-card">
+              <p className="mt-2 rounded-2xl border border-line bg-white p-5 text-sm leading-relaxed text-ink-800 shadow-card">
                 {item.text}
               </p>
             </li>
@@ -53,10 +53,10 @@ export default function ProfilePage() {
       </section>
 
       <section aria-labelledby="struktur-korporasi" className="mt-10">
-        <h2 id="struktur-korporasi" className="text-xl font-bold text-navy-900">
+        <h2 id="struktur-korporasi" className="text-xl font-bold text-ink-900">
           Struktur Korporasi
         </h2>
-        <div className="mt-4 border-2 border-navy-700 bg-white shadow-card">
+        <div className="mt-4 border-2 border-ink-700 bg-white shadow-card">
           <Image
             src={corporateStructure.src}
             alt={corporateStructure.alt}

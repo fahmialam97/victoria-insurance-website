@@ -2,17 +2,6 @@ export type Doc = { title: string; url: string };
 
 /** Teks dari halaman Layanan website resmi (KB Bagian 6); spasi dirapikan tanpa mengubah isi. */
 
-export const digitalProduct = {
-  title: "Digital Product Development",
-  subtitle: "Produk Asuransi Digital",
-  paragraphs: [
-    "Di era Digital yang terus berkembang pesat, dimana perlindungan menjadi lebih mudah dan terjangkau. Sektor Asuransi tidak ketinggalan dalam memanfaatkan perkembangan teknologi untuk memberikan kemudahan dan efisiensi bagi para nasabah. Produk Asuransi Digital menjadi salah satu inovasi yang menjawab kebutuhan masyarakat akan asuransi yang lebih cepat, transparan, dan mudah diakses.",
-    "Asuransi Digital adalah produk asuransi yang dijalankan dan dioperasikan melalui Platform Digital, seperti aplikasi seluler, situs web, atau media digital lainnya. Dengan menggunakan teknologi, proses pembelian, klaim, hingga manajemen polis asuransi dapat dilakukan secara online tanpa harus bertemu langsung dengan agen atau perwakilan Perusahaan Asuransi. Tujuan utama dari Asuransi Digital adalah untuk memberikan pengalaman yang lebih praktis, cepat, dan transparan bagi penggunanya.",
-  ],
-  image: { src: "/images/official/digital-product.jpg", width: 1920, height: 1440, alt: "Banner Berasuransi Cerdas Bersama Victoria Insurance" },
-  // Tombol "BELI ASURANSI" di website resmi tidak memiliki tujuan (href kosong), jadi tidak ditampilkan.
-};
-
 export const workshop = {
   heading: "Update Bengkel Rekanan",
   documents: [

@@ -13,7 +13,7 @@ export function DocumentList({ documents }: { documents: Doc[] }) {
               href={doc.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3 px-4 py-3 text-sm text-navy-800 hover:text-brand-600"
+              className="group flex items-center gap-3 px-4 py-3 text-sm text-ink-800 hover:text-brand-600"
             >
               <FileText aria-hidden="true" className="size-5 shrink-0 text-brand-600" />
               <span className="flex-1">{doc.title}</span>

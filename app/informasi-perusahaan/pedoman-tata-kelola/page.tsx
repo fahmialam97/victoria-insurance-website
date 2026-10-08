@@ -13,13 +13,13 @@ export default function GovernancePage() {
   return (
     <CompanyInfoPageLayout title="Pedoman Tata Kelola" activeHref={companyInfoLinks.governance.href}>
       <section aria-labelledby="gcg" className="rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8">
-        <h2 id="gcg" className="text-xl font-bold text-navy-900">
+        <h2 id="gcg" className="text-xl font-bold text-ink-900">
           {governance.heading}
         </h2>
-        <p className="mt-4 leading-relaxed text-navy-800">{governance.text}</p>
+        <p className="mt-4 leading-relaxed text-ink-800">{governance.text}</p>
       </section>
       <section aria-labelledby="dokumen-gcg" className="mt-8">
-        <h2 id="dokumen-gcg" className="mb-3 text-lg font-bold text-navy-900">
+        <h2 id="dokumen-gcg" className="mb-3 text-lg font-bold text-ink-900">
           Dokumen Terkait
         </h2>
         <DocumentList documents={governance.documents} />

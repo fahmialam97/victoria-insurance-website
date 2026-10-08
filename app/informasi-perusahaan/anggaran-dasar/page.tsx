@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ArticlesPage() {
   return (
     <CompanyInfoPageLayout title="Anggaran Dasar (AD/ART)" activeHref={companyInfoLinks.articles.href}>
-      <p className="rounded-2xl border border-line bg-white p-6 leading-relaxed text-navy-800 shadow-card sm:p-8">
+      <p className="rounded-2xl border border-line bg-white p-6 leading-relaxed text-ink-800 shadow-card sm:p-8">
         {articlesOfAssociation.text}
       </p>
       <div className="mt-6">

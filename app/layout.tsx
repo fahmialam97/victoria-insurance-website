@@ -57,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-dvh flex-col overflow-x-clip">
         <a
           href="#konten-utama"
-          className="sr-only z-[60] rounded-md bg-navy-900 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          className="sr-only z-[60] rounded-md bg-ink-800 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
         >
           Lewati ke konten utama
         </a>

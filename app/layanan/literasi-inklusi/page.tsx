@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ServicePageLayout } from "@/components/ServicePageLayout";
+import { AboutPageLayout } from "@/components/AboutPageLayout";
 import { DocumentList } from "@/components/ui/DocumentList";
 import { literacy } from "@/data/layanan";
 
@@ -14,7 +14,7 @@ export default function LiteracyPage() {
   const { image } = literacy;
 
   return (
-    <ServicePageLayout
+    <AboutPageLayout
       title="Literasi & Inklusi"
       description="Arsip kegiatan literasi dan inklusi keuangan tahun 2023–2026."
       activeHref="/layanan/literasi-inklusi"
@@ -37,7 +37,7 @@ export default function LiteracyPage() {
             <li key={year}>
               <a
                 href={`#tahun-${year}`}
-                className="inline-flex rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-navy-800 hover:border-brand-600 hover:text-brand-600"
+                className="inline-flex rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-ink-800 hover:border-brand-600 hover:text-brand-600"
               >
                 {year}
               </a>
@@ -54,13 +54,13 @@ export default function LiteracyPage() {
             aria-labelledby={`tahun-${year}-heading`}
             className="scroll-mt-4 rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8"
           >
-            <h2 id={`tahun-${year}-heading`} className="text-xl font-bold text-navy-900">
+            <h2 id={`tahun-${year}-heading`} className="text-xl font-bold text-ink-900">
               Literasi &amp; Inklusi Keuangan Tahun {year}
             </h2>
             <div className="mt-5 grid gap-6 md:grid-cols-2">
               {sessions.map((session) => (
                 <div key={session.title}>
-                  <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-navy-700">{session.title}</h3>
+                  <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-ink-700">{session.title}</h3>
                   <DocumentList documents={session.documents} />
                 </div>
               ))}
@@ -68,6 +68,6 @@ export default function LiteracyPage() {
           </section>
         ))}
       </div>
-    </ServicePageLayout>
+    </AboutPageLayout>
   );
 }

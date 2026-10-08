@@ -26,7 +26,7 @@ export function ContactSection() {
   return (
     <section id="hubungi-kami" aria-labelledby="kontak-heading" className="pb-16 sm:pb-20">
       <Container>
-        <div className="relative isolate overflow-hidden rounded-3xl bg-navy-900 px-6 py-10 sm:px-10 sm:py-12 lg:px-12">
+        <div className="relative isolate overflow-hidden rounded-3xl bg-ink-800 px-6 py-10 sm:px-10 sm:py-12 lg:px-12">
           <Image
             src="/images/official/pattern-product-icons.png"
             alt=""
@@ -49,7 +49,7 @@ export function ContactSection() {
               </p>
               <SmartLink
                 href={contact.fullContactUrl}
-                className="group mt-6 inline-flex items-center whitespace-nowrap gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy-900 transition-colors hover:bg-brand-50"
+                className="group mt-6 inline-flex items-center whitespace-nowrap gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink-900 transition-colors hover:bg-brand-50"
               >
                 Lihat Kontak Lengkap
                 <ArrowRight aria-hidden="true" className="size-4 text-brand-600 transition-transform group-hover:translate-x-0.5" />

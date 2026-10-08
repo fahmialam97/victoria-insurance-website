@@ -59,7 +59,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li aria-current="page" className="font-medium text-navy-900">
+              <li aria-current="page" className="font-medium text-ink-900">
                 {product.name}
               </li>
             </ol>
@@ -69,7 +69,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
             <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
               <Icon aria-hidden="true" className="size-6" />
             </span>
-            <h1 className="pt-1 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">{product.name}</h1>
+            <h1 className="pt-1 text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">{product.name}</h1>
           </div>
           <div className="mt-5 max-w-3xl space-y-3 text-base leading-relaxed text-muted">
             {product.description.map((paragraph) => (
@@ -89,7 +89,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
             )}
             <Link
               href={contactAnchor}
-              className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3 text-sm font-semibold text-navy-900 transition-colors hover:border-brand-600 hover:text-brand-600"
+              className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3 text-sm font-semibold text-ink-900 transition-colors hover:border-brand-600 hover:text-brand-600"
             >
               <Headset aria-hidden="true" className="size-4" />
               Hubungi Kami
@@ -100,18 +100,18 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
 
       <section aria-labelledby="manfaat-heading" className="py-12 sm:py-16">
         <Container>
-          <h2 id="manfaat-heading" className="text-2xl font-bold tracking-tight text-navy-900">
+          <h2 id="manfaat-heading" className="text-2xl font-bold tracking-tight text-ink-900">
             Yang Dijamin
           </h2>
           <ul className="mt-6 grid gap-6 md:grid-cols-2">
             {detail.coverages.map((coverage) => (
               <li key={coverage.title}>
                 <article className="h-full rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8">
-                  <h3 className="text-lg font-bold text-navy-900">{coverage.title}</h3>
+                  <h3 className="text-lg font-bold text-ink-900">{coverage.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{coverage.description}</p>
                   <ul className="mt-5 space-y-3">
                     {coverage.items.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-navy-800">
+                      <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-ink-800">
                         <CircleCheck aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-emerald-600" />
                         {item}
                       </li>
@@ -126,7 +126,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
 
       <section aria-labelledby="pengecualian-heading" className="border-y border-line bg-surface py-12 sm:py-16">
         <Container>
-          <h2 id="pengecualian-heading" className="text-2xl font-bold tracking-tight text-navy-900">
+          <h2 id="pengecualian-heading" className="text-2xl font-bold tracking-tight text-ink-900">
             Yang Tidak Dijamin
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
@@ -136,7 +136,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
             {detail.exclusions.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 rounded-xl border border-line bg-white p-4 text-sm leading-relaxed text-navy-800"
+                className="flex items-start gap-3 rounded-xl border border-line bg-white p-4 text-sm leading-relaxed text-ink-800"
               >
                 <CircleX aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
                 {item}
@@ -148,7 +148,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
 
       <section aria-labelledby="klaim-heading" className="py-12 sm:py-16">
         <Container>
-          <h2 id="klaim-heading" className="text-2xl font-bold tracking-tight text-navy-900">
+          <h2 id="klaim-heading" className="text-2xl font-bold tracking-tight text-ink-900">
             Cara Mengajukan Klaim
           </h2>
           <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -157,7 +157,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
                 <span className="inline-flex size-9 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
                   {i + 1}
                 </span>
-                <h3 className="mt-4 text-base font-semibold text-navy-900">{step.title}</h3>
+                <h3 className="mt-4 text-base font-semibold text-ink-900">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{step.text}</p>
               </li>
             ))}
@@ -165,17 +165,17 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
 
           <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_auto]">
             <div className="rounded-2xl border border-line bg-surface p-6">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-navy-700">Data yang perlu disiapkan</h3>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-ink-700">Data yang perlu disiapkan</h3>
               <ul className="mt-4 grid gap-x-6 gap-y-2 sm:grid-cols-2">
                 {detail.claimDocuments.map((doc) => (
-                  <li key={doc} className="flex items-start gap-2 text-sm text-navy-800">
+                  <li key={doc} className="flex items-start gap-2 text-sm text-ink-800">
                     <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-brand-600" />
                     {doc}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="flex flex-col justify-center rounded-2xl bg-navy-900 p-6 text-white">
+            <div className="flex flex-col justify-center rounded-2xl bg-ink-800 p-6 text-white">
               <p className="text-sm text-white/75">Laporkan klaim ke</p>
               <a
                 href={`tel:${contact.headOffice.phone.tel}`}
@@ -195,7 +195,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
       <section aria-labelledby="dokumen-heading" className="border-t border-line bg-surface py-12 sm:py-16">
         <Container className="grid gap-10 lg:grid-cols-[1fr_2fr]">
           <div>
-            <h2 id="dokumen-heading" className="text-2xl font-bold tracking-tight text-navy-900">
+            <h2 id="dokumen-heading" className="text-2xl font-bold tracking-tight text-ink-900">
               Dokumen Produk
             </h2>
             <ul className="mt-6 divide-y divide-line rounded-xl border border-line bg-white">
@@ -203,7 +203,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
                 <li key={doc.url}>
                   <SmartLink
                     href={doc.url}
-                    className="flex items-center gap-3 px-4 py-3 text-sm text-navy-800 hover:text-brand-600"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-ink-800 hover:text-brand-600"
                   >
                     <FileText aria-hidden="true" className="size-5 shrink-0 text-brand-600" />
                     <span className="flex-1">{doc.title}</span>
@@ -220,7 +220,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
 
           <div>
             <div className="flex items-end justify-between gap-4">
-              <h2 className="text-2xl font-bold tracking-tight text-navy-900">Produk Lainnya</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-ink-900">Produk Lainnya</h2>
               <Link
                 href={productsHref}
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700"
@@ -241,7 +241,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
                       <span className="inline-flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                         <OtherIcon aria-hidden="true" className="size-5" />
                       </span>
-                      <span className="mt-4 text-sm font-semibold text-navy-900 group-hover:text-brand-600">
+                      <span className="mt-4 text-sm font-semibold text-ink-900 group-hover:text-brand-600">
                         {other.name}
                       </span>
                     </Link>

@@ -28,12 +28,12 @@ export default function ProductsPage() {
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li aria-current="page" className="font-medium text-navy-900">
+              <li aria-current="page" className="font-medium text-ink-900">
                 Produk
               </li>
             </ol>
           </nav>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">Produk Asuransi</h1>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">Produk Asuransi</h1>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">
             {TOTAL_PRODUCTS} produk asuransi Victoria Insurance. Setiap produk dilengkapi dokumen RIPLAY (Ringkasan
             Informasi Produk dan Layanan) yang dapat diunduh.
@@ -48,7 +48,7 @@ export default function ProductsPage() {
                   <li key={product.slug}>
                     <a
                       href={`#${product.slug}`}
-                      className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-2 text-sm font-medium text-navy-800 transition-colors hover:border-brand-600 hover:text-brand-600"
+                      className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-2 text-sm font-medium text-ink-800 transition-colors hover:border-brand-600 hover:text-brand-600"
                     >
                       <Icon aria-hidden="true" className="size-4 text-brand-600" />
                       {product.name.replace(/^Asuransi /, "")}
@@ -87,7 +87,7 @@ export default function ProductsPage() {
                       <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                         <Icon aria-hidden="true" className="size-6" />
                       </span>
-                      <h2 className={`pt-2.5 text-xl font-bold tracking-tight text-navy-900 ${product.detail ? "pr-10" : ""}`}>
+                      <h2 className={`pt-2.5 text-xl font-bold tracking-tight text-ink-900 ${product.detail ? "pr-10" : ""}`}>
                         {product.detail ? (
                           // Stretched link: seluruh kartu bisa diklik, link dokumen tetap di atasnya
                           <Link
@@ -109,13 +109,13 @@ export default function ProductsPage() {
                     </div>
 
                     <div className="relative z-10 mt-auto pt-6">
-                      <h3 className="text-xs font-semibold uppercase tracking-wider text-navy-700">Dokumen Produk</h3>
+                      <h3 className="text-xs font-semibold uppercase tracking-wider text-ink-700">Dokumen Produk</h3>
                       <ul className="mt-2 divide-y divide-line rounded-xl border border-line">
                         {product.documents.map((doc) => (
                           <li key={doc.url}>
                             <SmartLink
                               href={doc.url}
-                              className="group flex items-center gap-3 px-4 py-3 text-sm text-navy-800 hover:text-brand-600"
+                              className="group flex items-center gap-3 px-4 py-3 text-sm text-ink-800 hover:text-brand-600"
                             >
                               <FileText aria-hidden="true" className="size-5 shrink-0 text-brand-600" />
                               <span className="flex-1">{doc.title}</span>
@@ -131,7 +131,7 @@ export default function ProductsPage() {
             })}
           </ul>
 
-          <div className="mt-12 flex flex-col items-start gap-5 rounded-3xl bg-navy-900 px-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-10">
+          <div className="mt-12 flex flex-col items-start gap-5 rounded-3xl bg-ink-800 px-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-10">
             <div className="flex items-center gap-4">
               <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-brand-600 text-white">
                 <Headset aria-hidden="true" className="size-6" />
@@ -143,7 +143,7 @@ export default function ProductsPage() {
             </div>
             <Link
               href={contactAnchor}
-              className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-white px-6 py-3 text-sm font-semibold text-navy-900 hover:bg-brand-50"
+              className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink-900 hover:bg-brand-50"
             >
               Hubungi Kami
               <ArrowRight aria-hidden="true" className="size-4 text-brand-600 transition-transform group-hover:translate-x-0.5" />

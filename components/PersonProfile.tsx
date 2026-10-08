@@ -18,16 +18,16 @@ export function PersonProfile({ person }: { person: Person }) {
           className="size-36 shrink-0 rounded-full border border-line bg-surface object-cover sm:size-40"
         />
         <div className="min-w-0">
-          <h2 id={`${person.slug}-name`} className="text-2xl font-bold text-navy-900">
+          <h2 id={`${person.slug}-name`} className="text-2xl font-bold text-ink-900">
             {person.name}
           </h2>
           <p className="mt-1 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
             {person.position}
           </p>
-          <div className="mt-5 space-y-4 text-sm leading-relaxed text-navy-800">
+          <div className="mt-5 space-y-4 text-sm leading-relaxed text-ink-800">
             {person.bio.map((section, i) => (
               <div key={section.heading ?? i}>
-                {section.heading && <h3 className="mb-1 font-semibold text-navy-900">{section.heading}</h3>}
+                {section.heading && <h3 className="mb-1 font-semibold text-ink-900">{section.heading}</h3>}
                 <div className="space-y-3">
                   {section.paragraphs.map((text) => (
                     <p key={text}>{text}</p>

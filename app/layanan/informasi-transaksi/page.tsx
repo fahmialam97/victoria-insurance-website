@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClipboardCheck, FileSearch } from "lucide-react";
-import { ServicePageLayout } from "@/components/ServicePageLayout";
+import { AboutPageLayout } from "@/components/AboutPageLayout";
 import { transaction, type Step } from "@/data/layanan";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ function StepList({ steps }: { steps: Step[] }) {
             {i + 1}
           </span>
           <div>
-            <h3 className="font-semibold text-navy-900">{step.title}</h3>
+            <h3 className="font-semibold text-ink-900">{step.title}</h3>
             <p className="mt-1 text-sm leading-relaxed text-muted">{step.text}</p>
           </div>
         </li>
@@ -34,13 +34,13 @@ export default function TransactionPage() {
   ];
 
   return (
-    <ServicePageLayout
+    <AboutPageLayout
       title="Informasi Transaksi"
       description="Prosedur & Cara Bertransaksi"
       activeHref="/layanan/informasi-transaksi"
     >
       <div className="space-y-6">
-        <div className="space-y-3 rounded-2xl bg-surface p-6 text-base leading-relaxed text-navy-800 sm:p-8">
+        <div className="space-y-3 rounded-2xl bg-surface p-6 text-base leading-relaxed text-ink-800 sm:p-8">
           {transaction.intro.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
@@ -57,7 +57,7 @@ export default function TransactionPage() {
               <span className="inline-flex size-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                 <Icon aria-hidden="true" className="size-6" />
               </span>
-              <h2 id={`${id}-heading`} className="text-xl font-bold text-navy-900">
+              <h2 id={`${id}-heading`} className="text-xl font-bold text-ink-900">
                 {title}
               </h2>
             </div>
@@ -66,6 +66,6 @@ export default function TransactionPage() {
           </section>
         ))}
       </div>
-    </ServicePageLayout>
+    </AboutPageLayout>
   );
 }

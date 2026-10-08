@@ -13,7 +13,7 @@ export function Hero() {
         <Container className="flex h-full flex-col justify-center sm:pb-12">
           <h1
             id="hero-heading"
-            className="max-w-[12ch] text-4xl font-extrabold leading-[1.1] tracking-tight text-navy-900 sm:text-5xl lg:text-6xl"
+            className="max-w-[12ch] text-4xl font-extrabold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl lg:text-6xl"
           >
             {heroContent.title}
           </h1>

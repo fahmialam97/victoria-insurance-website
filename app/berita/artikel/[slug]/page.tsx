@@ -7,6 +7,7 @@ import { NewsCard } from "@/components/NewsCard";
 import { Container } from "@/components/ui/Container";
 import { HeaderDecor } from "@/components/ui/HeaderDecor";
 import { articleHref, articles, articlesHref, getArticle } from "@/data/articles";
+import { companyInfoHref } from "@/data/companyInfo";
 import { categoryLabel, toNewsItem } from "@/data/news";
 import { formatDate } from "@/lib/format";
 
@@ -59,8 +60,8 @@ export default async function ArticlePage(props: PageProps<"/berita/artikel/[slu
                 </li>
                 <li className="flex items-center gap-2">
                   <span aria-hidden="true">/</span>
-                  <Link href="/berita" className="hover:text-brand-600">
-                    Berita
+                  <Link href={companyInfoHref} className="hover:text-brand-600">
+                    Informasi Perusahaan
                   </Link>
                 </li>
                 <li className="flex items-center gap-2">
@@ -71,7 +72,7 @@ export default async function ArticlePage(props: PageProps<"/berita/artikel/[slu
                 </li>
               </ol>
             </nav>
-            <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-navy-900 sm:text-4xl">
+            <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-ink-900 sm:text-4xl">
               {article.title}
             </h1>
             <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted">
@@ -118,7 +119,7 @@ export default async function ArticlePage(props: PageProps<"/berita/artikel/[slu
 
       <section aria-labelledby="artikel-lainnya" className="border-t border-line bg-surface py-12 sm:py-16">
         <Container>
-          <h2 id="artikel-lainnya" className="mb-8 text-2xl font-bold tracking-tight text-navy-900">
+          <h2 id="artikel-lainnya" className="mb-8 text-2xl font-bold tracking-tight text-ink-900">
             Artikel Lainnya
           </h2>
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

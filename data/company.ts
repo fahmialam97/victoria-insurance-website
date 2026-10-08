@@ -1,4 +1,5 @@
 import type { NavGroup } from "./navigation";
+import { aboutServiceLinks } from "./services";
 
 export type CompanyImage = { src: string; width: number; height: number; alt: string };
 
@@ -32,7 +33,9 @@ export const aboutLinks = {
 
 /** Menu Tentang Kami, dipakai di dropdown header dan menu samping halaman. */
 export const aboutMenu: { title?: string; links: NavGroup["links"] }[] = [
+  { title: "Layanan", links: aboutServiceLinks },
   {
+    title: "Perusahaan",
     links: [aboutLinks.profile, aboutLinks.vision, aboutLinks.network, aboutLinks.awards, aboutLinks.career],
   },
   {

@@ -28,7 +28,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
             <span className="rounded-full bg-brand-50 px-2.5 py-0.5 font-semibold text-brand-700">{item.category}</span>
           )}
         </div>
-        <h3 className="mt-3 text-lg font-semibold leading-snug text-navy-900">
+        <h3 className="mt-3 text-lg font-semibold leading-snug text-ink-900">
           <SmartLink href={item.href} className="after:absolute after:inset-0 group-hover:text-brand-600">
             {item.title}
           </SmartLink>

@@ -4,8 +4,9 @@ import { Container } from "./ui/Container";
 import { SectionHeader } from "./ui/SectionHeader";
 
 export function ServiceSection() {
+  // Jarak bawah lebih rapat karena langsung disusul section Grup Finansial Victoria
   return (
-    <section aria-labelledby="layanan-heading" className="pb-16 sm:pb-20">
+    <section aria-labelledby="layanan-heading" className="pb-10 sm:pb-12">
       <Container>
         <div className="rounded-3xl bg-surface px-5 py-10 sm:px-8 sm:py-12 lg:px-10">
           <SectionHeader

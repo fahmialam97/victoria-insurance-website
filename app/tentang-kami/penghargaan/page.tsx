@@ -33,7 +33,7 @@ export default function AwardsPage() {
                   sizes="(min-width: 1600px) 1248px, 100vw"
                   className="h-auto w-full"
                 />
-                <figcaption className="border-t border-line px-5 py-3 text-sm font-semibold text-navy-800">
+                <figcaption className="border-t border-line px-5 py-3 text-sm font-semibold text-ink-800">
                   Penghargaan {year}
                 </figcaption>
               </figure>
@@ -43,7 +43,7 @@ export default function AwardsPage() {
       </section>
 
       <section aria-labelledby="penghargaan-2015-2018" className="mt-10">
-        <h2 id="penghargaan-2015-2018" className="text-xl font-bold text-navy-900">
+        <h2 id="penghargaan-2015-2018" className="text-xl font-bold text-ink-900">
           Penghargaan 2015–2018
         </h2>
         <ul className="mt-4 grid gap-5 md:grid-cols-2">
@@ -52,7 +52,7 @@ export default function AwardsPage() {
               <span className="inline-flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                 <Award aria-hidden="true" className="size-5" />
               </span>
-              <h3 className="mt-4 font-semibold text-navy-900">{award.title}</h3>
+              <h3 className="mt-4 font-semibold text-ink-900">{award.title}</h3>
               {award.items.length === 1 ? (
                 <p className="mt-2 text-sm leading-relaxed text-muted">{award.items[0]}</p>
               ) : (

@@ -200,7 +200,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
               const alignRight = index >= mainNav.length - 2;
               const panelId = `${baseId}-${index}`;
               const linkClass = `relative inline-flex items-center gap-1 whitespace-nowrap rounded-md px-3 py-2 text-[16px] font-medium transition-colors ${
-                active ? "text-brand-600" : "text-navy-800 hover:text-brand-600"
+                active ? "text-brand-600" : "text-ink-800 hover:text-brand-600"
               }`;
 
               if (!item.groups) {
@@ -275,7 +275,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                                       className={`block rounded-md px-3 py-2 text-sm ${
                                         linkActive
                                           ? "bg-brand-50 font-semibold text-brand-600"
-                                          : "text-navy-800 hover:bg-surface hover:text-brand-600"
+                                          : "text-ink-800 hover:bg-surface hover:text-brand-600"
                                       }`}
                                     >
                                       {link.label}
@@ -312,7 +312,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
             aria-expanded={searchOpen}
             aria-controls={`${baseId}-search`}
             aria-label={searchOpen ? "Tutup pencarian" : "Buka pencarian"}
-            className="inline-flex size-10 items-center justify-center rounded-full text-navy-800 hover:bg-surface hover:text-brand-600"
+            className="inline-flex size-10 items-center justify-center rounded-full text-ink-800 hover:bg-surface hover:text-brand-600"
           >
             {searchOpen ? <X aria-hidden="true" className="size-5" /> : <Search aria-hidden="true" className="size-5" />}
           </button>
@@ -328,7 +328,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
             aria-expanded={mobileOpen}
             aria-controls={`${baseId}-mobile`}
             aria-label={mobileOpen ? "Tutup menu" : "Buka menu"}
-            className="inline-flex size-10 items-center justify-center rounded-full text-navy-800 hover:bg-surface xl:hidden"
+            className="inline-flex size-10 items-center justify-center rounded-full text-ink-800 hover:bg-surface xl:hidden"
           >
             {mobileOpen ? <X aria-hidden="true" className="size-6" /> : <Menu aria-hidden="true" className="size-6" />}
           </button>
@@ -374,11 +374,11 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
               }}
               onKeyDown={onSearchKeyDown}
               placeholder="Cari produk, layanan, atau informasi…"
-              className="min-w-0 flex-1 rounded-full border border-line bg-surface px-5 py-2.5 text-sm text-navy-900 placeholder:text-muted focus:border-brand-600 focus:bg-white focus:outline-none"
+              className="min-w-0 flex-1 rounded-full border border-line bg-surface px-5 py-2.5 text-sm text-ink-900 placeholder:text-muted focus:border-brand-600 focus:bg-white focus:outline-none"
             />
             <button
               type="submit"
-              className="rounded-full bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-800"
+              className="rounded-full bg-ink-800 px-5 py-2.5 text-sm font-semibold text-white hover:bg-ink-900"
             >
               Cari
             </button>
@@ -402,7 +402,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                     >
                       <span className="min-w-0 flex-1">
                         <span
-                          className={`block text-sm font-semibold ${i === activeResult ? "text-brand-600" : "text-navy-900"}`}
+                          className={`block text-sm font-semibold ${i === activeResult ? "text-brand-600" : "text-ink-900"}`}
                         >
                           {entry.title}
                         </span>
@@ -431,7 +431,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                   key={entry.href}
                   href={entry.href}
                   onClick={closeSearch}
-                  className="rounded-full border border-line px-3 py-1 text-xs font-medium text-navy-800 transition-colors hover:border-brand-600 hover:text-brand-600"
+                  className="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-800 transition-colors hover:border-brand-600 hover:text-brand-600"
                 >
                   {entry.title}
                 </Link>
@@ -458,7 +458,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                       href={item.href!}
                       onClick={closeAll}
                       aria-current={active ? "page" : undefined}
-                      className={`block py-3 text-base font-medium ${active ? "text-brand-600" : "text-navy-900"}`}
+                      className={`block py-3 text-base font-medium ${active ? "text-brand-600" : "text-ink-900"}`}
                     >
                       {item.label}
                     </SmartLink>
@@ -471,7 +471,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                   <details className="group">
                     <summary
                       className={`flex cursor-pointer list-none items-center justify-between py-3 text-base font-medium [&::-webkit-details-marker]:hidden ${
-                        active ? "text-brand-600" : "text-navy-900"
+                        active ? "text-brand-600" : "text-ink-900"
                       }`}
                     >
                       {item.label}
@@ -495,7 +495,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                                     onClick={closeAll}
                                     aria-current={linkActive ? "page" : undefined}
                                     className={`block py-2 text-sm ${
-                                      linkActive ? "font-semibold text-brand-600" : "text-navy-800 hover:text-brand-600"
+                                      linkActive ? "font-semibold text-brand-600" : "text-ink-800 hover:text-brand-600"
                                     }`}
                                   >
                                     {link.label}

@@ -7,19 +7,16 @@ export type Service = {
   href: string;
 };
 
-/** Submenu "Layanan" website resmi (KB Bagian 6), urutan sesuai menu resmi; tiap layanan punya halaman di /layanan/*. */
+/**
+ * Layanan dari submenu "Layanan" website resmi (KB Bagian 6); halaman tetap di /layanan/* agar link lama tidak rusak.
+ * Di navigasi mockup, layanan dibagi ke menu Tentang Kami (grup "Layanan") dan menu Klaim. Digital Product dihapus.
+ */
 export const services: Service[] = [
   {
     name: "Kantor",
     description: "Kantor Pusat Jakarta dan Kantor Pemasaran Surabaya.",
     icon: "office",
     href: "/layanan/kantor",
-  },
-  {
-    name: "Digital Product",
-    description: "Informasi mengenai produk asuransi digital.",
-    icon: "digital",
-    href: "/layanan/digital-product",
   },
   {
     name: "Bengkel Rekanan",
@@ -49,8 +46,24 @@ export const services: Service[] = [
 
 export const complaintFormLink = { label: "Form Pengaduan", href: "/pengaduan" };
 
-/** Menu Layanan untuk dropdown header dan menu samping; Form Pengaduan menyusul Pengaduan Konsumen. */
-export const serviceMenuLinks = services.flatMap((service) => {
-  const link = { label: service.name, href: service.href };
-  return service.href === "/layanan/pengaduan-konsumen" ? [link, complaintFormLink] : [link];
-});
+const serviceLink = (href: string) => {
+  const service = services.find((s) => s.href === href)!;
+  return { label: service.name, href: service.href };
+};
+
+/** Grup "Layanan" di dalam menu Tentang Kami. */
+export const aboutServiceLinks = [
+  serviceLink("/layanan/kantor"),
+  serviceLink("/layanan/literasi-inklusi"),
+  serviceLink("/layanan/informasi-transaksi"),
+];
+
+/** Halaman Klaim Asuransi: form laporan klaim online (simulasi UI, seperti form pengaduan). */
+export const claimHref = "/klaim";
+
+/** Menu Klaim untuk dropdown header dan menu samping. */
+export const claimMenuLinks = [
+  serviceLink("/layanan/pengaduan-konsumen"),
+  serviceLink("/layanan/bengkel-rekanan"),
+  { label: "Klaim Asuransi", href: claimHref },
+];

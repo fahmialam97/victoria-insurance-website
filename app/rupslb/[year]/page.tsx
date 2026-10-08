@@ -56,13 +56,13 @@ export default async function RupslbPage(props: PageProps<"/rupslb/[year]">) {
               <li aria-hidden="true">/</li>
               <li>Informasi Perusahaan</li>
               <li aria-hidden="true">/</li>
-              <li aria-current="page" className="font-medium text-navy-900">
+              <li aria-current="page" className="font-medium text-ink-900">
                 {event.title}
               </li>
             </ol>
           </nav>
           <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-brand-600">Pengumuman Penting</p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">
             Rapat Umum Pemegang Saham Luar Biasa (RUPSLB) {event.year}
           </h1>
 
@@ -72,7 +72,7 @@ export default async function RupslbPage(props: PageProps<"/rupslb/[year]">) {
                 <Icon aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
                 <div>
                   <dt className="text-xs font-medium uppercase tracking-wider text-muted">{label}</dt>
-                  <dd className="mt-0.5 text-sm font-medium text-navy-900">{value}</dd>
+                  <dd className="mt-0.5 text-sm font-medium text-ink-900">{value}</dd>
                 </div>
               </div>
             ))}
@@ -83,7 +83,7 @@ export default async function RupslbPage(props: PageProps<"/rupslb/[year]">) {
 
       <section aria-labelledby="dokumen-heading" className="py-12 sm:py-16">
         <Container>
-          <h2 id="dokumen-heading" className="text-2xl font-bold tracking-tight text-navy-900">
+          <h2 id="dokumen-heading" className="text-2xl font-bold tracking-tight text-ink-900">
             Dokumen {event.title}
           </h2>
           <ul className="mt-6 grid gap-4 md:grid-cols-2">
@@ -95,7 +95,7 @@ export default async function RupslbPage(props: PageProps<"/rupslb/[year]">) {
                       <FileText aria-hidden="true" className="size-5" />
                     </span>
                     <div>
-                      <h3 className="text-base font-semibold text-navy-900">{doc.title}</h3>
+                      <h3 className="text-base font-semibold text-ink-900">{doc.title}</h3>
                       <p className="mt-0.5 text-xs text-muted">{doc.dateLabel}</p>
                     </div>
                   </div>
@@ -115,7 +115,7 @@ export default async function RupslbPage(props: PageProps<"/rupslb/[year]">) {
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-navy-800 hover:text-brand-600"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-ink-800 hover:text-brand-600"
             >
               <ArrowLeft aria-hidden="true" className="size-4" />
               Kembali ke Beranda

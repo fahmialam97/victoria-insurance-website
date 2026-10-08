@@ -30,11 +30,11 @@ export function ServiceCard({ service }: { service: ServiceCardItem }) {
       href={service.href}
       className="group flex h-full items-start gap-4 rounded-2xl border border-line bg-white p-5 transition-shadow hover:shadow-card-hover sm:p-6"
     >
-      <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-navy-900/5 text-navy-800 transition-colors group-hover:bg-brand-50 group-hover:text-brand-600">
+      <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-ink-900/5 text-ink-800 transition-colors group-hover:bg-brand-50 group-hover:text-brand-600">
         <Icon aria-hidden="true" className="size-6" />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-base font-semibold text-navy-900">{service.name}</span>
+        <span className="block text-base font-semibold text-ink-900">{service.name}</span>
         <span className="mt-1 block text-sm leading-relaxed text-muted">{service.description}</span>
       </span>
       <ChevronRight

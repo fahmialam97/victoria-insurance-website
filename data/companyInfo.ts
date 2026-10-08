@@ -1,3 +1,4 @@
+import { articlesHref, csrHref } from "./hrefs";
 import type { Doc } from "./layanan";
 
 const up = (path: string) => `https://victoriainsurance.co.id/wp-content/uploads/${path}`;
@@ -20,11 +21,13 @@ export const companyInfoLinks = {
   financial: { label: "Laporan Keuangan", href: `${companyInfoHref}/laporan-keuangan` },
   annual: { label: "Laporan Tahunan", href: `${companyInfoHref}/laporan-tahunan` },
   supporting: { label: "Lembaga Penunjang", href: `${companyInfoHref}/lembaga-penunjang` },
+  // Menu Berita digabung ke Informasi Perusahaan (halaman tetap di /berita/*)
+  newsArticles: { label: "Artikel", href: articlesHref, description: "Edukasi asuransi, tips, dan informasi klaim." },
+  csr: { label: "CSR", href: csrHref, description: "Agenda dan kegiatan tanggung jawab sosial perusahaan." },
 };
 
 /** Pengelompokan menu adalah usulan baru dari item KB Bagian 3. Grup tanpa title = menu standalone. */
 export const companyInfoGroups: { title?: string; links: { label: string; href: string; description?: string }[] }[] = [
-  { links: [companyInfoLinks.rupsArchive] },
   {
     title: "Tata Kelola Perusahaan",
     links: [companyInfoLinks.governance, companyInfoLinks.committees, companyInfoLinks.corsec, companyInfoLinks.articles],
@@ -33,6 +36,7 @@ export const companyInfoGroups: { title?: string; links: { label: string; href: 
     title: "Hubungan Investor",
     links: [companyInfoLinks.monthly, companyInfoLinks.financial, companyInfoLinks.annual, companyInfoLinks.supporting],
   },
+  { title: "Publikasi", links: [companyInfoLinks.rupsArchive, companyInfoLinks.newsArticles, companyInfoLinks.csr] },
 ];
 
 /** Halaman /pedoman-tata-kelola/ resmi. */

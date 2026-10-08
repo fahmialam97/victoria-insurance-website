@@ -9,31 +9,33 @@
   --text-sm: 1rem;
   --text-sm--line-height: 1.6;
 
-  /* Navy untuk heading & teks utama */
-  --color-navy-950: #071a33;
-  --color-navy-900: #0c2444;
-  --color-navy-800: #14325b;
-  --color-navy-700: #234573;
-  --color-navy-600: #3b5b87;
+  /*
+   * Color hierarchy Victoria Insurance (netral, tanpa nada biru):
+   * Victoria Red = brand/CTA/active; Charcoal (ink) = heading, teks, navbar, dark section.
+   */
 
-  /* Victoria red: aksen & CTA (kontras teks putih ≥ 4.5:1) */
-  --color-brand-50: #fdf2f3;
-  --color-brand-100: #fbe3e5;
-  --color-brand-200: #f5c2c6;
-  --color-brand-500: #dc2f3c;
-  --color-brand-600: #c8202f;
-  --color-brand-700: #a91a27;
+  /* Charcoal: 900 heading (sedikit lebih gelap agar hierarki tidak datar), 800 = charcoal resmi
+     untuk teks isi, navbar, footer & dark section; 700 label kecil */
+  --color-ink-900: #25272d;
+  --color-ink-800: #3d4049;
+  --color-ink-700: #4a4e58;
 
-  /* Abu-abu arang footer website resmi (rata-rata home-pattern.jpg) */
-  --color-charcoal-800: #3d4049;
+  /* Victoria Red: 600 utama (kontras teks putih ±6:1), 700 hover, 50 = Accent Soft */
+  --color-brand-50: #fce8ec;
+  --color-brand-100: #f9d3da;
+  --color-brand-200: #f2a9b6;
+  --color-brand-500: #d9314a;
+  --color-brand-600: #c8102e;
+  --color-brand-700: #a50d26;
 
-  /* Permukaan netral */
-  --color-surface: #f5f7fb;
-  --color-line: #e3e8ef;
-  --color-muted: #5b6b82;
+  /* Netral: Light Gray (section), Border, Muted Text. Muted digelapkan dari #6b7280 agar tetap
+     ≥ 4.5:1 di atas Light Gray (±5.3:1; di atas putih ±5.8:1) */
+  --color-surface: #f3f4f6;
+  --color-line: #e5e7eb;
+  --color-muted: #5f6672;
 
-  --shadow-card: 0 1px 2px rgb(12 36 68 / 0.04), 0 4px 16px rgb(12 36 68 / 0.05);
-  --shadow-card-hover: 0 2px 4px rgb(12 36 68 / 0.05), 0 10px 28px rgb(12 36 68 / 0.08);
+  --shadow-card: 0 1px 2px rgb(37 39 45 / 0.04), 0 4px 16px rgb(37 39 45 / 0.05);
+  --shadow-card-hover: 0 2px 4px rgb(37 39 45 / 0.05), 0 10px 28px rgb(37 39 45 / 0.08);
 
   /* Motion system: satu kurva ease-out untuk semua navigasi, durasi pendek agar tidak terasa lambat */
   --ease-nav: cubic-bezier(0.22, 1, 0.36, 1);
@@ -71,7 +73,7 @@
   }
 
   body {
-    @apply bg-white font-sans text-navy-900 antialiased;
+    @apply bg-white font-sans text-ink-800 antialiased;
   }
 
   :focus-visible {
@@ -81,16 +83,16 @@
 
 /* Isi artikel (HTML statis dari website resmi) */
 .article-body {
-  @apply text-base leading-relaxed text-navy-800 sm:text-[17px];
+  @apply text-base leading-relaxed text-ink-800 sm:text-[17px];
 
   & > * + * {
     @apply mt-5;
   }
   & h3 {
-    @apply mt-10 text-xl font-bold leading-snug text-navy-900;
+    @apply mt-10 text-xl font-bold leading-snug text-ink-900;
   }
   & strong {
-    @apply font-semibold text-navy-900;
+    @apply font-semibold text-ink-900;
   }
   & ul,
   & ol {

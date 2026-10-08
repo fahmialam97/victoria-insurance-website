@@ -29,7 +29,7 @@ export default function AnnualReportsPage() {
             aria-labelledby={section.id}
             className="rounded-2xl border border-line bg-white p-6 shadow-card"
           >
-            <h2 id={section.id} className="flex items-center justify-between gap-3 text-xl font-bold text-navy-900">
+            <h2 id={section.id} className="flex items-center justify-between gap-3 text-xl font-bold text-ink-900">
               {section.title}
               <span className="rounded-full bg-surface px-2.5 py-0.5 text-xs font-semibold text-muted">
                 {section.documents.length} dokumen

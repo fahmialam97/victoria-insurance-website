@@ -40,8 +40,8 @@ export function validateComplaint(values: ComplaintValues): ComplaintState["erro
   return errors;
 }
 
-/** Nomor referensi format ADU-YYYYMMDD-XXXXXX. */
-export function createReferenceId(date = new Date()) {
+/** Nomor referensi format PREFIX-YYYYMMDD-XXXXXX (ADU = pengaduan, KLM = klaim). */
+export function createReferenceId(prefix = "ADU", date = new Date()) {
   const random = Math.random().toString(36).slice(2, 8).toUpperCase().padEnd(6, "0");
-  return `ADU-${date.toISOString().slice(0, 10).replaceAll("-", "")}-${random}`;
+  return `${prefix}-${date.toISOString().slice(0, 10).replaceAll("-", "")}-${random}`;
 }

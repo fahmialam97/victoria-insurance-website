@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { CompanyInfoPageLayout } from "@/components/CompanyInfoPageLayout";
 import { NewsCard } from "@/components/NewsCard";
-import { NewsPageLayout } from "@/components/NewsPageLayout";
 import { articles, articlesHref } from "@/data/articles";
 import { toNewsItem } from "@/data/news";
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function ArticlesPage() {
   return (
-    <NewsPageLayout
+    <CompanyInfoPageLayout
       title="Artikel"
       description="Edukasi asuransi, tips, dan informasi klaim bersama #VIns."
       activeHref={articlesHref}
@@ -24,6 +24,6 @@ export default function ArticlesPage() {
           </li>
         ))}
       </ul>
-    </NewsPageLayout>
+    </CompanyInfoPageLayout>
   );
 }

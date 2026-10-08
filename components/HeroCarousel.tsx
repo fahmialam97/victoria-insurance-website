@@ -85,7 +85,7 @@ export function HeroCarousel({ images, children }: { images: HeroImage[]; childr
             type="button"
             onClick={() => setUserPaused((p) => !p)}
             aria-label={userPaused ? "Putar banner otomatis" : "Jeda banner otomatis"}
-            className="inline-flex size-7 items-center justify-center rounded-full bg-white/80 text-navy-800 shadow-card hover:text-brand-600"
+            className="inline-flex size-7 items-center justify-center rounded-full bg-white/80 text-ink-800 shadow-card hover:text-brand-600"
           >
             {userPaused ? <Play aria-hidden="true" className="size-3.5" /> : <Pause aria-hidden="true" className="size-3.5" />}
           </button>

@@ -1,5 +1,6 @@
 import { AboutSection } from "@/components/AboutSection";
 import { ContactSection } from "@/components/ContactSection";
+import { GroupSection } from "@/components/GroupSection";
 import { Hero } from "@/components/Hero";
 import { NewsSection } from "@/components/NewsSection";
 import { ProductSection } from "@/components/ProductSection";
@@ -34,11 +35,12 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
       <Hero />
+      <AboutSection />
       <ProductSection />
-      <ServiceSection />
       <NewsSection />
       <RupslbAnnouncement />
-      <AboutSection />
+      <ServiceSection />
+      <GroupSection />
       <ContactSection />
     </>
   );

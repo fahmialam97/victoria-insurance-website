@@ -28,7 +28,7 @@ export function PageHeader({ title, description, trail = [], children }: PageHea
                 <span aria-hidden="true">/</span>
                 <span
                   aria-current={i === all.length - 1 ? "page" : undefined}
-                  className={i === all.length - 1 ? "font-medium text-navy-900" : undefined}
+                  className={i === all.length - 1 ? "font-medium text-ink-900" : undefined}
                 >
                   {item}
                 </span>
@@ -36,7 +36,7 @@ export function PageHeader({ title, description, trail = [], children }: PageHea
             ))}
           </ol>
         </nav>
-        <h1 className="mt-3 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">{title}</h1>
+        <h1 className="mt-3 text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">{title}</h1>
         {description && <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">{description}</p>}
         {children}
       </Container>

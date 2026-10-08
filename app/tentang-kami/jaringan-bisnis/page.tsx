@@ -22,10 +22,10 @@ export default function BusinessNetworkPage() {
     >
       <div className="grid gap-6 md:grid-cols-2">
         <section aria-labelledby="strategi" className="rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8">
-          <h2 id="strategi" className="text-xl font-bold text-navy-900">
+          <h2 id="strategi" className="text-xl font-bold text-ink-900">
             Strategi
           </h2>
-          <ol className="mt-5 space-y-4 text-sm leading-[1.7] text-navy-800">
+          <ol className="mt-5 space-y-4 text-sm leading-[1.7] text-ink-800">
             {strategy.map((item, i) => (
               <li key={item} className="flex gap-3">
                 <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-700">
@@ -38,7 +38,7 @@ export default function BusinessNetworkPage() {
         </section>
         <section
           aria-labelledby="prospek"
-          className="relative isolate overflow-hidden rounded-2xl bg-navy-900 p-6 text-white sm:p-8"
+          className="relative isolate overflow-hidden rounded-2xl bg-ink-800 p-6 text-white sm:p-8"
         >
           <BrandFlower className="-bottom-8 -right-8 -z-10 size-48 text-white opacity-[0.07]" />
           <h2 id="prospek" className="text-xl font-bold">
@@ -56,7 +56,7 @@ export default function BusinessNetworkPage() {
       </div>
 
       <section aria-labelledby="mitra" className="mt-10">
-        <h2 id="mitra" className="text-xl font-bold text-navy-900">
+        <h2 id="mitra" className="text-xl font-bold text-ink-900">
           Mitra Bisnis
         </h2>
         {/* Kolom ala masonry: tinggi kartu mengikuti jumlah mitra, tanpa ruang kosong antar-baris */}
@@ -69,14 +69,14 @@ export default function BusinessNetworkPage() {
             >
               <h3
                 id={slug(group.title)}
-                className="relative pl-3 text-xs font-bold uppercase tracking-wider text-navy-600 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-full before:bg-brand-600"
+                className="relative pl-3 text-xs font-bold uppercase tracking-wider text-muted before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-full before:bg-brand-600"
               >
                 {group.title}
               </h3>
-              <ul className="mt-4 space-y-2.5 text-sm text-navy-800">
+              <ul className="mt-4 space-y-2.5 text-sm text-ink-800">
                 {group.names.map((name) => (
                   <li key={name} className="flex items-start gap-2.5">
-                    <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-navy-600/40" />
+                    <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-ink-800/30" />
                     {name}
                   </li>
                 ))}
@@ -87,7 +87,7 @@ export default function BusinessNetworkPage() {
       </section>
 
       <section aria-labelledby="rekanan-agen" className="mt-10">
-        <h2 id="rekanan-agen" className="text-xl font-bold text-navy-900">
+        <h2 id="rekanan-agen" className="text-xl font-bold text-ink-900">
           Rekanan Agen
         </h2>
         <div className="mt-4 overflow-x-auto rounded-2xl border border-line bg-white shadow-card">
@@ -105,11 +105,11 @@ export default function BusinessNetworkPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line text-navy-800">
+            <tbody className="divide-y divide-line text-ink-800">
               {agents.map((agent) => (
                 <tr key={agent.registration}>
                   <td className="px-5 py-3 font-mono text-xs">{agent.registration}</td>
-                  <td className="px-5 py-3 font-medium text-navy-900">{agent.name}</td>
+                  <td className="px-5 py-3 font-medium text-ink-900">{agent.name}</td>
                   <td className="px-5 py-3">{agent.city}</td>
                 </tr>
               ))}

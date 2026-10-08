@@ -1,7 +1,7 @@
 import { aboutHref, aboutLinks, aboutMenu } from "./company";
 import { companyInfoGroups, companyInfoHref, companyInfoLinks } from "./companyInfo";
-import { articlesHref, csrHref, productsHref } from "./hrefs";
-import { serviceMenuLinks } from "./services";
+import { productsHref } from "./hrefs";
+import { claimHref, claimMenuLinks } from "./services";
 
 export type NavLink = {
   label: string;
@@ -15,12 +15,6 @@ export type NavGroup = {
 };
 
 export const servicesHref = "/layanan";
-
-/** Menu Berita: dropdown header dan menu samping halaman Artikel & CSR. */
-export const newsMenuLinks: NavLink[] = [
-  { label: "Artikel", href: articlesHref },
-  { label: "CSR", href: csrHref },
-];
 
 export { companyInfoGroups, companyInfoHref };
 
@@ -36,33 +30,28 @@ export type NavItem = {
   activePaths?: string[];
 };
 
-/** Produk tanpa dropdown; menu lain memakai dropdown seperti struktur website resmi (KB Bagian 3). */
+/**
+ * Produk tanpa dropdown; menu lain memakai dropdown. Menu "Layanan" resmi dipecah: Kantor, Literasi & Inklusi,
+ * Informasi Transaksi masuk Tentang Kami; Pengaduan Konsumen & Bengkel Rekanan masuk menu Klaim.
+ * Menu "Berita" (Artikel, CSR) masuk Informasi Perusahaan, grup "Publikasi".
+ */
 export const mainNav: NavItem[] = [
   { label: "Beranda", href: "/" },
-  { label: "Produk", href: productsHref },
-  {
-    label: "Layanan",
-    groups: [
-      {
-        links: serviceMenuLinks,
-      },
-    ],
-    activePaths: [servicesHref, "/pengaduan"],
-  },
-  {
-    label: "Berita",
-    groups: [{ links: newsMenuLinks }],
-    activePaths: ["/berita"],
-  },
   {
     label: "Tentang Kami",
     groups: aboutMenu,
     activePaths: [aboutHref],
   },
+  { label: "Produk", href: productsHref },
+  {
+    label: "Klaim",
+    groups: [{ links: claimMenuLinks }],
+    activePaths: [claimHref, "/pengaduan"],
+  },
   {
     label: "Informasi Perusahaan",
     groups: companyInfoGroups,
-    activePaths: [companyInfoHref, "/rupslb"],
+    activePaths: [companyInfoHref, "/rupslb", "/berita"],
   },
 ];
 

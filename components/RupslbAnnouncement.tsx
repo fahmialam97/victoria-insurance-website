@@ -28,7 +28,7 @@ export function RupslbAnnouncement() {
               </span>
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">Pengumuman Penting</p>
-                <h2 id="rupslb-heading" className="mt-1 text-2xl font-bold tracking-tight text-navy-900 sm:text-3xl">
+                <h2 id="rupslb-heading" className="mt-1 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
                   {event.title}
                 </h2>
                 <p className="mt-3 max-w-lg text-base leading-relaxed text-muted">{description}</p>                <Link
@@ -42,13 +42,13 @@ export function RupslbAnnouncement() {
             </div>
 
             <div className="rounded-2xl border border-line bg-white p-5 sm:p-6">
-              <h3 className="text-sm font-semibold text-navy-900">Dokumen Terkait</h3>
+              <h3 className="text-sm font-semibold text-ink-900">Dokumen Terkait</h3>
               <ul className="mt-3 divide-y divide-line">
                 {event.documents.map((doc) => (
                   <li key={doc.url}>
                     <SmartLink
                       href={doc.url}
-                      className="group flex items-center gap-3 py-3 text-sm text-navy-800 hover:text-brand-600"
+                      className="group flex items-center gap-3 py-3 text-sm text-ink-800 hover:text-brand-600"
                     >
                       <FileText aria-hidden="true" className="size-5 shrink-0 text-brand-600" />
                       <span className="flex-1">{doc.title}</span>

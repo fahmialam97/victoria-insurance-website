@@ -15,7 +15,11 @@ export const site = {
   // Meta description website resmi
   description:
     "Victoria Insurance memberikan solusi bagi Anda dan keluarga Anda perlindungan dari produk asuransi kecelakaan diri, uang, rekayasa, dll.",
-  regulatoryNote: "Berizin dan diawasi oleh Otoritas Jasa Keuangan",
+  /** Pernyataan regulasi di bilah bawah footer. Keanggotaan LAPS SJK perlu dikonfirmasi tim legal/kepatuhan. */
+  regulatoryStatements: [
+    "PT Victoria Insurance, Tbk berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK).",
+    "PT Victoria Insurance, Tbk merupakan anggota dari Lembaga Penyelesaian Sengketa Sektor Jasa Keuangan (LAPS SJK).",
+  ],
   /** URL kanonik produksi; dapat di-override lewat NEXT_PUBLIC_SITE_URL. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? OFFICIAL_URL,
 } as const;
@@ -53,10 +57,11 @@ export const socialLinks = [
   { label: "Instagram", handle: "@victoria.insurance", href: "https://www.instagram.com/victoria.insurance/" },
 ] as const;
 
+/** `field` = bidang usaha & `monogram` = inisial, ditampilkan di section Grup Finansial Victoria homepage. */
 export const groupCompanies = [
-  { label: "Victoria Investama, Tbk", href: "http://www.victoriainvestama.co.id/" },
-  { label: "Bank Victoria, Tbk", href: "http://www.victoriabank.co.id/" },
-  { label: "Victoria Manajemen Investasi", href: "http://vmi.co.id/" },
-  { label: "Victoria Sekuritas Indonesia", href: "http://victoria-sekuritas.co.id/" },
-  { label: "Victoria Life", href: "http://victorialife.co.id/" },
+  { label: "Victoria Investama, Tbk", monogram: "VI", field: "Investasi", href: "http://www.victoriainvestama.co.id/" },
+  { label: "Bank Victoria, Tbk", monogram: "BV", field: "Perbankan", href: "http://www.victoriabank.co.id/" },
+  { label: "Victoria Manajemen Investasi", monogram: "VMI", field: "Manajemen Investasi", href: "http://vmi.co.id/" },
+  { label: "Victoria Sekuritas Indonesia", monogram: "VS", field: "Sekuritas", href: "http://victoria-sekuritas.co.id/" },
+  { label: "Victoria Life", monogram: "VL", field: "Asuransi Jiwa", href: "http://victorialife.co.id/" },
 ] as const;

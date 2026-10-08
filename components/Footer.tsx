@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { footerNav } from "@/data/navigation";
-import { contact, groupCompanies, site, socialLinks } from "@/data/site";
+import { contact, groupCompanies, site } from "@/data/site";
 import { Container } from "./ui/Container";
-import { InstagramIcon } from "./ui/InstagramIcon";
 import { SmartLink } from "./ui/SmartLink";
 
 /** Privacy policy, terms, dan sitemap tidak ada di website resmi, jadi tidak ditampilkan. */
@@ -12,7 +11,7 @@ export function Footer() {
 
   // Warna mengikuti footer website resmi: abu-abu arang + bilah bawah hitam
   return (
-    <footer className="bg-charcoal-800 text-white/75">
+    <footer className="bg-ink-800 text-white/75">
       <Container className="py-14">
         <div className="grid gap-10 lg:grid-cols-[1.3fr_2fr]">
           <div>
@@ -26,7 +25,6 @@ export function Footer() {
               />
             </Link>
             <p className="mt-4 text-sm font-semibold text-white">{site.legalName}</p>
-            <p className="text-sm">{site.regulatoryNote}</p>
 
             <div className="mt-6 space-y-1 text-sm">
               <p className="font-semibold text-white">
@@ -107,26 +105,12 @@ export function Footer() {
         </div>
       </Container>
 
+      {/* Bilah bawah: pernyataan regulasi */}
       <div className="bg-black">
-        <Container className="flex flex-col gap-4 py-6 text-xs sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} {site.legalName}
-          </p>
-          <ul className="flex items-center gap-3">
-            {socialLinks.map((social) => (
-              <li key={social.href}>
-                <a
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${social.label} ${social.handle} (terbuka di tab baru)`}
-                  className="inline-flex size-9 items-center justify-center rounded-full border border-white/20 text-white hover:border-white hover:bg-white/10"
-                >
-                  <InstagramIcon aria-hidden="true" className="size-4" />
-                </a>
-              </li>
-            ))}
-          </ul>
+        <Container className="space-y-1.5 py-6 text-xs leading-relaxed sm:text-sm">
+          {site.regulatoryStatements.map((statement) => (
+            <p key={statement}>{statement}</p>
+          ))}
         </Container>
       </div>
     </footer>

@@ -1,9 +1,8 @@
 import { aboutLinks } from "@/data/company";
 import { articleHref, articles } from "@/data/articles";
 import { companyInfoGroups } from "@/data/companyInfo";
-import { newsMenuLinks } from "@/data/navigation";
 import { productHref, products, productsHref } from "@/data/products";
-import { complaintFormLink, services } from "@/data/services";
+import { claimHref, claimMenuLinks, complaintFormLink, services } from "@/data/services";
 import type { SearchEntry } from "./search";
 
 const clip = (text: string, max = 140) => (text.length > max ? `${text.slice(0, max).trimEnd()}…` : text);
@@ -18,14 +17,15 @@ export function buildSearchIndex(): SearchEntry[] {
       category: "Produk",
       description: clip(product.summary ?? product.description[0]),
     })),
+    // Kategori mengikuti menu tempat layanan berada sekarang (Klaim atau Tentang Kami)
     ...services.map((service) => ({
       title: service.name,
       href: service.href,
-      category: "Layanan",
+      category: claimMenuLinks.some((link) => link.href === service.href) ? "Klaim" : "Tentang Kami",
       description: service.description,
     })),
-    { title: complaintFormLink.label, href: complaintFormLink.href, category: "Layanan", description: "Kirim pengaduan secara online." },
-    ...newsMenuLinks.map((link) => ({ title: link.label, href: link.href, category: "Berita" })),
+    { title: "Klaim Asuransi", href: claimHref, category: "Klaim", description: "Pengajuan klaim asuransi secara online." },
+    { title: complaintFormLink.label, href: complaintFormLink.href, category: "Klaim", description: "Kirim pengaduan secara online." },
     ...articles.map((article) => ({
       title: article.title,
       href: articleHref(article),
@@ -37,7 +37,7 @@ export function buildSearchIndex(): SearchEntry[] {
       group.links.map((link) => ({
         title: link.label,
         href: link.href,
-        category: "Informasi Perusahaan",
+        category: link.href.startsWith("/berita") ? "Berita" : "Informasi Perusahaan",
         description: link.description,
       })),
     ),

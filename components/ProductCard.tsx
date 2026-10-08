@@ -28,7 +28,7 @@ export function ProductCard({ product }: { product: Product & { summary: string 
       <span className="inline-flex size-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
         <Icon aria-hidden="true" className="size-6" />
       </span>
-      <h3 className="mt-5 text-lg font-semibold text-navy-900">
+      <h3 className="mt-5 text-lg font-semibold text-ink-900">
         {clickable ? (
           // Stretched link: seluruh kartu bisa diklik, link RIPLAY tetap di atasnya
           <Link href={productHref(product)} className="after:absolute after:top-0 after:left-0 after:size-full group-hover:text-brand-600">
@@ -44,7 +44,7 @@ export function ProductCard({ product }: { product: Product & { summary: string 
         <div className="mt-auto pt-6">
           <SmartLink
             href={riplay.url}
-            className="relative z-10 inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-xs font-semibold text-navy-800 transition-colors hover:border-brand-600 hover:bg-brand-600 hover:text-white"
+            className="relative z-10 inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-xs font-semibold text-ink-800 transition-colors hover:border-brand-600 hover:bg-brand-600 hover:text-white"
           >
             <FileText aria-hidden="true" className="size-4" />
             RIPLAY<span className="sr-only"> {product.name}</span>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { CalendarDays, HardHat, Leaf, Users, UserRoundCheck, type LucideIcon } from "lucide-react";
-import { NewsPageLayout } from "@/components/NewsPageLayout";
+import { CompanyInfoPageLayout } from "@/components/CompanyInfoPageLayout";
 import { csr, csrHref } from "@/data/csr";
 import { formatDate } from "@/lib/format";
 
@@ -22,15 +22,15 @@ export default function CsrPage() {
   const { agendas, peduli, pillars } = csr;
 
   return (
-    <NewsPageLayout title="CSR" description="Corporate Social Responsibility Victoria Insurance." activeHref={csrHref}>
+    <CompanyInfoPageLayout title="CSR" description="Corporate Social Responsibility Victoria Insurance." activeHref={csrHref}>
       <div className="space-y-14">
         {/* Tentang CSR */}
         <section aria-labelledby="tentang-csr">
           <span aria-hidden="true" className="mb-3 block h-1 w-10 rounded-full bg-brand-600" />
-          <h2 id="tentang-csr" className="text-2xl font-bold tracking-tight text-navy-900 sm:text-3xl">
+          <h2 id="tentang-csr" className="text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
             Tentang CSR
           </h2>
-          <p className="mt-4 max-w-4xl leading-relaxed text-navy-800">{csr.about}</p>
+          <p className="mt-4 max-w-4xl leading-relaxed text-ink-800">{csr.about}</p>
           <ul className="mt-8 grid gap-5 md:grid-cols-2">
             {pillars.map((pillar) => {
               const Icon = pillarIcons[pillar.icon];
@@ -39,7 +39,7 @@ export default function CsrPage() {
                   <span className="inline-flex size-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                     <Icon aria-hidden="true" className="size-6" />
                   </span>
-                  <h3 className="mt-4 text-lg font-semibold text-navy-900">{pillar.title}</h3>
+                  <h3 className="mt-4 text-lg font-semibold text-ink-900">{pillar.title}</h3>
                   {pillar.paragraphs.map((text) => (
                     <p key={text} className="mt-2 text-sm leading-relaxed text-muted">
                       {text}
@@ -61,7 +61,7 @@ export default function CsrPage() {
         {/* Agenda CSR per tahun */}
         <section aria-labelledby="agenda-csr">
           <span aria-hidden="true" className="mb-3 block h-1 w-10 rounded-full bg-brand-600" />
-          <h2 id="agenda-csr" className="text-2xl font-bold tracking-tight text-navy-900 sm:text-3xl">
+          <h2 id="agenda-csr" className="text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
             Agenda CSR
           </h2>
           <nav aria-label="Pilih tahun agenda" className="mt-5">
@@ -70,7 +70,7 @@ export default function CsrPage() {
                 <li key={year}>
                   <a
                     href={`#agenda-${year}`}
-                    className="inline-flex rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-navy-800 hover:border-brand-600 hover:text-brand-600"
+                    className="inline-flex rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-ink-800 hover:border-brand-600 hover:text-brand-600"
                   >
                     {year}
                   </a>
@@ -89,7 +89,7 @@ export default function CsrPage() {
                 <p className="text-sm font-semibold uppercase tracking-wider text-brand-600">
                   Agenda CSR – {agenda.year}
                 </p>
-                <h3 id={`agenda-${agenda.year}-title`} className="mt-2 text-xl font-bold text-navy-900">
+                <h3 id={`agenda-${agenda.year}-title`} className="mt-2 text-xl font-bold text-ink-900">
                   {agenda.title}
                 </h3>
                 <p className="mt-2 flex items-center gap-1.5 text-sm text-muted">
@@ -119,11 +119,11 @@ export default function CsrPage() {
         {/* Kegiatan CSR Victoria Peduli */}
         <section aria-labelledby="victoria-peduli">
           <span aria-hidden="true" className="mb-3 block h-1 w-10 rounded-full bg-brand-600" />
-          <h2 id="victoria-peduli" className="text-2xl font-bold tracking-tight text-navy-900 sm:text-3xl">
+          <h2 id="victoria-peduli" className="text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
             {peduli.title}
           </h2>
           <div className="mt-6 grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
-            <div className="space-y-4 leading-relaxed text-navy-800">
+            <div className="space-y-4 leading-relaxed text-ink-800">
               {peduli.paragraphs.map((text) => (
                 <p key={text}>{text}</p>
               ))}
@@ -139,7 +139,7 @@ export default function CsrPage() {
             />
           </div>
 
-          <h3 className="mt-10 text-lg font-semibold text-navy-900">
+          <h3 className="mt-10 text-lg font-semibold text-ink-900">
             Galeri Foto Kegiatan <span className="text-brand-600">#VictoriaPeduli</span>
           </h3>
           <ul className="mt-4 grid gap-6">
@@ -158,6 +158,6 @@ export default function CsrPage() {
           </ul>
         </section>
       </div>
-    </NewsPageLayout>
+    </CompanyInfoPageLayout>
   );
 }

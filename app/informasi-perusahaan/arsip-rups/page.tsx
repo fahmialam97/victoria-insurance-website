@@ -23,7 +23,7 @@ export default function RupsArchivePage() {
     >
       <Link
         href={companyInfoLinks.rupslb2026.href}
-        className="group flex items-center gap-4 rounded-2xl bg-navy-900 p-5 text-white transition-colors hover:bg-navy-800 sm:p-6"
+        className="group flex items-center gap-4 rounded-2xl bg-ink-800 p-5 text-white transition-colors hover:bg-ink-900 sm:p-6"
       >
         <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/10">
           <Megaphone aria-hidden="true" className="size-5" />
@@ -41,7 +41,7 @@ export default function RupsArchivePage() {
             <li key={group.title}>
               <a
                 href={`#${slug(group.title)}`}
-                className="inline-flex rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-navy-800 hover:border-brand-600 hover:text-brand-600"
+                className="inline-flex rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-ink-800 hover:border-brand-600 hover:text-brand-600"
               >
                 {group.title}
               </a>
@@ -58,13 +58,13 @@ export default function RupsArchivePage() {
             aria-labelledby={`${slug(group.title)}-heading`}
             className="scroll-mt-24 rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8"
           >
-            <h2 id={`${slug(group.title)}-heading`} className="text-xl font-bold text-navy-900">
+            <h2 id={`${slug(group.title)}-heading`} className="text-xl font-bold text-ink-900">
               {group.title}
             </h2>
             <div className="mt-5 space-y-5">
               {group.sections.map((section) => (
                 <div key={section.title}>
-                  <h3 className="mb-2 text-xs font-semibold uppercase leading-relaxed tracking-wider text-navy-700">
+                  <h3 className="mb-2 text-xs font-semibold uppercase leading-relaxed tracking-wider text-ink-700">
                     {section.title}
                   </h3>
                   <DocumentList documents={section.documents} />
