@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { newsMenuLinks } from "@/data/news";
+import { newsMenuLinks } from "@/data/navigation";
 import { SidebarPageLayout } from "./SidebarPageLayout";
 
 type NewsPageLayoutProps = {

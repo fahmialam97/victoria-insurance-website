@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ArrowRight, ChevronDown, Menu, Search, X } from "lucide-react";
-import { useEffect, useId, useRef, useState } from "react";
-import { contactAnchor, mainNav, searchAction, type NavItem } from "@/data/navigation";
+import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { contactAnchor, mainNav, type NavItem } from "@/data/navigation";
 import { isExternal } from "@/lib/format";
+import { searchEntries, type SearchEntry } from "@/lib/search";
 import { SmartLink } from "./ui/SmartLink";
 
 /** Item aktif bila salah satu link internal atau activePaths-nya cocok dengan path saat ini. */
@@ -36,11 +37,22 @@ function activeLinkHref(item: NavItem, pathname: string): string | undefined {
     .sort((a, b) => b.length - a.length)[0];
 }
 
-export function Navbar() {
+/** Saran pencarian saat kueri masih kosong (dicocokkan dengan judul entri indeks). */
+const popularSearches = ["Asuransi Kendaraan Bermotor", "Form Pengaduan", "Informasi Transaksi", "Bengkel Rekanan"];
+
+export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [activeResult, setActiveResult] = useState(0);
+  const results = useMemo(() => searchEntries(searchIndex, query), [searchIndex, query]);
+  const suggestions = useMemo(
+    () => popularSearches.map((title) => searchIndex.find((e) => e.title === title)).filter((e) => e !== undefined),
+    [searchIndex],
+  );
   const navRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const baseId = useId();
@@ -80,6 +92,30 @@ export function Navbar() {
     setOpenMenu(null);
     setMobileOpen(false);
   };
+
+  const closeSearch = () => {
+    setSearchOpen(false);
+    setQuery("");
+    setActiveResult(0);
+  };
+
+  const openResult = (entry: SearchEntry) => {
+    closeSearch();
+    router.push(entry.href);
+  };
+
+  const onSearchKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (!results.length) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveResult((i) => (i + 1) % results.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveResult((i) => (i - 1 + results.length) % results.length);
+    }
+  };
+
+  const resultListId = `${baseId}-results`;
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
@@ -241,28 +277,103 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Pencarian: diteruskan ke fitur search website resmi */}
+      {/* Pencarian lokal (mockup statis): hasil langsung dari indeks halaman yang disusun saat build */}
       <div id={`${baseId}-search`} hidden={!searchOpen} className="border-t border-line bg-white">
-        <form action={searchAction} method="get" role="search" className="mx-auto flex max-w-3xl gap-2 px-4 py-4 sm:px-6">
-          <label htmlFor={`${baseId}-q`} className="sr-only">
-            Cari di website Victoria Insurance
-          </label>
-          <input
-            ref={searchInputRef}
-            id={`${baseId}-q`}
-            name="s"
-            type="search"
-            required
-            placeholder="Cari produk, layanan, atau informasi…"
-            className="min-w-0 flex-1 rounded-full border border-line bg-surface px-5 py-2.5 text-sm text-navy-900 placeholder:text-muted focus:border-brand-600 focus:bg-white focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="rounded-full bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-800"
+        <div className="mx-auto max-w-3xl px-4 py-4 sm:px-6">
+          <form
+            role="search"
+            className="flex gap-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const target = results[activeResult] ?? results[0];
+              if (target) openResult(target);
+            }}
           >
-            Cari
-          </button>
-        </form>
+            <label htmlFor={`${baseId}-q`} className="sr-only">
+              Cari di website Victoria Insurance
+            </label>
+            <input
+              ref={searchInputRef}
+              id={`${baseId}-q`}
+              type="search"
+              role="combobox"
+              autoComplete="off"
+              aria-autocomplete="list"
+              aria-expanded={results.length > 0}
+              aria-controls={resultListId}
+              aria-activedescendant={results.length ? `${resultListId}-${activeResult}` : undefined}
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setActiveResult(0);
+              }}
+              onKeyDown={onSearchKeyDown}
+              placeholder="Cari produk, layanan, atau informasi…"
+              className="min-w-0 flex-1 rounded-full border border-line bg-surface px-5 py-2.5 text-sm text-navy-900 placeholder:text-muted focus:border-brand-600 focus:bg-white focus:outline-none"
+            />
+            <button
+              type="submit"
+              className="rounded-full bg-navy-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-800"
+            >
+              Cari
+            </button>
+          </form>
+
+          {query.trim() ? (
+            results.length ? (
+              <ul
+                id={resultListId}
+                role="listbox"
+                aria-label="Hasil pencarian"
+                className="mt-3 max-h-[60vh] divide-y divide-line overflow-y-auto rounded-xl border border-line"
+              >
+                {results.map((entry, i) => (
+                  <li key={entry.href} id={`${resultListId}-${i}`} role="option" aria-selected={i === activeResult}>
+                    <Link
+                      href={entry.href}
+                      onClick={closeSearch}
+                      onMouseEnter={() => setActiveResult(i)}
+                      className={`flex items-start gap-3 px-4 py-3 ${i === activeResult ? "bg-surface" : ""}`}
+                    >
+                      <span className="min-w-0 flex-1">
+                        <span
+                          className={`block text-sm font-semibold ${i === activeResult ? "text-brand-600" : "text-navy-900"}`}
+                        >
+                          {entry.title}
+                        </span>
+                        {entry.description && (
+                          <span className="mt-0.5 block truncate text-xs text-muted">{entry.description}</span>
+                        )}
+                      </span>
+                      <span className="shrink-0 rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-semibold text-brand-700">
+                        {entry.category}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-3 px-1 text-sm text-muted">
+                Tidak ada hasil untuk &ldquo;{query.trim()}&rdquo;. Coba kata kunci lain, misalnya &ldquo;kendaraan&rdquo;
+                atau &ldquo;klaim&rdquo;.
+              </p>
+            )
+          ) : (
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted">Populer</span>
+              {suggestions.map((entry) => (
+                <Link
+                  key={entry.href}
+                  href={entry.href}
+                  onClick={closeSearch}
+                  className="rounded-full border border-line px-3 py-1 text-xs font-medium text-navy-800 transition-colors hover:border-brand-600 hover:text-brand-600"
+                >
+                  {entry.title}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Menu mobile */}

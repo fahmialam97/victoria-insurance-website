@@ -1,5 +1,4 @@
 import { articleHref, articles, articlesHref } from "./articles";
-import { csrHref } from "./csr";
 
 export type NewsItem = {
   title: string;
@@ -14,13 +13,6 @@ export type NewsItem = {
 export const newsHref = "/berita";
 
 export const newsIndexHref = articlesHref;
-
-/** Menu Berita: dropdown header dan menu samping halaman Artikel & CSR. */
-export const newsMenuLinks = [
-  { label: "Artikel", href: articlesHref },
-  { label: "CSR", href: csrHref },
-];
-
 export const toNewsItem = (article: (typeof articles)[number]): NewsItem => ({
   title: article.title,
   date: article.date,

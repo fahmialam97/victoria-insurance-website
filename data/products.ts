@@ -1,3 +1,5 @@
+import { productsHref } from "./hrefs";
+
 export type ProductIcon =
   | "property"
   | "vehicle"
@@ -36,7 +38,7 @@ export type Product = {
   detail?: ProductDetail;
 };
 
-export const productsHref = "/produk";
+export { productsHref };
 
 /** Halaman detail jika tersedia, selain itu anchor kartu di /produk. */
 export const productHref = (product: Product) =>

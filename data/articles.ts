@@ -1,3 +1,5 @@
+import { articlesHref } from "./hrefs";
+
 export type Article = {
   slug: string;
   title: string;
@@ -11,7 +13,7 @@ export type Article = {
   content: string;
 };
 
-export const articlesHref = "/berita/artikel";
+export { articlesHref };
 
 export const articleHref = (article: Article) => `${articlesHref}/${article.slug}`;
 

@@ -1,8 +1,10 @@
+import { csrHref } from "./hrefs";
+
 export type CsrImage = { src: string; width: number; height: number; alt: string };
 
 export type CsrAgenda = { year: number; title: string; date: string; images: CsrImage[] };
 
-export const csrHref = "/berita/csr";
+export { csrHref };
 
 const img = (file: string, width: number, height: number, alt: string): CsrImage => ({
   src: `/images/official/csr/${file}`,

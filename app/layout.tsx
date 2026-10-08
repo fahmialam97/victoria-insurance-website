@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { site } from "@/data/site";
+import { buildSearchIndex } from "@/lib/searchIndex";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -59,7 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Lewati ke konten utama
         </a>
-        <Navbar />
+        <Navbar searchIndex={buildSearchIndex()} />
         <main id="konten-utama" className="flex-1">
           {children}
         </main>

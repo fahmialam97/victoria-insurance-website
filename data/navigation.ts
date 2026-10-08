@@ -1,9 +1,7 @@
 import { aboutHref, aboutLinks, aboutMenu } from "./company";
 import { companyInfoGroups, companyInfoHref, companyInfoLinks } from "./companyInfo";
-import { newsMenuLinks } from "./news";
-import { productsHref } from "./products";
+import { articlesHref, csrHref, productsHref } from "./hrefs";
 import { serviceMenuLinks } from "./services";
-import { official } from "./site";
 
 export type NavLink = {
   label: string;
@@ -17,6 +15,12 @@ export type NavGroup = {
 };
 
 export const servicesHref = "/layanan";
+
+/** Menu Berita: dropdown header dan menu samping halaman Artikel & CSR. */
+export const newsMenuLinks: NavLink[] = [
+  { label: "Artikel", href: articlesHref },
+  { label: "CSR", href: csrHref },
+];
 
 export { companyInfoGroups, companyInfoHref };
 
@@ -63,9 +67,6 @@ export const mainNav: NavItem[] = [
 ];
 
 export const contactAnchor = "/#hubungi-kami";
-
-/** Pencarian diteruskan ke fitur search website resmi (GET ?s=). */
-export const searchAction = official("/");
 
 export const footerNav: { title: string; links: NavLink[] }[] = [
   {
