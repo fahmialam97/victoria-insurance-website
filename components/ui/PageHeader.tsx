@@ -13,7 +13,7 @@ type PageHeaderProps = {
 export function PageHeader({ title, description, trail = [], children }: PageHeaderProps) {
   return (
     <section className="border-b border-line bg-surface">
-      <Container className="py-12 sm:py-14">
+      <Container className="py-10">
         <nav aria-label="Breadcrumb" className="text-[14px] text-muted">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
@@ -34,7 +34,7 @@ export function PageHeader({ title, description, trail = [], children }: PageHea
             ))}
           </ol>
         </nav>
-        <h1 className="mt-5 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">{title}</h1>
+        <h1 className="mt-3 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">{title}</h1>
         {description && <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">{description}</p>}
         {children}
       </Container>

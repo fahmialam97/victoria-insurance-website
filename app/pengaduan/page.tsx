@@ -17,7 +17,7 @@ export default function ComplaintPage() {
   return (
     <>
       <section className="border-b border-line bg-surface">
-        <Container className="py-12 sm:py-14">
+        <Container className="py-10">
           <nav aria-label="Breadcrumb" className="text-sm text-muted">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
@@ -33,7 +33,7 @@ export default function ComplaintPage() {
               </li>
             </ol>
           </nav>
-          <h1 className="mt-5 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">Form Pengaduan Konsumen</h1>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">Form Pengaduan Konsumen</h1>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">
             Sampaikan pengaduan Anda melalui formulir di bawah ini. Pastikan email yang Anda isi aktif agar kami dapat
             menindaklanjuti pengaduan Anda.

@@ -47,7 +47,7 @@ export default async function ArticlePage(props: PageProps<"/berita/artikel/[slu
     <>
       <article>
         <header className="border-b border-line bg-surface">
-          <div className="mx-auto w-full max-w-4xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
+          <div className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
             <nav aria-label="Breadcrumb" className="text-sm text-muted">
               <ol className="flex flex-wrap items-center gap-2">
                 <li>
@@ -69,7 +69,7 @@ export default async function ArticlePage(props: PageProps<"/berita/artikel/[slu
                 </li>
               </ol>
             </nav>
-            <h1 className="mt-5 text-3xl font-bold leading-tight tracking-tight text-navy-900 sm:text-4xl">
+            <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-navy-900 sm:text-4xl">
               {article.title}
             </h1>
             <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted">

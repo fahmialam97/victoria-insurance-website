@@ -42,7 +42,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
   return (
     <>
       <section className="border-b border-line bg-surface">
-        <Container className="py-12 sm:py-14">
+        <Container className="py-10">
           <nav aria-label="Breadcrumb" className="text-sm text-muted">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
@@ -63,7 +63,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
             </ol>
           </nav>
 
-          <div className="mt-6 flex items-start gap-4">
+          <div className="mt-4 flex items-start gap-4">
             <span className="inline-flex size-14 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
               <Icon aria-hidden="true" className="size-7" />
             </span>
