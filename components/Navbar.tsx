@@ -20,6 +20,22 @@ function isItemActive(item: NavItem, pathname: string): boolean {
   return paths.some((h) => (h === "/" ? pathname === "/" : pathname.startsWith(h)));
 }
 
+/** Cocok bila path sama atau halaman turunannya (mis. /berita/artikel/[slug]). */
+function matchesPath(href: string, pathname: string): boolean {
+  if (isExternal(href)) return false;
+  const path = pathname.replace(/\/$/, "") || "/";
+  const target = href.replace(/\/$/, "") || "/";
+  return target === "/" ? path === "/" : path === target || path.startsWith(`${target}/`);
+}
+
+/** Href link dropdown yang aktif: yang paling spesifik, agar /tentang-kami tidak ikut aktif di /tentang-kami/direksi. */
+function activeLinkHref(item: NavItem, pathname: string): string | undefined {
+  return item.groups
+    ?.flatMap((g) => g.links.map((l) => l.href))
+    .filter((href) => matchesPath(href, pathname))
+    .sort((a, b) => b.length - a.length)[0];
+}
+
 export function Navbar() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -106,6 +122,8 @@ export function Navbar() {
               }
 
               const isOpen = openMenu === item.label;
+              const currentHref = activeLinkHref(item, pathname);
+              const multiColumn = item.groups.length > 1;
               return (
                 <li
                   key={item.label}
@@ -137,14 +155,14 @@ export function Navbar() {
                   >
                     <div
                       className={`rounded-xl border border-line bg-white shadow-card-hover ${
-                        item.groups.length > 1 ? "w-max p-6" : "w-64 p-4"
+                        multiColumn ? "w-max p-6" : "w-64 p-4"
                       }`}
                     >
                       <div className="flex divide-x divide-line">
                         {item.groups.map((group, gi) => (
                           <div
                             key={group.title ?? gi}
-                            className={`min-w-48 px-6 py-1 first:pl-0 last:pr-0 ${!group.title && item.groups.length > 1 ? "max-w-60" : ""}`}
+                            className={`min-w-48 px-6 py-1 first:pl-0 last:pr-0 ${!group.title && multiColumn ? "max-w-60" : ""}`}
                           >
                             {group.title && (
                               <p className="relative mb-1 px-3 py-1 text-xs font-bold uppercase tracking-wider text-muted before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-full before:bg-brand-600">
@@ -152,17 +170,25 @@ export function Navbar() {
                               </p>
                             )}
                             <ul>
-                              {group.links.map((link) => (
-                                <li key={link.href}>
-                                  <SmartLink
-                                    href={link.href}
-                                    onClick={closeAll}
-                                    className="block rounded-md px-3 py-2 text-sm text-navy-800 hover:bg-surface hover:text-brand-600"
-                                  >
-                                    {link.label}
-                                  </SmartLink>
-                                </li>
-                              ))}
+                              {group.links.map((link) => {
+                                const linkActive = link.href === currentHref;
+                                return (
+                                  <li key={link.href}>
+                                    <SmartLink
+                                      href={link.href}
+                                      onClick={closeAll}
+                                      aria-current={linkActive ? "page" : undefined}
+                                      className={`block rounded-md px-3 py-2 text-sm ${
+                                        linkActive
+                                          ? "bg-brand-50 font-semibold text-brand-600"
+                                          : "text-navy-800 hover:bg-surface hover:text-brand-600"
+                                      }`}
+                                    >
+                                      {link.label}
+                                    </SmartLink>
+                                  </li>
+                                );
+                              })}
                             </ul>
                           </div>
                         ))}
@@ -263,6 +289,7 @@ export function Navbar() {
                   </li>
                 );
               }
+              const currentHref = activeLinkHref(item, pathname);
               return (
                 <li key={item.label}>
                   <details className="group">
@@ -283,17 +310,23 @@ export function Navbar() {
                             </p>
                           )}
                           <ul>
-                            {group.links.map((link) => (
-                              <li key={link.href}>
-                                <SmartLink
-                                  href={link.href}
-                                  onClick={closeAll}
-                                  className="block py-2 text-sm text-navy-800 hover:text-brand-600"
-                                >
-                                  {link.label}
-                                </SmartLink>
-                              </li>
-                            ))}
+                            {group.links.map((link) => {
+                              const linkActive = link.href === currentHref;
+                              return (
+                                <li key={link.href}>
+                                  <SmartLink
+                                    href={link.href}
+                                    onClick={closeAll}
+                                    aria-current={linkActive ? "page" : undefined}
+                                    className={`block py-2 text-sm ${
+                                      linkActive ? "font-semibold text-brand-600" : "text-navy-800 hover:text-brand-600"
+                                    }`}
+                                  >
+                                    {link.label}
+                                  </SmartLink>
+                                </li>
+                              );
+                            })}
                           </ul>
                         </div>
                       ))}
