@@ -136,15 +136,18 @@ export function Navbar() {
                     }}
                   >
                     <div
-                      className={`rounded-xl border border-line bg-white p-4 shadow-card-hover ${
-                        item.groups.length > 1 ? "w-max" : "w-64"
+                      className={`rounded-xl border border-line bg-white shadow-card-hover ${
+                        item.groups.length > 1 ? "w-max p-6" : "w-64 p-4"
                       }`}
                     >
-                      <div className="flex gap-6">
+                      <div className="flex divide-x divide-line">
                         {item.groups.map((group, gi) => (
-                          <div key={group.title ?? gi} className="min-w-48">
+                          <div
+                            key={group.title ?? gi}
+                            className={`min-w-48 px-6 py-1 first:pl-0 last:pr-0 ${!group.title && item.groups.length > 1 ? "max-w-60" : ""}`}
+                          >
                             {group.title && (
-                              <p className="px-3 pb-1 text-xs font-semibold uppercase tracking-wider text-muted">
+                              <p className="relative mb-1 px-3 py-1 text-xs font-bold uppercase tracking-wider text-muted before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-full before:bg-brand-600">
                                 {group.title}
                               </p>
                             )}

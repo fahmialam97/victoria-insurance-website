@@ -9,7 +9,7 @@ type CompanyInfoPageLayoutProps = {
   children: ReactNode;
 };
 
-/** Kerangka halaman Informasi Perusahaan dengan menu pengumuman, tata kelola, dan investor. */
+/** Kerangka halaman Informasi Perusahaan dengan menu arsip RUPS, tata kelola, dan investor. */
 export function CompanyInfoPageLayout({ title, description, activeHref, children }: CompanyInfoPageLayoutProps) {
   return (
     <SidebarPageLayout
@@ -18,6 +18,7 @@ export function CompanyInfoPageLayout({ title, description, activeHref, children
       trail={["Informasi Perusahaan"]}
       menuLabel="Informasi Perusahaan"
       menu={companyInfoGroups}
+      untitledAsStandalone
       activeHref={activeHref}
     >
       {children}

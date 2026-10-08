@@ -22,9 +22,9 @@ export const companyInfoLinks = {
   supporting: { label: "Lembaga Penunjang", href: `${companyInfoHref}/lembaga-penunjang` },
 };
 
-/** Pengelompokan menu adalah usulan baru dari item KB Bagian 3. */
-export const companyInfoGroups: { title: string; links: { label: string; href: string; description?: string }[] }[] = [
-  { title: "Pengumuman", links: [companyInfoLinks.rupslb2026, companyInfoLinks.rupsArchive] },
+/** Pengelompokan menu adalah usulan baru dari item KB Bagian 3. Grup tanpa title = menu standalone. */
+export const companyInfoGroups: { title?: string; links: { label: string; href: string; description?: string }[] }[] = [
+  { links: [companyInfoLinks.rupsArchive] },
   {
     title: "Tata Kelola Perusahaan",
     links: [companyInfoLinks.governance, companyInfoLinks.committees, companyInfoLinks.corsec, companyInfoLinks.articles],
