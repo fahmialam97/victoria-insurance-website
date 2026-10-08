@@ -24,7 +24,7 @@ export default function BusinessNetworkPage() {
           <h2 id="strategi" className="text-xl font-bold text-navy-900">
             Strategi
           </h2>
-          <ol className="mt-4 space-y-3 text-sm leading-relaxed text-navy-800">
+          <ol className="mt-5 space-y-4 text-sm leading-[1.7] text-navy-800">
             {strategy.map((item, i) => (
               <li key={item} className="flex gap-3">
                 <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-700">
@@ -39,7 +39,14 @@ export default function BusinessNetworkPage() {
           <h2 id="prospek" className="text-xl font-bold">
             Prospek Usaha
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-white/80">{prospects}</p>
+          <div className="mt-5 space-y-5">
+            {prospects.map((item) => (
+              <div key={item.title}>
+                <h3 className="text-sm font-semibold text-white">{item.title}</h3>
+                <p className="mt-1.5 text-sm leading-[1.7] text-white/75">{item.text}</p>
+              </div>
+            ))}
+          </div>
         </section>
       </div>
 
@@ -47,20 +54,24 @@ export default function BusinessNetworkPage() {
         <h2 id="mitra" className="text-xl font-bold text-navy-900">
           Mitra Bisnis
         </h2>
-        <div className="mt-4 grid gap-5 md:grid-cols-2">
+        {/* Kolom ala masonry: tinggi kartu mengikuti jumlah mitra, tanpa ruang kosong antar-baris */}
+        <div className="mt-4 gap-5 md:columns-2">
           {partners.map((group) => (
             <section
               key={group.title}
               aria-labelledby={slug(group.title)}
-              className="rounded-2xl border border-line bg-white p-6 shadow-card"
+              className="mb-5 break-inside-avoid rounded-2xl border border-line bg-white p-6 shadow-card"
             >
-              <h3 id={slug(group.title)} className="flex items-center justify-between gap-3 font-semibold text-navy-900">
+              <h3
+                id={slug(group.title)}
+                className="relative pl-3 text-xs font-bold uppercase tracking-wider text-navy-600 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-full before:bg-brand-600"
+              >
                 {group.title}
-                <span className="rounded-full bg-surface px-2.5 py-0.5 text-xs font-semibold text-muted">{group.names.length}</span>
               </h3>
-              <ul className="mt-3 divide-y divide-line text-sm text-navy-800">
+              <ul className="mt-4 space-y-2.5 text-sm text-navy-800">
                 {group.names.map((name) => (
-                  <li key={name} className="py-2">
+                  <li key={name} className="flex items-start gap-2.5">
+                    <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-navy-600/40" />
                     {name}
                   </li>
                 ))}

@@ -93,15 +93,29 @@ export const visionMission = {
 
 /** Halaman /jaringan-bisnis/ website resmi (KB 8.6). */
 export const businessNetwork = {
+  // Diringkas dari teks resmi agar mudah dipindai; isi tetap sama
   strategy: [
-    "Perseroan secara konsisten terus menyempurnakan business Process.",
-    "Perseroan terus memperkuat sinergi dan kerjasama baik di dalam maupun luar Group Victoria. Tak hanya itu, Perseroan terus memperluas jaringan distribusi pemasaran dengan menambah rekanan baru baik bank, multifinance dan broker untuk terus mengembangkan usaha perseroan.",
-    "Pendekatan teknologi dalam sistem pemasaran termasuk ikut serta dalam Program Pemerintah terkait industri 4.0 (Transformasi Digital).",
-    "Mengoptimalkan struktur dan fungsi-fungsi organisasi yang ada.",
-    "Meningkatan pendidikan dan pelatihan SDM.",
+    "Menyempurnakan business process secara konsisten.",
+    "Memperkuat sinergi dan kerja sama di dalam maupun luar Grup Victoria, serta menambah rekanan bank, multifinance, dan broker.",
+    "Mengembangkan pemasaran berbasis teknologi dan transformasi digital (industri 4.0).",
+    "Mengoptimalkan struktur dan fungsi organisasi.",
+    "Meningkatkan pendidikan dan pelatihan SDM.",
   ],
-  prospects:
-    "Kondisi perekonomian nasional diharapkan akan terus bertumbuh. Oleh karena itulah, Perseroan menetapkan target pertumbuhan yang cukup tinggi yang akan masih di dominasi oleh lini usaha harta benda, kendaraan bermotor, cargo dan kecelakaan diri. Untuk mendukung pencapaian target tersebut, Perseroan akan berinovasi dengan mengembangkan sistem pemasaran digital sesuai perkembangan teknologi saat ini. Perseroan juga akan melakukan restrukturisasi portofolio usaha serta lebih selektif dalam pemilihan risiko dan sumber bisnis yang baik. Terkait kegiatan operasionalnya, Perseroan secara berkala melakukan evaluasi serta terus memperbaiki Standard kerja disetiap divisi.",
+  // Teks resmi dipecah per topik
+  prospects: [
+    {
+      title: "Kondisi Pasar",
+      text: "Perekonomian nasional diharapkan terus bertumbuh. Perseroan menargetkan pertumbuhan yang tinggi, masih didominasi lini usaha harta benda, kendaraan bermotor, cargo, dan kecelakaan diri.",
+    },
+    {
+      title: "Pengembangan Bisnis",
+      text: "Perseroan berinovasi dengan mengembangkan sistem pemasaran digital, merestrukturisasi portofolio usaha, serta lebih selektif dalam memilih risiko dan sumber bisnis.",
+    },
+    {
+      title: "Optimalisasi Operasional",
+      text: "Perseroan secara berkala mengevaluasi kegiatan operasional dan terus memperbaiki standar kerja di setiap divisi.",
+    },
+  ],
   partners: [
     {
       title: "Jaringan Reasuransi",
