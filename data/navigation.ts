@@ -1,5 +1,6 @@
 import { aboutHref, aboutLinks, aboutMenu } from "./company";
 import { companyInfoGroups, companyInfoHref, companyInfoLinks } from "./companyInfo";
+import { newsMenuLinks } from "./news";
 import { productsHref } from "./products";
 import { serviceMenuLinks } from "./services";
 import { official } from "./site";
@@ -46,14 +47,7 @@ export const mainNav: NavItem[] = [
   },
   {
     label: "Berita",
-    groups: [
-      {
-        links: [
-          { label: "Artikel", href: "/berita/artikel" },
-          { label: "CSR", href: "/berita/csr" },
-        ],
-      },
-    ],
+    groups: [{ links: newsMenuLinks }],
     activePaths: ["/berita"],
   },
   {

@@ -13,7 +13,6 @@ const img = (file: string, width: number, height: number, alt: string): CsrImage
 
 /** Konten halaman /csr-2/ website resmi (KB 7.4); judul & tanggal agenda dari teks pada gambar resmi. */
 export const csr = {
-  banner: img("csr-banner.png", 1942, 512, "Ilustrasi Corporate Social Responsibility Victoria Insurance"),
   agendas: [
     {
       year: 2025,
