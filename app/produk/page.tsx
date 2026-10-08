@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, FileText, Headset } from "lucide-react";
+import { ArrowRight, ArrowUpRight, FileText, Headset } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { productIcons } from "@/components/ui/productIcons";
 import { SmartLink } from "@/components/ui/SmartLink";
 import { contactAnchor } from "@/data/navigation";
-import { products, TOTAL_PRODUCTS } from "@/data/products";
+import { productHref, products, TOTAL_PRODUCTS } from "@/data/products";
 
 export const metadata: Metadata = {
   title: "Produk Asuransi",
@@ -66,12 +66,38 @@ export default function ProductsPage() {
               const Icon = productIcons[product.icon];
               return (
                 <li key={product.slug} id={product.slug} className="scroll-mt-4">
-                  <article className="flex h-full flex-col rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8">
+                  <article
+                    className={`relative flex h-full flex-col rounded-2xl border border-line bg-white p-6 shadow-card sm:p-8 ${
+                      product.detail
+                        ? "group/card transition duration-200 hover:-translate-y-1 hover:border-brand-500/60 hover:shadow-card-hover"
+                        : ""
+                    }`}
+                  >
+                    {product.detail && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute right-6 top-6 inline-flex size-9 items-center justify-center rounded-full bg-brand-600 text-white opacity-0 transition duration-200 group-hover/card:opacity-100 sm:right-8 sm:top-8"
+                      >
+                        <ArrowUpRight className="size-5" />
+                      </span>
+                    )}
                     <div className="flex items-start gap-4">
                       <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                         <Icon aria-hidden="true" className="size-6" />
                       </span>
-                      <h2 className="pt-2.5 text-xl font-bold tracking-tight text-navy-900">{product.name}</h2>
+                      <h2 className={`pt-2.5 text-xl font-bold tracking-tight text-navy-900 ${product.detail ? "pr-10" : ""}`}>
+                        {product.detail ? (
+                          // Stretched link: seluruh kartu bisa diklik, link dokumen tetap di atasnya
+                          <Link
+                            href={productHref(product)}
+                            className="after:absolute after:top-0 after:left-0 after:size-full group-hover/card:text-brand-600"
+                          >
+                            {product.name}
+                          </Link>
+                        ) : (
+                          product.name
+                        )}
+                      </h2>
                     </div>
 
                     <div className="mt-4 space-y-3 text-sm leading-relaxed text-muted sm:text-base">
@@ -80,7 +106,7 @@ export default function ProductsPage() {
                       ))}
                     </div>
 
-                    <div className="mt-auto pt-6">
+                    <div className="relative z-10 mt-auto pt-6">
                       <h3 className="text-xs font-semibold uppercase tracking-wider text-navy-700">Dokumen Produk</h3>
                       <ul className="mt-2 divide-y divide-line rounded-xl border border-line">
                         {product.documents.map((doc) => (

@@ -15,6 +15,14 @@ export type ProductIcon =
 
 export type ProductDocument = { title: string; url: string };
 
+/** Isi halaman detail, diringkas dari RIPLAY produk (bukan bagian kontrak/polis). */
+export type ProductDetail = {
+  coverages: { title: string; description: string; items: string[] }[];
+  exclusions: string[];
+  claimSteps: { title: string; text: string }[];
+  claimDocuments: string[];
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -24,11 +32,17 @@ export type Product = {
   /** Deskripsi singkat homepage resmi; ada berarti produk tampil di homepage. */
   summary?: string;
   documents: ProductDocument[];
+  /** Ada berarti produk punya halaman /produk/[slug]. */
+  detail?: ProductDetail;
 };
 
 export const productsHref = "/produk";
 
-export const productHref = (product: Product) => `${productsHref}#${product.slug}`;
+/** Halaman detail jika tersedia, selain itu anchor kartu di /produk. */
+export const productHref = (product: Product) =>
+  product.detail ? `${productsHref}/${product.slug}` : `${productsHref}#${product.slug}`;
+
+export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
 
 const riplay = (file: string) => `https://victoriainsurance.co.id/wp-content/uploads/2026/01/${file}`;
 
@@ -58,6 +72,67 @@ export const products: Product[] = [
     documents: [
       { title: "RIPLAY Asuransi Kendaraan Bermotor", url: riplay("RIPLay-Asuransi-Kendaraan-Bermotor-Umum.pdf") },
     ],
+    // Sumber: RIPLAY Asuransi Kendaraan Bermotor versi umum (bagian Manfaat, Pengecualian, Informasi Tambahan)
+    detail: {
+      coverages: [
+        {
+          title: "Comprehensive (Semua Risiko)",
+          description: "Menjamin kerusakan sebagian maupun keseluruhan atas kendaraan akibat:",
+          items: [
+            "Tabrakan, benturan, terbalik, tergelincir, atau terperosok",
+            "Perbuatan jahat pihak lain",
+            "Pencurian, termasuk pencurian dengan kekerasan (perampokan)",
+            "Kebakaran, termasuk akibat kebakaran benda atau kendaraan lain yang berdekatan dan sambaran petir",
+            "Kerugian selama dalam penyeberangan feri",
+            "Biaya derek ke bengkel (maksimum 0,5% dari nilai pertanggungan)",
+          ],
+        },
+        {
+          title: "Total Loss Only (TLO)",
+          description: "Menjamin kerugian apabila kendaraan mengalami kerugian total akibat risiko yang dijamin polis:",
+          items: [
+            "Kendaraan hilang dan tidak ditemukan dalam waktu 60 hari sejak tanggal kehilangan",
+            "Kendaraan rusak dengan estimasi biaya perbaikan mencapai 75% atau lebih dari harga pasar kendaraan",
+          ],
+        },
+      ],
+      exclusions: [
+        "Tindakan melanggar hukum atau kejahatan yang dilakukan oleh Tertanggung atau Penerima Manfaat",
+        "Kerugian akibat tidak dapat dipakainya kendaraan",
+        "Pencurian alat-alat non-standar",
+        "Penggelapan",
+        "Kendaraan digunakan untuk menarik atau mendorong kendaraan lain",
+        "Kelebihan muatan dan dijalankan dengan paksa",
+        "Kendaraan dijalankan dalam keadaan rusak",
+      ],
+      claimSteps: [
+        {
+          title: "Laporkan kejadian",
+          text: "Laporan lisan maksimal 1×24 jam dan/atau laporan tertulis maksimal 3×24 jam setelah kejadian.",
+        },
+        {
+          title: "Tunggu persetujuan",
+          text: "Jangan memperbaiki atau mengganti kerusakan kendaraan Anda maupun pihak ketiga sebelum mendapat persetujuan Victoria Insurance.",
+        },
+        {
+          title: "Lengkapi dokumen",
+          text: "Sampaikan kronologis kejadian secara tertulis beserta dokumen pendukung klaim.",
+        },
+        {
+          title: "Survei & pembayaran",
+          text: "Victoria Insurance memeriksa dokumen dan melakukan survei. Jika disetujui, ganti rugi dibayarkan setelah dikurangi risiko sendiri.",
+        },
+      ],
+      claimDocuments: [
+        "Nomor polis asuransi",
+        "Nama pemilik polis",
+        "Tanggal dan tempat kejadian",
+        "Kronologis kejadian",
+        "Data pihak ketiga (jika terlibat)",
+        "Laporan kepolisian (bila diperlukan)",
+        "SIM pengemudi dan STNK",
+      ],
+    },
   },
   {
     slug: "kecelakaan-diri",

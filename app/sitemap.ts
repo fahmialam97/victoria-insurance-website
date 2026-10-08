@@ -3,6 +3,7 @@ import { articleHref, articles, articlesHref } from "@/data/articles";
 import { aboutMenu } from "@/data/company";
 import { companyInfoGroups } from "@/data/companyInfo";
 import { csrHref } from "@/data/csr";
+import { productHref, products } from "@/data/products";
 import { rupslbEvents, rupslbHref } from "@/data/rupslb";
 import { services } from "@/data/services";
 import { site } from "@/data/site";
@@ -14,6 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: site.url, changeFrequency: "weekly", priority: 1 },
     { url: new URL("/produk", site.url).toString(), changeFrequency: "monthly", priority: 0.8 },
+    ...products
+      .filter((product) => product.detail)
+      .map((product) => ({
+        url: new URL(productHref(product), site.url).toString(),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      })),
     { url: new URL("/layanan", site.url).toString(), changeFrequency: "yearly", priority: 0.6 },
     ...services.map((service) => ({
       url: new URL(service.href, site.url).toString(),
