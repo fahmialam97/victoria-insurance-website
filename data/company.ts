@@ -275,24 +275,31 @@ export const awards = {
   ],
 };
 
-/** Halaman /struktur-organisasi/ website resmi (KB 8.3), bagan terbaru Oktober 2026. */
+const orgChart = (file: string, width: number, height: number, alt: string): CompanyImage => ({
+  src: `/images/struktur-organisasi/${file}`,
+  width,
+  height,
+  alt,
+});
+
+/** Halaman /struktur-organisasi/: bagan desain baru dari user (menggantikan bagan website resmi KB 8.3). */
 export const orgStructure = [
   {
     title: "Dewan Komisaris",
-    image: img(
-      "struktur-dewan-komisaris.jpg",
-      3300,
-      2550,
+    image: orgChart(
+      "struktur-dewan-komisaris.png",
+      1536,
+      1024,
       "Bagan Dewan Komisaris: Sulistijowati (Komisaris Utama) dengan Nomination & Remuneration Committee, Tomi Parisianto Wibowo (Komisaris Independen) dengan Audit Committee, Jimmy P. Watulingas (Komisaris Independen) dengan Risk Monitoring Committee",
     ),
   },
   {
     title: "Direksi",
-    image: img(
-      "struktur-direksi.jpg",
-      2200,
-      1700,
-      "Bagan organisasi Direksi PT Victoria Insurance, Tbk yang dipimpin Suwandi Suharto (President Director), dengan Rosalina Gunawan (Compliance & HR Director) dan Fatchurhuda (Technical Director)",
+    image: orgChart(
+      "struktur-direksi.png",
+      1672,
+      941,
+      "Bagan organisasi Direksi PT Victoria Insurance, Tbk: Suwandi Suharto (President Director) membawahi Prayogo Gunawan (Finance & Accounting), Rosalina Gunawan (Compliance & HR Director) dan Fatchurhuda (Technical Director), beserta komite, Sekretariat, dan SKAI",
     ),
   },
 ];

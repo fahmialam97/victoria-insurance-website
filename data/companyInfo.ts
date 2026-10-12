@@ -22,7 +22,7 @@ export const companyInfoLinks = {
   annual: { label: "Laporan Tahunan", href: `${companyInfoHref}/laporan-tahunan` },
   supporting: { label: "Lembaga Penunjang", href: `${companyInfoHref}/lembaga-penunjang` },
   // Menu Berita digabung ke Informasi Perusahaan (halaman tetap di /berita/*)
-  newsArticles: { label: "Artikel", href: articlesHref, description: "Edukasi asuransi, tips, dan informasi klaim." },
+  newsArticles: { label: "Artikel & Berita",href: articlesHref, description: "Edukasi asuransi, tips, dan informasi klaim." },
   csr: { label: "CSR", href: csrHref, description: "Agenda dan kegiatan tanggung jawab sosial perusahaan." },
 };
 

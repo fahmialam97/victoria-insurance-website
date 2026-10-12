@@ -7,6 +7,9 @@ import { SectionHeader } from "./ui/SectionHeader";
 /** "www.victoriabank.co.id/" → "victoriabank.co.id" untuk tampilan. */
 const displayDomain = (href: string) => href.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
+/** Logo dengan porsi "victoria" terkecil (teks pendampingnya terpanjang) mengisi penuh area logo. */
+const minWordmarkRatio = Math.min(...groupCompanies.map((company) => company.logo.wordmarkRatio));
+
 /** Grup Finansial Victoria: logo → bidang usaha → nama → domain. */
 export function GroupSection() {
   return (
@@ -26,14 +29,18 @@ export function GroupSection() {
                   aria-hidden="true"
                   className="absolute right-4 top-4 size-5 text-muted transition-colors group-hover:text-brand-600"
                 />
-                {/* Area logo setinggi tetap; logo dipaskan (contain) rata kiri karena rasio tiap logo berbeda */}
-                <span className="relative block h-9 w-full pr-7">
+                {/* Kata "victoria" di semua logo tampil sama besar dan duduk di garis dasar yang sama (top-6) */}
+                <span className="relative block h-9 w-[calc(100%-1.75rem)] max-w-48">
                   <Image
                     src={company.logo.src}
                     alt=""
                     width={company.logo.width}
                     height={company.logo.height}
-                    className="h-full w-auto max-w-full object-contain object-left"
+                    style={{
+                      width: `${(minWordmarkRatio / company.logo.wordmarkRatio) * 100}%`,
+                      transform: `translateY(-${company.logo.baselineRatio * 100}%)`,
+                    }}
+                    className="absolute left-0 top-6 h-auto max-w-none"
                   />
                 </span>
                 <span className="mt-4 text-xs font-semibold uppercase tracking-wider text-brand-600">

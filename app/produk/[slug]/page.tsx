@@ -43,7 +43,7 @@ export default async function ProductDetailPage(props: PageProps<"/produk/[slug]
   return (
     <>
       <section className="relative isolate overflow-hidden border-b border-line bg-surface">
-        <HeaderDecor />
+        <HeaderDecor pattern="product" />
         <Container className="py-10">
           <nav aria-label="Breadcrumb" className="text-sm text-muted">
             <ol className="flex flex-wrap items-center gap-2">

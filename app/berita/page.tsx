@@ -19,7 +19,7 @@ export default function NewsPage() {
   const sections = [
     {
       icon: Newspaper,
-      name: "Artikel",
+      name: "Artikel & Berita",
       description: `${articles.length} artikel edukasi asuransi, tips, dan informasi klaim.`,
       href: articlesHref,
     },

@@ -5,7 +5,7 @@ import { articles, articlesHref } from "@/data/articles";
 import { toNewsItem } from "@/data/news";
 
 export const metadata: Metadata = {
-  title: "Artikel",
+  title: "Artikel & Berita",
   description: "Artikel edukasi asuransi, tips, dan informasi klaim dari Victoria Insurance.",
   alternates: { canonical: articlesHref },
 };
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function ArticlesPage() {
   return (
     <CompanyInfoPageLayout
-      title="Artikel"
+      title="Artikel & Berita"
       description="Edukasi asuransi, tips, dan informasi klaim bersama #VIns."
       activeHref={articlesHref}
     >

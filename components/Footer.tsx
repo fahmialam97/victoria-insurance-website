@@ -108,7 +108,7 @@ export function Footer() {
 
       {/* Bilah bawah: pernyataan regulasi di kiri, media sosial di kanan */}
       <div className="bg-black">
-        <Container className="flex flex-col gap-5 py-6 text-xs leading-relaxed sm:text-sm lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+        <Container className="flex flex-col gap-5 py-6 text-[11px] leading-relaxed sm:text-[12px] lg:flex-row lg:items-center lg:justify-between lg:gap-10">
           <div className="space-y-1.5">
             {site.regulatoryStatements.map((statement) => (
               <p key={statement}>{statement}</p>

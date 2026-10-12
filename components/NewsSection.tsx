@@ -9,7 +9,7 @@ export function NewsSection() {
       <Container>
         <SectionHeader
           id="berita-heading"
-          title="Berita & Artikel"
+          title="Artikel & Berita"
           description="Informasi terbaru, wawasan, dan kabar dari Victoria Insurance."
           action={{ label: "Lihat Semua", href: newsIndexHref, ariaLabel: "Lihat semua artikel" }}
         />
