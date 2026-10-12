@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { heroContent, heroImages } from "@/data/hero";
 import { productsHref } from "@/data/products";
-import { HeroCarousel } from "./HeroCarousel";
+import { HeroCarousel, HeroTitle } from "./HeroCarousel";
 import { Container } from "./ui/Container";
 import { SmartLink } from "./ui/SmartLink";
 
@@ -11,12 +11,12 @@ export function Hero() {
     <section aria-labelledby="hero-heading">
       <HeroCarousel images={heroImages}>
         <Container className="flex h-full flex-col justify-center sm:pb-12">
-          <h1
+          <HeroTitle
             id="hero-heading"
-            className="max-w-[12ch] text-4xl font-extrabold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl lg:text-6xl"
-          >
-            {heroContent.title}
-          </h1>
+            titles={heroImages.map((image) => image.title ?? heroContent.title)}
+            // 14ch agar judul panjang tidak menimpa objek foto (mis. petugas di slide kapal ±44% lebar gambar)
+            className="max-w-[14ch] text-4xl font-extrabold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl lg:text-6xl"
+          />
           <SmartLink
             href={productsHref}
             className="group mt-8 inline-flex w-fit items-center gap-2 whitespace-nowrap rounded-full bg-brand-600 px-7 py-3.5 text-base font-semibold text-white shadow-card transition-colors hover:bg-brand-700"

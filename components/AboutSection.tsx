@@ -5,9 +5,9 @@ import { Container } from "./ui/Container";
 import { SmartLink } from "./ui/SmartLink";
 
 export function AboutSection() {
-  // Section pertama setelah banner, jadi butuh padding atas
+  // Jarak bawah lebih rapat karena langsung disusul section Grup Finansial Victoria
   return (
-    <section aria-labelledby="tentang-heading" className="py-16 sm:py-20">
+    <section aria-labelledby="tentang-heading" className="pb-10 sm:pb-12">
       <Container>
         <div className="grid items-center gap-8 overflow-hidden rounded-3xl bg-surface lg:grid-cols-2 lg:gap-0">
           <div className="relative aspect-[4/3] overflow-hidden lg:aspect-auto lg:h-full lg:min-h-[420px]">

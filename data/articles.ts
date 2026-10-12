@@ -17,8 +17,23 @@ export { articlesHref };
 
 export const articleHref = (article: Article) => `${articlesHref}/${article.slug}`;
 
-/** Ke-10 artikel di /artikel/ website resmi (KB 7.3), terbaru lebih dulu. */
+/**
+ * Ke-10 artikel di /artikel/ website resmi (KB 7.3) + 1 berita perusahaan, terbaru lebih dulu.
+ * "Penandatanganan Piagam Korporasi" di website resmi hanya berupa foto + judul di homepage (diunggah 10 Agustus 2026);
+ * teks artikelnya dari user.
+ */
 export const articles: Article[] = [
+  {
+    slug: "penandatanganan-piagam-korporasi-perusahaan-induk-konglomerasi-keuangan",
+    title: "Penandatanganan Piagam Korporasi Perusahaan Induk Konglomerasi Keuangan",
+    date: "2026-08-10",
+    category: "Berita Perusahaan",
+    excerpt:
+      "PT Victoria Insurance Tbk senantiasa berkomitmen untuk mendukung penerapan tata kelola perusahaan yang baik (Good Corporate Governance/GCG) serta memperkuat pengelolaan perusahaan yang transparan, akuntabel, dan bertanggung jawab.",
+    cover: { src: "/images/official/artikel/penandatanganan-piagam-korporasi.jpeg", width: 1107, height: 707 },
+    content:
+      "<p>PT Victoria Insurance Tbk senantiasa berkomitmen untuk mendukung penerapan tata kelola perusahaan yang baik (<em>Good Corporate Governance</em>/GCG) serta memperkuat pengelolaan perusahaan yang transparan, akuntabel, dan bertanggung jawab.</p>\n<p>Sebagai bagian dari komitmen tersebut, telah dilaksanakan kegiatan Penandatanganan Piagam Korporasi Perusahaan Induk Konglomerasi Keuangan yang melibatkan PT Victoria Investama Tbk dan perusahaan-perusahaan yang tergabung dalam kelompok konglomerasi keuangan.</p>\n<p>Penandatanganan piagam korporasi ini merupakan langkah penting dalam memperkuat kerangka tata kelola, koordinasi, serta pembagian tugas dan tanggung jawab di lingkungan konglomerasi keuangan. Piagam ini juga menjadi pedoman dalam mendukung pengelolaan kelompok usaha yang terintegrasi dengan tetap memperhatikan prinsip kehati-hatian dan ketentuan peraturan perundang-undangan yang berlaku.</p>\n<p>Melalui pelaksanaan kegiatan ini, PT Victoria Insurance Tbk menegaskan komitmennya untuk terus menerapkan prinsip tata kelola perusahaan yang baik, meningkatkan kualitas pengawasan dan pengendalian, serta menjaga kepercayaan para pemangku kepentingan.</p>\n<p>PT Victoria Insurance Tbk akan terus berupaya menjalankan kegiatan usaha secara profesional dan bertanggung jawab guna mendukung pertumbuhan perusahaan yang berkelanjutan serta memberikan nilai tambah bagi seluruh pemangku kepentingan.</p>",
+  },
   {
     slug: "apa-itu-act-of-god-dalam-asuransi-ini-penjelasan-dan-manfaatnya",
     title: "Apa Itu Act of God dalam Asuransi? Ini Penjelasan dan Manfaatnya",

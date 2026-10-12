@@ -2,10 +2,37 @@
 
 import Image from "next/image";
 import { Pause, Play } from "lucide-react";
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { HeroImage } from "@/data/hero";
 
 const INTERVAL_MS = 6000;
+
+/** Indeks slide aktif, dibaca HeroTitle agar judul ikut berganti bersama gambar. */
+const ActiveSlideContext = createContext(0);
+
+/**
+ * Judul banner per slide. Semua judul ditumpuk di sel grid yang sama, jadi tinggi area = judul terpanjang
+ * dan tombol di bawahnya tidak melompat saat judul berganti; judul nonaktif disembunyikan dari pembaca layar.
+ */
+export function HeroTitle({ id, titles, className }: { id: string; titles: string[]; className: string }) {
+  const index = useContext(ActiveSlideContext);
+  return (
+    // items-end: judul yang lebih pendek menempel ke bawah (dekat tombol), bukan menyisakan baris kosong di atas tombol
+    <h1 id={id} className={`grid items-end ${className}`}>
+      {titles.map((title, i) => (
+        <span
+          key={i}
+          aria-hidden={i !== index}
+          className={`[grid-area:1/1] transition-opacity duration-700 ease-out motion-reduce:transition-none ${
+            i === index ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {title}
+        </span>
+      ))}
+    </h1>
+  );
+}
 
 /** Slider banner selebar layar; `children` adalah konten tetap di atas gambar. */
 export function HeroCarousel({ images, children }: { images: HeroImage[]; children: ReactNode }) {
@@ -107,7 +134,9 @@ export function HeroCarousel({ images, children }: { images: HeroImage[]; childr
       )}
       </div>
 
-      <div className="relative order-first py-10 sm:order-none sm:h-full sm:py-0">{children}</div>
+      <div className="relative order-first py-10 sm:order-none sm:h-full sm:py-0">
+        <ActiveSlideContext.Provider value={index}>{children}</ActiveSlideContext.Provider>
+      </div>
       <p className="sr-only" aria-live="polite">
         Banner {index + 1} dari {count}
       </p>

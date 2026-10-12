@@ -5,7 +5,7 @@ import { SectionHeader } from "./ui/SectionHeader";
 
 export function ProductSection() {
   return (
-    <section aria-labelledby="produk-heading" className="pb-16 sm:pb-20">
+    <section aria-labelledby="produk-heading" className="py-16 sm:py-20">
       <Container>
         <SectionHeader
           id="produk-heading"

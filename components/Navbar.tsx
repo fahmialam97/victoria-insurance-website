@@ -16,6 +16,7 @@ import {
 import { contactAnchor, mainNav, type NavItem } from "@/data/navigation";
 import { isExternal } from "@/lib/format";
 import { searchEntries, type SearchEntry } from "@/lib/search";
+import { LanguageSwitcher, MobileLanguageOptions } from "./LanguageSwitcher";
 import { SmartLink } from "./ui/SmartLink";
 
 /** Item aktif bila salah satu link internal atau activePaths-nya cocok dengan path saat ini. */
@@ -166,12 +167,8 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
       <div ref={navRef} className="mx-auto flex h-16 max-w-[1600px] items-center gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
-        {/*
-          ≥ xl: logo di tengah antara tepi kiri dan teks "Beranda"; di bawahnya tetap rata kiri.
-          Padding kiri 28px (= gap-4 + padding px-3 link) agar acuannya teks yang terlihat; menyusut ke 0
-          di sekitar 1280px karena di sana ruang antara logo dan menu memang tinggal ±16px.
-        */}
-        <div className="shrink-0 xl:flex xl:min-w-fit xl:flex-1 xl:justify-center xl:pl-[clamp(0px,calc(100vw_-_1290px),28px)]">
+        {/* ≥ xl: logo di tengah ruang antara tepi kiri dan menu navigasi (pl-4 mengimbangi gap-4 ke menu); di bawahnya rata kiri */}
+        <div className="shrink-0 xl:flex xl:min-w-fit xl:flex-1 xl:justify-center xl:pl-4">
           <Link href="/" className="block shrink-0" aria-label="Victoria Insurance — Beranda" onClick={closeAll}>
             <Image
               src="/images/official/logo-dark.png"
@@ -179,8 +176,9 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
               width={418}
               height={46}
               preload
-              // xl (1280px) mentok: ruang ke menu tinggal ±16px; 2xl dibatasi ±lebar asli file (418px) agar tetap tajam
-              className="h-auto w-60 sm:w-80 xl:w-64 2xl:w-[400px]"
+              // ≥ xl: lebar mengalir 256px (1280px) → maks 400px (±lebar asli file 418px), tanpa lompatan di breakpoint,
+              // agar zoom browser (mis. 110%) tidak membuat logo tiba-tiba mengecil
+              className="h-auto w-60 sm:w-80 xl:w-[clamp(16rem,calc(16rem_+_(100vw_-_1280px)_*_0.55),25rem)]"
             />
           </Link>
         </div>
@@ -316,6 +314,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
           >
             {searchOpen ? <X aria-hidden="true" className="size-5" /> : <Search aria-hidden="true" className="size-5" />}
           </button>
+          <LanguageSwitcher />
           <Link
             href={contactAnchor}
             className="hidden whitespace-nowrap rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 sm:inline-flex"
@@ -529,6 +528,9 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
           >
             Hubungi Kami
           </Link>
+          <div className="mt-6 md:hidden">
+            <MobileLanguageOptions />
+          </div>
         </nav>
       </div>
     </header>

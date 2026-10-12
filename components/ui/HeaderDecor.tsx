@@ -2,7 +2,7 @@ import Image from "next/image";
 import { BrandFlower } from "./BrandFlower";
 
 /**
- * Identitas Victoria di header halaman: pattern emblem bunga Victoria (abu-abu) yang tipis dan memudar ke kiri,
+ * Identitas Victoria di header halaman: pattern emblem bunga Victoria versi subtle (abu-abu terang) yang memudar ke kiri,
  * plus ornamen bunga merah samar di kanan. Induknya wajib `relative isolate overflow-hidden`.
  */
 export function HeaderDecor() {
@@ -17,11 +17,11 @@ export function HeaderDecor() {
       >
         {/* Salinan ter-crop tanpa bingkai; opacity rendah agar "terasa ada", bukan dominan */}
         <Image
-          src="/images/official/pattern-victoria-emblem.png"
+          src="/images/official/pattern-victoria-emblem-subtle.png"
           alt=""
           fill
           sizes="100vw"
-          className="object-cover opacity-20 mix-blend-multiply"
+          className="object-cover opacity-30 mix-blend-multiply"
         />
       </div>
       <BrandFlower className="right-[6%] top-1/2 hidden size-36 -translate-y-1/2 text-brand-600 opacity-[0.06] sm:block lg:size-40" />
