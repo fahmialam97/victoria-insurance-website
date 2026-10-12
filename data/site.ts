@@ -53,15 +53,46 @@ export const contact = {
 } as const;
 
 /** Hanya akun yang mengarah ke profil Victoria Insurance (link Facebook & LinkedIn di website resmi bersifat generik). */
+/** Hanya akun resmi; ikon Facebook & LinkedIn di website resmi hanya mengarah ke beranda facebook.com/linkedin.com. */
 export const socialLinks = [
   { label: "Instagram", handle: "@victoria.insurance", href: "https://www.instagram.com/victoria.insurance/" },
 ] as const;
 
-/** `field` = bidang usaha & `monogram` = inisial, ditampilkan di section Grup Finansial Victoria homepage. */
+const groupLogo = (file: string, width: number, height: number) => ({ src: `/images/group/${file}`, width, height });
+
+/**
+ * Grup Finansial Victoria (footer & section homepage). `field` = bidang usaha.
+ * Logo dari website resmi masing-masing; versi putih (untuk header gelap) diwarnai ulang charcoal agar terlihat di kartu putih.
+ */
 export const groupCompanies = [
-  { label: "Victoria Investama, Tbk", monogram: "VI", field: "Investasi", href: "http://www.victoriainvestama.co.id/" },
-  { label: "Bank Victoria, Tbk", monogram: "BV", field: "Perbankan", href: "http://www.victoriabank.co.id/" },
-  { label: "Victoria Manajemen Investasi", monogram: "VMI", field: "Manajemen Investasi", href: "http://vmi.co.id/" },
-  { label: "Victoria Sekuritas Indonesia", monogram: "VS", field: "Sekuritas", href: "http://victoria-sekuritas.co.id/" },
-  { label: "Victoria Life", monogram: "VL", field: "Asuransi Jiwa", href: "http://victorialife.co.id/" },
+  {
+    label: "Victoria Investama, Tbk",
+    field: "Investasi",
+    href: "https://victoriainvestama.co.id/",
+    logo: groupLogo("victoria-investama.png", 300, 34),
+  },
+  {
+    label: "Bank Victoria, Tbk",
+    field: "Perbankan",
+    href: "https://www.victoriabank.co.id/",
+    logo: groupLogo("bank-victoria.png", 800, 140),
+  },
+  {
+    label: "Victoria Manajemen Investasi",
+    field: "Manajemen Investasi",
+    href: "https://vmi.co.id/",
+    logo: groupLogo("victoria-manajemen-investasi.png", 338, 48),
+  },
+  {
+    label: "Victoria Sekuritas Indonesia",
+    field: "Sekuritas",
+    href: "https://victoria-sekuritas.co.id/",
+    logo: groupLogo("victoria-sekuritas.png", 250, 39),
+  },
+  {
+    label: "Victoria Life",
+    field: "Asuransi Jiwa",
+    href: "https://www.victorialife.co.id/",
+    logo: groupLogo("victoria-life.png", 1725, 286),
+  },
 ] as const;

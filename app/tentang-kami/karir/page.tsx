@@ -17,10 +17,7 @@ export default function CareerPage() {
         <span className="inline-flex size-14 items-center justify-center rounded-2xl bg-white text-brand-600 shadow-card">
           <BriefcaseBusiness aria-hidden="true" className="size-7" />
         </span>
-        <h2 className="mt-5 text-xl font-bold text-ink-900">Belum ada informasi lowongan</h2>
-        <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">
-          Informasi lowongan kerja akan ditampilkan di halaman ini saat tersedia.
-        </p>
+        <h2 className="mt-5 text-xl font-bold text-ink-900">Belum ada lowongan saat ini</h2>
       </div>
     </AboutPageLayout>
   );

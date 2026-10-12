@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { footerNav } from "@/data/navigation";
-import { contact, groupCompanies, site } from "@/data/site";
+import { contact, groupCompanies, site, socialLinks } from "@/data/site";
 import { Container } from "./ui/Container";
+import { InstagramIcon } from "./ui/InstagramIcon";
 import { SmartLink } from "./ui/SmartLink";
 
 /** Privacy policy, terms, dan sitemap tidak ada di website resmi, jadi tidak ditampilkan. */
@@ -105,12 +106,33 @@ export function Footer() {
         </div>
       </Container>
 
-      {/* Bilah bawah: pernyataan regulasi */}
+      {/* Bilah bawah: pernyataan regulasi di kiri, media sosial di kanan */}
       <div className="bg-black">
-        <Container className="space-y-1.5 py-6 text-xs leading-relaxed sm:text-sm">
-          {site.regulatoryStatements.map((statement) => (
-            <p key={statement}>{statement}</p>
-          ))}
+        <Container className="flex flex-col gap-5 py-6 text-xs leading-relaxed sm:text-sm lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+          <div className="space-y-1.5">
+            {site.regulatoryStatements.map((statement) => (
+              <p key={statement}>{statement}</p>
+            ))}
+          </div>
+          <div className="flex shrink-0 items-center gap-3">
+            <span className="text-white/60">Ikuti kami</span>
+            <ul className="flex items-center gap-2">
+              {socialLinks.map((social) => (
+                <li key={social.href}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${social.label} ${social.handle} (terbuka di tab baru)`}
+                    title={`${social.label} ${social.handle}`}
+                    className="inline-flex size-9 items-center justify-center rounded-full border border-white/20 text-white transition-colors hover:border-brand-600 hover:bg-brand-600"
+                  >
+                    <InstagramIcon aria-hidden="true" className="size-4" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </Container>
       </div>
     </footer>

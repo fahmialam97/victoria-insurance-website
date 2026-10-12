@@ -17,11 +17,12 @@ export const heroContent = {
 /** Gambar banner dari folder "Aset Gambar Benner" milik user; slide pertama = main banner (dimuat paling awal). */
 export const heroImages: HeroImage[] = [
   {
-    src: "/images/banner/keluarga-rumah-modern.jpg",
-    width: 2159,
+    src: "/images/banner/keluarga-sunset.png",
+    width: 2160,
     height: 728,
-    alt: "Ayah mengangkat anaknya dengan gembira bersama ibu di depan rumah modern",
-    focus: "78% 50%",
+    alt: "Ayah menggendong anaknya yang menunjuk ke langit bersama ibu di depan rumah modern saat matahari terbenam",
+    // Fokus di keluarga (tengah-kanan) agar tetap terlihat saat banner dipotong
+    focus: "58% 50%",
   },
   {
     src: "/images/banner/harbor-inspection.png",

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { groupCompanies } from "@/data/site";
 import { Container } from "./ui/Container";
@@ -6,7 +7,7 @@ import { SectionHeader } from "./ui/SectionHeader";
 /** "www.victoriabank.co.id/" → "victoriabank.co.id" untuk tampilan. */
 const displayDomain = (href: string) => href.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
-/** Grup Finansial Victoria; kartu teks + monogram inisial karena logo tiap perusahaan belum tersedia. */
+/** Grup Finansial Victoria: logo → bidang usaha → nama → domain. */
 export function GroupSection() {
   return (
     <section aria-labelledby="grup-heading" className="pb-16 sm:pb-20">
@@ -25,11 +26,15 @@ export function GroupSection() {
                   aria-hidden="true"
                   className="absolute right-4 top-4 size-5 text-muted transition-colors group-hover:text-brand-600"
                 />
-                <span
-                  aria-hidden="true"
-                  className="inline-flex size-11 items-center justify-center rounded-xl bg-brand-50 text-sm font-bold tracking-tight text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white"
-                >
-                  {company.monogram}
+                {/* Area logo setinggi tetap; logo dipaskan (contain) rata kiri karena rasio tiap logo berbeda */}
+                <span className="relative block h-9 w-full pr-7">
+                  <Image
+                    src={company.logo.src}
+                    alt=""
+                    width={company.logo.width}
+                    height={company.logo.height}
+                    className="h-full w-auto max-w-full object-contain object-left"
+                  />
                 </span>
                 <span className="mt-4 text-xs font-semibold uppercase tracking-wider text-brand-600">
                   {company.field}

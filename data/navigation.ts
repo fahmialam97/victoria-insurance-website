@@ -82,7 +82,6 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
   {
     title: "Informasi Perusahaan",
     links: [
-      { label: "RUPSLB 2026", href: companyInfoLinks.rupslb2026.href },
       { label: "Arsip RUPS", href: companyInfoLinks.rupsArchive.href },
       { label: "Tata Kelola", href: companyInfoLinks.governance.href },
       { label: "Laporan Keuangan", href: companyInfoLinks.financial.href },
