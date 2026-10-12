@@ -53,6 +53,8 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
   const pathname = usePathname();
   const router = useRouter();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  // Dropdown yang dibuka lewat klik "terkunci": tidak tertutup saat kursor keluar, hanya lewat klik luar/Esc/klik ulang
+  const [pinnedMenu, setPinnedMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -106,11 +108,15 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
   // Tutup dropdown saat klik di luar atau tekan Escape.
   useEffect(() => {
     const onPointer = (e: PointerEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenMenu(null);
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenMenu(null);
+        setPinnedMenu(null);
+      }
     };
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
       setOpenMenu(null);
+      setPinnedMenu(null);
       setSearchOpen(false);
       setMobileOpen(false);
     };
@@ -137,7 +143,19 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
 
   const closeAll = () => {
     setOpenMenu(null);
+    setPinnedMenu(null);
     setMobileOpen(false);
+  };
+
+  // Klik: kunci dropdown terbuka; klik ulang pada menu yang sama menutupnya
+  const toggleMenuPin = (label: string) => {
+    if (pinnedMenu === label) {
+      setPinnedMenu(null);
+      setOpenMenu(null);
+    } else {
+      setPinnedMenu(label);
+      setOpenMenu(label);
+    }
   };
 
   const closeSearch = () => {
@@ -218,15 +236,21 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                 <li
                   key={item.label}
                   className="relative"
-                  onMouseEnter={() => setOpenMenu(item.label)}
-                  onMouseLeave={() => setOpenMenu(null)}
+                  onMouseEnter={() => {
+                    // Hover menu lain melepas kunci menu sebelumnya
+                    if (pinnedMenu && pinnedMenu !== item.label) setPinnedMenu(null);
+                    setOpenMenu(item.label);
+                  }}
+                  onMouseLeave={() => {
+                    if (pinnedMenu !== item.label) setOpenMenu(null);
+                  }}
                 >
                   <button
                     type="button"
                     className={linkClass}
                     aria-expanded={isOpen}
                     aria-controls={panelId}
-                    onClick={() => setOpenMenu(isOpen ? null : item.label)}
+                    onClick={() => toggleMenuPin(item.label)}
                   >
                     {item.label}
                     <ChevronDown
@@ -242,7 +266,11 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                       alignRight ? "right-0" : "left-1/2 -translate-x-1/2"
                     } ${isOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"}`}
                     onBlur={(e) => {
-                      if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpenMenu(null);
+                      // Fokus keyboard keluar dari dropdown (relatedTarget null = klik area kosong, ditangani pointerdown)
+                      if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget as Node)) {
+                        setOpenMenu(null);
+                        setPinnedMenu(null);
+                      }
                     }}
                   >
                     <div
@@ -479,8 +507,9 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                     <div className="space-y-3 pb-4 pl-3">
                       {item.groups.map((group, gi) => (
                         <div key={group.title ?? gi}>
+                          {/* Gaya judul grup & link sama dengan dropdown desktop (garis merah, link aktif berlatar merah muda) */}
                           {group.title && (
-                            <p className="pb-1 text-xs font-semibold uppercase tracking-wider text-muted">
+                            <p className="relative mb-1 px-3 py-1 text-xs font-bold uppercase tracking-wider text-muted before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-full before:bg-brand-600">
                               {group.title}
                             </p>
                           )}
@@ -493,8 +522,10 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                                     href={link.href}
                                     onClick={closeAll}
                                     aria-current={linkActive ? "page" : undefined}
-                                    className={`block py-2 text-sm ${
-                                      linkActive ? "font-semibold text-brand-600" : "text-ink-800 hover:text-brand-600"
+                                    className={`block rounded-md px-3 py-2 text-sm ${
+                                      linkActive
+                                        ? "bg-brand-50 font-semibold text-brand-600"
+                                        : "text-ink-800 hover:bg-surface hover:text-brand-600"
                                     }`}
                                   >
                                     {link.label}
