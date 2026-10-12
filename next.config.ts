@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: { unoptimized: true },
   allowedDevOrigins: devTunnelHosts,
+  // Versi Indonesia (app/(id)) & Inggris (app/[lang]) memakai root layout terpisah, jadi 404 global dibuat lewat
+  // app/global-not-found.tsx
+  experimental: { globalNotFound: true },
 };
 
 export default nextConfig;

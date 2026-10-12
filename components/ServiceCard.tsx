@@ -9,6 +9,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { Service, ServiceIcon } from "@/data/services";
+import { getI18n } from "@/lib/i18n/server";
 import { SmartLink } from "./ui/SmartLink";
 
 const icons: Record<ServiceIcon, LucideIcon> = {
@@ -22,7 +23,13 @@ const icons: Record<ServiceIcon, LucideIcon> = {
 
 type ServiceCardItem = Omit<Service, "icon"> & { icon: ServiceIcon | LucideIcon };
 
-export function ServiceCard({ service }: { service: ServiceCardItem }) {
+/**
+ * Nama & deskripsi diterjemahkan lewat kamus (kunci = teks Indonesia di data);
+ * `translated` untuk teks yang sudah diterjemahkan pemanggil (mis. berisi angka dinamis).
+ */
+export async function ServiceCard({ service, translated }: { service: ServiceCardItem; translated?: boolean }) {
+  const { t: translate } = await getI18n();
+  const t = translated ? (text: string) => text : translate;
   const Icon = typeof service.icon === "string" ? icons[service.icon] : service.icon;
 
   return (
@@ -34,8 +41,8 @@ export function ServiceCard({ service }: { service: ServiceCardItem }) {
         <Icon aria-hidden="true" className="size-6" />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-base font-semibold text-ink-900">{service.name}</span>
-        <span className="mt-1 block text-sm leading-relaxed text-muted">{service.description}</span>
+        <span className="block text-base font-semibold text-ink-900">{t(service.name)}</span>
+        <span className="mt-1 block text-sm leading-relaxed text-muted">{t(service.description)}</span>
       </span>
       <ChevronRight
         aria-hidden="true"

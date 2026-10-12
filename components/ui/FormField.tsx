@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { useI18n } from "@/components/LocaleProvider";
 
 export const inputClass =
   "w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink-900 placeholder:text-muted/70 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/15 aria-invalid:border-brand-600";
@@ -27,6 +30,7 @@ type FormFieldProps = {
 
 /** Label + kontrol + hint + pesan error; dipakai bersama form pengaduan dan form klaim. */
 export function FormField({ id, name, label, required, hint, error, defaultValue, children }: FormFieldProps) {
+  const { t } = useI18n();
   const describedBy = [hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(" ") || undefined;
 
   return (
@@ -38,7 +42,7 @@ export function FormField({ id, name, label, required, hint, error, defaultValue
             *
           </span>
         ) : (
-          <span className="font-normal text-muted">(opsional)</span>
+          <span className="font-normal text-muted">{t("(opsional)")}</span>
         )}
       </label>
       {children({

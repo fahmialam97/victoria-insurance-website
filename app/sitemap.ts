@@ -7,11 +7,27 @@ import { productHref, products } from "@/data/products";
 import { rupslbEvents, rupslbHref } from "@/data/rupslb";
 import { services } from "@/data/services";
 import { site } from "@/data/site";
+import { localizeHref } from "@/lib/i18n/locale";
 
 // Wajib untuk output: "export" agar sitemap.xml dibuat statis saat build
 export const dynamic = "force-static";
 
+/** Tiap halaman Indonesia punya pasangan versi Inggris di /en/...; keduanya dicantumkan dengan hreflang. */
 export default function sitemap(): MetadataRoute.Sitemap {
+  return pages().flatMap((entry) => {
+    const path = new URL(entry.url).pathname;
+    const languages = {
+      id: new URL(path, site.url).toString(),
+      en: new URL(localizeHref(path, "en"), site.url).toString(),
+    };
+    return [
+      { ...entry, alternates: { languages } },
+      { ...entry, url: languages.en, alternates: { languages } },
+    ];
+  });
+}
+
+function pages(): MetadataRoute.Sitemap {
   return [
     { url: site.url, changeFrequency: "weekly", priority: 1 },
     { url: new URL("/produk", site.url).toString(), changeFrequency: "monthly", priority: 0.8 },

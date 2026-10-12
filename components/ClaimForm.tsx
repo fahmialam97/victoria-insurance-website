@@ -2,6 +2,7 @@
 
 import { CheckCircle2, Loader2, Send, TriangleAlert } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useI18n } from "@/components/LocaleProvider";
 import { UploadTile } from "@/components/UploadTile";
 import { Captcha } from "@/components/ui/Captcha";
 import { ReferenceId } from "@/components/ui/ReferenceId";
@@ -33,8 +34,9 @@ type FieldProps = {
   children: (props: FieldControlProps) => ReactNode;
 };
 
-/** Semua isian klaim wajib diisi. */
-function Field({ name, state, ...rest }: FieldProps) {
+/** Semua isian klaim wajib diisi. Label & hint ditulis dalam Bahasa Indonesia lalu diterjemahkan. */
+function Field({ name, state, label, hint, ...rest }: FieldProps) {
+  const { t } = useI18n();
   return (
     <FormField
       id={`klaim-${name}`}
@@ -42,16 +44,20 @@ function Field({ name, state, ...rest }: FieldProps) {
       required
       error={state.errors?.[name]}
       defaultValue={state.values?.[name]}
+      label={t(label)}
+      hint={hint && t(hint)}
       {...rest}
     />
   );
 }
 
-function SectionTitle({ children }: { children: ReactNode }) {
-  return <h2 className="text-xs font-bold uppercase tracking-wider text-muted sm:col-span-2">{children}</h2>;
+function SectionTitle({ children }: { children: string }) {
+  const { t } = useI18n();
+  return <h2 className="text-xs font-bold uppercase tracking-wider text-muted sm:col-span-2">{t(children)}</h2>;
 }
 
 function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[]; onReset: () => void }) {
+  const { t } = useI18n();
   const [state, setState] = useState<ClaimState>(initialState);
   const [pending, setPending] = useState(false);
   const [product, setProduct] = useState("");
@@ -78,13 +84,13 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
     if (String(formData.get("website") ?? "") !== "") return setState({ status: "success", referenceId: "-" });
 
     const values = readClaim(formData, documents);
-    const errors = validateClaim(values, documents);
-    setCaptchaError(captchaVerified ? undefined : "Centang verifikasi \"Saya bukan robot\" terlebih dahulu.");
+    const errors = validateClaim(values, documents, undefined, t);
+    setCaptchaError(captchaVerified ? undefined : t("Centang verifikasi \"Saya bukan robot\" terlebih dahulu."));
     if (Object.keys(errors).length > 0 || !captchaVerified) {
       // File tidak bisa diisi ulang ke input, jadi hanya nilai teks yang disimpan
       return setState({
         status: "error",
-        message: "Periksa kembali data yang Anda isi.",
+        message: t("Periksa kembali data yang Anda isi."),
         errors,
         values: claimTextValues(values),
       });
@@ -100,9 +106,9 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
     return (
       <div role="status" className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 sm:p-8">
         <CheckCircle2 aria-hidden="true" className="size-10 text-emerald-600" />
-        <h2 className="mt-4 text-xl font-bold text-ink-900">Laporan klaim Anda telah terkirim</h2>
+        <h2 className="mt-4 text-xl font-bold text-ink-900">{t("Laporan klaim Anda telah terkirim")}</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted">
-          Terima kasih. Simpan nomor referensi berikut untuk memantau proses klaim Anda.
+          {t("Terima kasih. Simpan nomor referensi berikut untuk memantau proses klaim Anda.")}
         </p>
         <ReferenceId value={state.referenceId ?? "-"} />
         <div>
@@ -111,7 +117,7 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
             onClick={onReset}
             className="mt-6 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-semibold text-ink-800 hover:border-brand-600 hover:text-brand-600"
           >
-            Ajukan klaim lain
+            {t("Ajukan klaim lain")}
           </button>
         </div>
       </div>
@@ -142,7 +148,7 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
           {(props) => <input {...props} type="text" autoComplete="name" maxLength={100} />}
         </Field>
         <Field name="email" label="Email" hint="Informasi proses klaim dikirim ke email ini." state={state}>
-          {(props) => <input {...props} type="email" autoComplete="email" maxLength={254} placeholder="nama@email.com" />}
+          {(props) => <input {...props} type="email" autoComplete="email" maxLength={254} placeholder={t("nama@email.com")} />}
         </Field>
         <Field name="phone" label="Nomor Telepon" state={state}>
           {(props) => <input {...props} type="tel" autoComplete="tel" inputMode="tel" maxLength={20} />}
@@ -155,11 +161,11 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
       <div className="grid gap-5 sm:grid-cols-2">
         <SectionTitle>Data Kejadian</SectionTitle>
         {/* Select dikontrol (menentukan daftar dokumen), jadi tidak memakai defaultValue dari state */}
-        <FormField id="klaim-product" name="product" label="Jenis Asuransi" required error={state.errors?.product}>
+        <FormField id="klaim-product" name="product" label={t("Jenis Asuransi")} required error={state.errors?.product}>
           {(props) => (
             <select {...props} value={product} onChange={(e) => setProduct(e.target.value)}>
               <option value="" disabled>
-                Pilih jenis asuransi
+                {t("Pilih jenis asuransi")}
               </option>
               {products.map((option) => (
                 <option key={option.name} value={option.name}>
@@ -174,7 +180,7 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
         </Field>
         <div className="sm:col-span-2">
           <Field name="incidentLocation" label="Lokasi Kejadian" state={state}>
-            {(props) => <input {...props} type="text" maxLength={200} placeholder="Alamat / tempat kejadian" />}
+            {(props) => <input {...props} type="text" maxLength={200} placeholder={t("Alamat / tempat kejadian")} />}
           </Field>
         </div>
         <div className="sm:col-span-2">
@@ -191,12 +197,12 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
 
       <div className="space-y-4">
         <div>
-          <h2 className="text-xs font-bold uppercase tracking-wider text-muted">Dokumen Pendukung</h2>
-          <p className="mt-1 text-xs text-muted">Foto: JPG atau PNG. Dokumen: JPG, PNG, atau PDF. Maksimal 10 MB per file.</p>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-muted">{t("Dokumen Pendukung")}</h2>
+          <p className="mt-1 text-xs text-muted">{t("Foto: JPG atau PNG. Dokumen: JPG, PNG, atau PDF. Maksimal 10 MB per file.")}</p>
         </div>
         {documents.length === 0 ? (
           <p className="rounded-xl border-2 border-dashed border-line bg-surface px-4 py-6 text-center text-sm text-muted">
-            Pilih jenis asuransi terlebih dahulu untuk melihat dokumen yang diperlukan.
+            {t("Pilih jenis asuransi terlebih dahulu untuk melihat dokumen yang diperlukan.")}
           </p>
         ) : (
           // key = produk: ganti produk mengosongkan pilihan file sebelumnya
@@ -242,17 +248,17 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
           {pending ? (
             <>
               <Loader2 aria-hidden="true" className="size-5 animate-spin" />
-              Mengirim…
+              {t("Mengirim…")}
             </>
           ) : (
             <>
               <Send aria-hidden="true" className="size-5" />
-              Ajukan Klaim
+              {t("Ajukan Klaim")}
             </>
           )}
         </button>
         <p className="mt-3 text-xs text-muted">
-          <span className="text-brand-600">*</span> wajib diisi
+          <span className="text-brand-600">*</span> {t("wajib diisi")}
         </p>
       </div>
     </form>

@@ -1,3 +1,6 @@
+import type { Locale } from "@/lib/i18n/locale";
+import { overlay } from "@/lib/i18n/overlay";
+import { productsEn } from "./en/products";
 import { productsHref } from "./hrefs";
 
 export type ProductIcon =
@@ -44,7 +47,7 @@ export { productsHref };
 export const productHref = (product: Product) =>
   product.detail ? `${productsHref}/${product.slug}` : `${productsHref}#${product.slug}`;
 
-export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
+export const getProduct = (slug: string, locale: Locale = "id") => getProducts(locale).find((p) => p.slug === slug);
 
 const riplay = (file: string) => `https://victoriainsurance.co.id/wp-content/uploads/2026/01/${file}`;
 
@@ -260,3 +263,11 @@ export const TOTAL_PRODUCTS = products.length;
 
 /** Produk yang tampil di homepage resmi, dengan deskripsi singkat homepage. */
 export const featuredProducts = products.filter((p): p is Product & { summary: string } => !!p.summary);
+
+const productsByLocale: Record<Locale, Product[]> = { id: products, en: overlay(products, productsEn) };
+
+/** Daftar produk sesuai bahasa (teks Inggris dari data/en/products.ts; slug, ikon, dan URL dokumen sama). */
+export const getProducts = (locale: Locale) => productsByLocale[locale];
+
+export const getFeaturedProducts = (locale: Locale) =>
+  getProducts(locale).filter((p): p is Product & { summary: string } => !!p.summary);

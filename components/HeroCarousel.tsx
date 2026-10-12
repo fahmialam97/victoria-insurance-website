@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Pause, Play } from "lucide-react";
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { HeroImage } from "@/data/hero";
+import { useI18n } from "./LocaleProvider";
 
 const INTERVAL_MS = 6000;
 
@@ -36,6 +37,7 @@ export function HeroTitle({ id, titles, className }: { id: string; titles: strin
 
 /** Slider banner selebar layar; `children` adalah konten tetap di atas gambar. */
 export function HeroCarousel({ images, children }: { images: HeroImage[]; children: ReactNode }) {
+  const { t } = useI18n();
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
@@ -63,7 +65,7 @@ export function HeroCarousel({ images, children }: { images: HeroImage[]; childr
   return (
     <div
       aria-roledescription="carousel"
-      aria-label="Banner Victoria Insurance"
+      aria-label={t("Banner Victoria Insurance")}
       className="relative flex flex-col overflow-hidden bg-surface sm:block sm:h-[480px] lg:h-auto lg:aspect-[2160/728] lg:max-h-[640px] lg:min-h-[460px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -83,7 +85,7 @@ export function HeroCarousel({ images, children }: { images: HeroImage[]; childr
           key={image.src}
           role="group"
           aria-roledescription="slide"
-          aria-label={`${i + 1} dari ${count}`}
+          aria-label={t("{n} dari {total}", { n: i + 1, total: count })}
           aria-hidden={i !== index}
           className={`absolute inset-0 transition-opacity duration-1000 ease-out motion-reduce:transition-none ${
             i === index ? "opacity-100" : "opacity-0"
@@ -111,7 +113,7 @@ export function HeroCarousel({ images, children }: { images: HeroImage[]; childr
           <button
             type="button"
             onClick={() => setUserPaused((p) => !p)}
-            aria-label={userPaused ? "Putar banner otomatis" : "Jeda banner otomatis"}
+            aria-label={userPaused ? t("Putar banner otomatis") : t("Jeda banner otomatis")}
             className="inline-flex size-7 items-center justify-center rounded-full bg-white/80 text-ink-800 shadow-card hover:text-brand-600"
           >
             {userPaused ? <Play aria-hidden="true" className="size-3.5" /> : <Pause aria-hidden="true" className="size-3.5" />}
@@ -122,7 +124,7 @@ export function HeroCarousel({ images, children }: { images: HeroImage[]; childr
                 key={image.src}
                 type="button"
                 onClick={() => go(i)}
-                aria-label={`Tampilkan banner ${i + 1}`}
+                aria-label={t("Tampilkan banner {n}", { n: i + 1 })}
                 aria-current={i === index}
                 className={`h-1.5 rounded-full transition-all ${
                   i === index ? "w-8 bg-brand-600" : "w-5 bg-white/80 hover:bg-white"
@@ -138,7 +140,7 @@ export function HeroCarousel({ images, children }: { images: HeroImage[]; childr
         <ActiveSlideContext.Provider value={index}>{children}</ActiveSlideContext.Provider>
       </div>
       <p className="sr-only" aria-live="polite">
-        Banner {index + 1} dari {count}
+        {t("Banner {n} dari {total}", { n: index + 1, total: count })}
       </p>
     </div>
   );

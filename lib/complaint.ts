@@ -1,3 +1,5 @@
+import { translator, type Translate } from "./i18n/translate";
+
 export type ComplaintField = "name" | "email" | "phone" | "policyNumber" | "message";
 
 export type ComplaintValues = Record<ComplaintField, string>;
@@ -24,18 +26,19 @@ export function readComplaint(formData: FormData): ComplaintValues {
   };
 }
 
-export function validateComplaint(values: ComplaintValues): ComplaintState["errors"] {
+/** Pesan error ditulis dalam Bahasa Indonesia lalu diterjemahkan lewat 	 (default: tanpa terjemahan). */
+export function validateComplaint(values: ComplaintValues, t: Translate = translator("id")): ComplaintState["errors"] {
   const errors: ComplaintState["errors"] = {};
-  if (!values.email) errors.email = "Email wajib diisi.";
-  else if (!EMAIL_PATTERN.test(values.email)) errors.email = "Format email tidak valid.";
-  if (!values.name) errors.name = "Nama lengkap wajib diisi.";
-  if (!values.phone) errors.phone = "Nomor telepon wajib diisi.";
-  else if (!/^[0-9+\-\s()]+$/.test(values.phone)) errors.phone = "Nomor telepon hanya boleh berisi angka.";
-  if (!values.policyNumber) errors.policyNumber = "Nomor polis wajib diisi.";
-  if (!values.message) errors.message = "Isi pengaduan wajib diisi.";
-  else if (values.message.length < 10) errors.message = "Isi pengaduan minimal 10 karakter.";
+  if (!values.email) errors.email = t("Email wajib diisi.");
+  else if (!EMAIL_PATTERN.test(values.email)) errors.email = t("Format email tidak valid.");
+  if (!values.name) errors.name = t("Nama lengkap wajib diisi.");
+  if (!values.phone) errors.phone = t("Nomor telepon wajib diisi.");
+  else if (!/^[0-9+\-\s()]+$/.test(values.phone)) errors.phone = t("Nomor telepon hanya boleh berisi angka.");
+  if (!values.policyNumber) errors.policyNumber = t("Nomor polis wajib diisi.");
+  if (!values.message) errors.message = t("Isi pengaduan wajib diisi.");
+  else if (values.message.length < 10) errors.message = t("Isi pengaduan minimal 10 karakter.");
   for (const key of Object.keys(LIMITS) as ComplaintField[]) {
-    if (!errors[key] && values[key].length > LIMITS[key]) errors[key] = `Maksimal ${LIMITS[key]} karakter.`;
+    if (!errors[key] && values[key].length > LIMITS[key]) errors[key] = t("Maksimal {n} karakter.", { n: LIMITS[key] });
   }
   return errors;
 }

@@ -1,3 +1,6 @@
+import type { Locale } from "@/lib/i18n/locale";
+import { overlay } from "@/lib/i18n/overlay";
+import { companyEn } from "./en/company";
 import type { NavGroup } from "./navigation";
 import { aboutServiceLinks } from "./services";
 
@@ -407,3 +410,13 @@ export const directors: Person[] = [
     ],
   },
 ];
+
+/** Konten panjang halaman Tentang Kami; versi Inggris dari data/en/company.ts. */
+export const companyContent = { profile, visionMission, businessNetwork, awards, orgStructure, commissioners, directors };
+
+const contentByLocale: Record<Locale, typeof companyContent> = {
+  id: companyContent,
+  en: overlay(companyContent, companyEn),
+};
+
+export const getCompanyContent = (locale: Locale) => contentByLocale[locale];

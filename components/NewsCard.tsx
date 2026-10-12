@@ -2,9 +2,12 @@ import Image from "next/image";
 import { ArrowRight, CalendarDays } from "lucide-react";
 import type { NewsItem } from "@/data/news";
 import { formatDate } from "@/lib/format";
+import { getI18n } from "@/lib/i18n/server";
 import { SmartLink } from "./ui/SmartLink";
 
-export function NewsCard({ item }: { item: NewsItem }) {
+/** Isi artikel hanya tersedia dalam Bahasa Indonesia; di versi Inggris kartu diberi label bahasanya. */
+export async function NewsCard({ item }: { item: NewsItem }) {
+  const { locale, t } = await getI18n();
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-card transition-shadow hover:shadow-card-hover">
       {item.image && (
@@ -22,10 +25,15 @@ export function NewsCard({ item }: { item: NewsItem }) {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-medium text-muted">
           <p className="flex items-center gap-1.5">
             <CalendarDays aria-hidden="true" className="size-4" />
-            <time dateTime={item.date}>{formatDate(item.date)}</time>
+            <time dateTime={item.date}>{formatDate(item.date, locale)}</time>
           </p>
           {item.category && (
-            <span className="rounded-full bg-brand-50 px-2.5 py-0.5 font-semibold text-brand-700">{item.category}</span>
+            <span className="rounded-full bg-brand-50 px-2.5 py-0.5 font-semibold text-brand-700">{t(item.category)}</span>
+          )}
+          {locale === "en" && (
+            <span lang="en" className="rounded-full bg-surface px-2.5 py-0.5 font-semibold text-muted">
+              In Indonesian
+            </span>
           )}
         </div>
         <h3 className="mt-3 text-lg font-semibold leading-snug text-ink-900">
@@ -38,7 +46,7 @@ export function NewsCard({ item }: { item: NewsItem }) {
           aria-hidden="true"
           className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-brand-600"
         >
-          Baca Selengkapnya
+          {t("Baca Selengkapnya")}
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
         </span>
       </div>

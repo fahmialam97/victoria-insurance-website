@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { ArrowUpRight, FileText } from "lucide-react";
 import { productHref, type Product } from "@/data/products";
 import { productIcons } from "./ui/productIcons";

@@ -3,6 +3,7 @@
 import { Camera, FileText } from "lucide-react";
 import { useEffect, useState, type ChangeEvent } from "react";
 import type { ClaimDocument } from "@/data/claimDocuments";
+import { useI18n } from "./LocaleProvider";
 
 type UploadTileProps = {
   doc: ClaimDocument;
@@ -13,6 +14,8 @@ type UploadTileProps = {
 
 /** Kotak unggah satu dokumen klaim: foto dengan pratinjau, dokumen dengan nama file. File tetap di input (tidak dikirim). */
 export function UploadTile({ doc, id, name, error }: UploadTileProps) {
+  const { t } = useI18n();
+  const label = t(doc.label);
   const [fileName, setFileName] = useState<string>();
   const [preview, setPreview] = useState<string>();
   const isPhoto = doc.kind === "photo";
@@ -30,7 +33,7 @@ export function UploadTile({ doc, id, name, error }: UploadTileProps) {
   }
 
   const requiredMark = doc.optional ? (
-    <span className="font-normal text-muted"> (opsional)</span>
+    <span className="font-normal text-muted"> {t("(opsional)")}</span>
   ) : (
     <span className="text-brand-600" aria-hidden="true">
       {" "}*
@@ -64,19 +67,19 @@ export function UploadTile({ doc, id, name, error }: UploadTileProps) {
             <>
               {/* Pratinjau blob lokal; next/image tidak mendukung URL blob */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={preview} alt={`Pratinjau ${doc.label}`} className="absolute left-0 top-0 size-full object-cover" />
+              <img src={preview} alt={t("Pratinjau {dokumen}", { dokumen: label })} className="absolute left-0 top-0 size-full object-cover" />
               <span className="absolute bottom-0 left-0 w-full bg-ink-900/75 px-2 py-1.5 text-xs font-medium text-white">
-                {doc.label} · Ganti
+                {label} · {t("Ganti")}
               </span>
             </>
           ) : (
             <>
               <Camera aria-hidden="true" className="size-6 text-muted transition-colors group-hover:text-brand-600" />
               <span className="mt-2 text-sm font-medium leading-snug text-ink-900">
-                {doc.label}
+                {label}
                 {requiredMark}
               </span>
-              <span className="mt-0.5 text-xs text-muted">Pilih foto</span>
+              <span className="mt-0.5 text-xs text-muted">{t("Pilih foto")}</span>
             </>
           )}
           {input}
@@ -89,18 +92,18 @@ export function UploadTile({ doc, id, name, error }: UploadTileProps) {
           <FileText aria-hidden="true" className="size-5 shrink-0 text-brand-600" />
           <span className="min-w-0 flex-1">
             <span className="block text-sm font-medium text-ink-900">
-              {doc.label}
+              {label}
               {requiredMark}
             </span>
-            <span className="block truncate text-xs text-muted">{fileName ?? "JPG, PNG, atau PDF"}</span>
+            <span className="block truncate text-xs text-muted">{fileName ?? t("JPG, PNG, atau PDF")}</span>
           </span>
-          <span className="shrink-0 text-xs font-semibold text-brand-600">{fileName ? "Ganti" : "Pilih file"}</span>
+          <span className="shrink-0 text-xs font-semibold text-brand-600">{fileName ? t("Ganti") : t("Pilih file")}</span>
           {input}
         </label>
       )}
       {doc.hint && (
         <p id={`${id}-hint`} className="mt-1.5 text-xs text-muted">
-          {doc.hint}
+          {t(doc.hint)}
         </p>
       )}
       {error && (

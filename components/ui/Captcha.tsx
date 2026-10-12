@@ -2,6 +2,8 @@
 
 import { Check, Loader2, ShieldCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useI18n } from "@/components/LocaleProvider";
+import type { Locale } from "@/lib/i18n/locale";
 
 type Grecaptcha = {
   render: (
@@ -19,7 +21,8 @@ declare global {
 
 /** Diisi saat build bila tersedia (site key reCAPTCHA v2 untuk domain mockup); kosong = simulasi UI. */
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-const SCRIPT_SRC = "https://www.google.com/recaptcha/api.js?render=explicit&hl=id";
+/** Bahasa widget mengikuti bahasa halaman (pindah bahasa = muat ulang penuh, jadi script cukup dimuat sekali). */
+const scriptSrc = (locale: Locale) => `https://www.google.com/recaptcha/api.js?render=explicit&hl=${locale}`;
 
 type CaptchaProps = {
   id: string;
@@ -29,6 +32,7 @@ type CaptchaProps = {
 
 /** Widget reCAPTCHA v2 asli bila ada site key (tanpa verifikasi server: mockup statis). */
 function GoogleRecaptcha({ onVerifiedChange }: Pick<CaptchaProps, "onVerifiedChange">) {
+  const { locale } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,22 +49,23 @@ function GoogleRecaptcha({ onVerifiedChange }: Pick<CaptchaProps, "onVerifiedCha
       });
 
     if (window.grecaptcha) return render();
-    let script = document.querySelector<HTMLScriptElement>(`script[src="${SCRIPT_SRC}"]`);
+    let script = document.querySelector<HTMLScriptElement>(`script[src="${scriptSrc(locale)}"]`);
     if (!script) {
       script = document.createElement("script");
-      script.src = SCRIPT_SRC;
+      script.src = scriptSrc(locale);
       script.async = true;
       document.head.appendChild(script);
     }
     script.addEventListener("load", render);
     return () => script?.removeEventListener("load", render);
-  }, [onVerifiedChange]);
+  }, [onVerifiedChange, locale]);
 
   return <div ref={containerRef} />;
 }
 
 /** Simulasi "Saya bukan robot" untuk mockup statis tanpa site key. */
 function MockCaptcha({ id, error, onVerifiedChange }: CaptchaProps) {
+  const { t } = useI18n();
   const [status, setStatus] = useState<"idle" | "checking" | "verified">("idle");
 
   function verify() {
@@ -93,10 +98,10 @@ function MockCaptcha({ id, error, onVerifiedChange }: CaptchaProps) {
       >
         {status === "checking" && <Loader2 aria-hidden="true" className="size-4 animate-spin text-muted" />}
         {status === "verified" && <Check aria-hidden="true" className="size-5" />}
-        <span className="sr-only">Saya bukan robot</span>
+        <span className="sr-only">{t("Saya bukan robot")}</span>
       </button>
       <label htmlFor={id} className="flex-1 cursor-pointer text-sm font-medium text-ink-900">
-        Saya bukan robot
+        {t("Saya bukan robot")}
       </label>
       <ShieldCheck aria-hidden="true" className="size-6 text-muted" />
     </div>

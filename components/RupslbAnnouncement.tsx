@@ -1,20 +1,23 @@
 import { ArrowRight, ChevronRight, FileText, Megaphone } from "lucide-react";
-import Link from "next/link";
-import { currentRupslb, rupslbHref } from "@/data/rupslb";
+import Link from "@/components/ui/Link";
+import { getRupslbEvents, rupslbHref } from "@/data/rupslb";
 import { formatDate } from "@/lib/format";
+import { getI18n } from "@/lib/i18n/server";
 import { Container } from "./ui/Container";
 import { SmartLink } from "./ui/SmartLink";
 
 /** "Keep the announcement, simplify the presentation." — detail lengkap ada di /rupslb/[year]. */
-export function RupslbAnnouncement() {
-  const event = currentRupslb;
+export async function RupslbAnnouncement() {
+  const { locale, t } = await getI18n();
+  // Entri terbaru = pengumuman yang ditampilkan
+  const event = getRupslbEvents(locale)[0];
   if (!event) return null;
 
-  const meetingDate = formatDate(event.meetingDate);
+  const meetingDate = formatDate(event.meetingDate, locale);
   const description =
     event.status === "completed"
-      ? `RUPSLB PT Victoria Insurance Tbk telah diselenggarakan pada ${meetingDate} di Graha BIP, Jakarta Selatan.`
-      : `RUPSLB PT Victoria Insurance Tbk akan diselenggarakan pada ${meetingDate} di Graha BIP, Jakarta Selatan.`;
+      ? t("RUPSLB PT Victoria Insurance Tbk telah diselenggarakan pada {tanggal} di Graha BIP, Jakarta Selatan.", { tanggal: meetingDate })
+      : t("RUPSLB PT Victoria Insurance Tbk akan diselenggarakan pada {tanggal} di Graha BIP, Jakarta Selatan.", { tanggal: meetingDate });
 
   return (
     <section aria-labelledby="rupslb-heading" className="pb-16 sm:pb-20">
@@ -27,7 +30,7 @@ export function RupslbAnnouncement() {
                 <Megaphone aria-hidden="true" className="size-7" />
               </span>
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">Pengumuman Penting</p>
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-600">{t("Pengumuman Penting")}</p>
                 <h2 id="rupslb-heading" className="mt-1 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
                   {event.title}
                 </h2>
@@ -35,14 +38,14 @@ export function RupslbAnnouncement() {
                   href={rupslbHref(event)}
                   className="group mt-6 inline-flex items-center whitespace-nowrap gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
                 >
-                  Lihat Pengumuman
+                  {t("Lihat Pengumuman")}
                   <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
             </div>
 
             <div className="rounded-2xl border border-line bg-white p-5 sm:p-6">
-              <h3 className="text-sm font-semibold text-ink-900">Dokumen Terkait</h3>
+              <h3 className="text-sm font-semibold text-ink-900">{t("Dokumen Terkait")}</h3>
               <ul className="mt-3 divide-y divide-line">
                 {event.documents.map((doc) => (
                   <li key={doc.url}>

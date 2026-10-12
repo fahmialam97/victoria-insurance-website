@@ -1,17 +1,20 @@
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import type { ReactNode } from "react";
+import { getI18n } from "@/lib/i18n/server";
 import { Container } from "./Container";
 import { HeaderDecor } from "./HeaderDecor";
 
 type PageHeaderProps = {
   title: string;
   description?: ReactNode;
-  /** Item breadcrumb di antara "Beranda" dan judul halaman. */
+  /** Item breadcrumb di antara "Beranda" dan judul halaman (teks Indonesia, diterjemahkan di sini). */
   trail?: string[];
   children?: ReactNode;
 };
 
-export function PageHeader({ title, description, trail = [], children }: PageHeaderProps) {
+/** 	itle & description dikirim halaman dalam bahasa yang sudah sesuai. */
+export async function PageHeader({ title, description, trail = [], children }: PageHeaderProps) {
+  const { t } = await getI18n();
   return (
     <section className="relative isolate overflow-hidden border-b border-line bg-surface">
       <HeaderDecor />
@@ -20,10 +23,10 @@ export function PageHeader({ title, description, trail = [], children }: PageHea
           <ol className="flex flex-wrap items-center gap-2">
             <li>
               <Link href="/" className="hover:text-brand-600">
-                Beranda
+                {t("Beranda")}
               </Link>
             </li>
-            {[...trail, title].map((item, i, all) => (
+            {[...trail.map((item) => t(item)), title].map((item, i, all) => (
               <li key={item} className="flex items-center gap-2">
                 <span aria-hidden="true">/</span>
                 <span

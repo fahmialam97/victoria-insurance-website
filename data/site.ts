@@ -20,6 +20,19 @@ export const site = {
     "PT Victoria Insurance, Tbk berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK).",
     "PT Victoria Insurance, Tbk merupakan anggota dari Lembaga Penyelesaian Sengketa Sektor Jasa Keuangan (LAPS SJK).",
   ],
+  /** Judul & deskripsi default per bahasa (versi Indonesia = website resmi). */
+  meta: {
+    id: {
+      title: "Victoria Insurance - Berasuransi Cerdas Bersama Kami",
+      description:
+        "Victoria Insurance memberikan solusi bagi Anda dan keluarga Anda perlindungan dari produk asuransi kecelakaan diri, uang, rekayasa, dll.",
+    },
+    en: {
+      title: "Victoria Insurance - Smart Insurance With Us",
+      description:
+        "Victoria Insurance provides protection solutions for you and your family, from personal accident, money, and engineering insurance to more.",
+    },
+  },
   /** URL kanonik produksi; dapat di-override lewat NEXT_PUBLIC_SITE_URL. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? OFFICIAL_URL,
 } as const;

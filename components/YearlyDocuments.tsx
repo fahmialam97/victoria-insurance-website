@@ -1,11 +1,13 @@
 import type { YearDocs } from "@/data/companyReports";
+import { getI18n } from "@/lib/i18n/server";
 import { DocumentList } from "./ui/DocumentList";
 
 /** Dokumen dikelompokkan per tahun, dengan tombol lompat ke tahun. */
-export function YearlyDocuments({ groups, idPrefix }: { groups: YearDocs[]; idPrefix: string }) {
+export async function YearlyDocuments({ groups, idPrefix }: { groups: YearDocs[]; idPrefix: string }) {
+  const { t } = await getI18n();
   return (
     <>
-      <nav aria-label="Pilih tahun">
+      <nav aria-label={t("Pilih tahun")}>
         <ul className="flex flex-wrap gap-2">
           {groups.map(({ year }) => (
             <li key={year}>
@@ -30,7 +32,7 @@ export function YearlyDocuments({ groups, idPrefix }: { groups: YearDocs[]; idPr
             <h2 id={`${idPrefix}-${year}-heading`} className="flex items-center justify-between gap-3 text-xl font-bold text-ink-900">
               {year}
               <span className="rounded-full bg-surface px-2.5 py-0.5 text-xs font-semibold text-muted">
-                {documents.length} dokumen
+                {t("{n} dokumen", { n: documents.length })}
               </span>
             </h2>
             <div className="mt-4">

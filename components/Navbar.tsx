@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "@/components/ui/Link";
+import { useRouter } from "next/navigation";
 import { ArrowRight, ChevronDown, Menu, Search, X } from "lucide-react";
 import {
   useEffect,
@@ -15,8 +15,10 @@ import {
 } from "react";
 import { contactAnchor, mainNav, type NavItem } from "@/data/navigation";
 import { isExternal } from "@/lib/format";
+import { localizeHref } from "@/lib/i18n/locale";
 import { searchEntries, type SearchEntry } from "@/lib/search";
 import { LanguageSwitcher, MobileLanguageOptions } from "./LanguageSwitcher";
+import { useI18n, usePagePath } from "./LocaleProvider";
 import { SmartLink } from "./ui/SmartLink";
 
 /** Item aktif bila salah satu link internal atau activePaths-nya cocok dengan path saat ini. */
@@ -46,11 +48,13 @@ function activeLinkHref(item: NavItem, pathname: string): string | undefined {
     .sort((a, b) => b.length - a.length)[0];
 }
 
-/** Saran pencarian saat kueri masih kosong (dicocokkan dengan judul entri indeks). */
-const popularSearches = ["Asuransi Kendaraan Bermotor", "Form Pengaduan", "Informasi Transaksi", "Bengkel Rekanan"];
+/** Saran pencarian saat kueri masih kosong (dicocokkan dengan href entri indeks, sama untuk semua bahasa). */
+const popularSearches = ["/produk/kendaraan-bermotor", "/pengaduan", "/layanan/informasi-transaksi", "/layanan/bengkel-rekanan"];
 
 export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
-  const pathname = usePathname();
+  // Path tanpa prefix /en: menu aktif cukup dicocokkan dengan href versi Indonesia
+  const pathname = usePagePath();
+  const { locale, t } = useI18n();
   const router = useRouter();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   // Dropdown yang dibuka lewat klik "terkunci": tidak tertutup saat kursor keluar, hanya lewat klik luar/Esc/klik ulang
@@ -61,7 +65,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
   const [activeResult, setActiveResult] = useState(0);
   const results = useMemo(() => searchEntries(searchIndex, query), [searchIndex, query]);
   const suggestions = useMemo(
-    () => popularSearches.map((title) => searchIndex.find((e) => e.title === title)).filter((e) => e !== undefined),
+    () => popularSearches.map((href) => searchIndex.find((e) => e.href === href)).filter((e) => e !== undefined),
     [searchIndex],
   );
   const navRef = useRef<HTMLDivElement>(null);
@@ -166,7 +170,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
 
   const openResult = (entry: SearchEntry) => {
     closeSearch();
-    router.push(entry.href);
+    router.push(localizeHref(entry.href, locale));
   };
 
   const onSearchKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
@@ -187,7 +191,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
       <div ref={navRef} className="mx-auto flex h-16 max-w-[1600px] items-center gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
         {/* ≥ xl: logo di tengah ruang antara tepi kiri dan menu navigasi (pl-4 mengimbangi gap-4 ke menu); di bawahnya rata kiri */}
         <div className="shrink-0 xl:flex xl:min-w-fit xl:flex-1 xl:justify-center xl:pl-4">
-          <Link href="/" className="block shrink-0" aria-label="Victoria Insurance — Beranda" onClick={closeAll}>
+          <Link href="/" className="block shrink-0" aria-label={`Victoria Insurance — ${t("Beranda")}`} onClick={closeAll}>
             <Image
               src="/images/official/logo-dark.png"
               alt="Victoria Insurance"
@@ -202,7 +206,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
         </div>
 
         {/* Navigasi desktop */}
-        <nav ref={desktopNavRef} aria-label="Navigasi utama" className="relative ml-auto hidden xl:block">
+        <nav ref={desktopNavRef} aria-label={t("Navigasi utama")} className="relative ml-auto hidden xl:block">
           {/* Satu garis aktif yang meluncur ke menu tujuan saat berpindah halaman */}
           <span
             ref={indicatorRef}
@@ -221,9 +225,9 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
 
               if (!item.groups) {
                 return (
-                  <li key={item.label}>
+                  <li key={t(item.label)}>
                     <SmartLink href={item.href!} className={linkClass} aria-current={active ? "page" : undefined}>
-                      {item.label}
+                      {t(item.label)}
                     </SmartLink>
                   </li>
                 );
@@ -234,7 +238,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
               const multiColumn = item.groups.length > 1;
               return (
                 <li
-                  key={item.label}
+                  key={t(item.label)}
                   className="relative"
                   onMouseEnter={() => {
                     // Hover menu lain melepas kunci menu sebelumnya
@@ -252,7 +256,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                     aria-controls={panelId}
                     onClick={() => toggleMenuPin(item.label)}
                   >
-                    {item.label}
+                    {t(item.label)}
                     <ChevronDown
                       aria-hidden="true"
                       className={`size-4 transition-transform duration-200 ease-nav ${isOpen ? "rotate-180" : ""}`}
@@ -286,7 +290,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                           >
                             {group.title && (
                               <p className="relative mb-1 px-3 py-1 text-xs font-bold uppercase tracking-wider text-muted before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-full before:bg-brand-600">
-                                {group.title}
+                                {t(group.title)}
                               </p>
                             )}
                             <ul>
@@ -304,7 +308,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                                           : "text-ink-800 hover:bg-surface hover:text-brand-600"
                                       }`}
                                     >
-                                      {link.label}
+                                      {t(link.label)}
                                     </SmartLink>
                                   </li>
                                 );
@@ -319,7 +323,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                           onClick={closeAll}
                           className="mt-3 flex items-center justify-between gap-2 border-t border-line px-3 pt-3 text-sm font-semibold text-brand-600 hover:text-brand-700"
                         >
-                          {item.viewAll.label}
+                          {t(item.viewAll.label)}
                           <ArrowRight aria-hidden="true" className="size-4" />
                         </SmartLink>
                       )}
@@ -337,7 +341,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
             onClick={() => setSearchOpen((v) => !v)}
             aria-expanded={searchOpen}
             aria-controls={`${baseId}-search`}
-            aria-label={searchOpen ? "Tutup pencarian" : "Buka pencarian"}
+            aria-label={searchOpen ? t("Tutup pencarian") : t("Buka pencarian")}
             className="inline-flex size-10 items-center justify-center rounded-full text-ink-800 hover:bg-surface hover:text-brand-600"
           >
             {searchOpen ? <X aria-hidden="true" className="size-5" /> : <Search aria-hidden="true" className="size-5" />}
@@ -347,14 +351,14 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
             href={contactAnchor}
             className="hidden whitespace-nowrap rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 sm:inline-flex"
           >
-            Hubungi Kami
+            {t("Hubungi Kami")}
           </Link>
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             aria-expanded={mobileOpen}
             aria-controls={`${baseId}-mobile`}
-            aria-label={mobileOpen ? "Tutup menu" : "Buka menu"}
+            aria-label={mobileOpen ? t("Tutup menu") : t("Buka menu")}
             className="inline-flex size-10 items-center justify-center rounded-full text-ink-800 hover:bg-surface xl:hidden"
           >
             {mobileOpen ? <X aria-hidden="true" className="size-6" /> : <Menu aria-hidden="true" className="size-6" />}
@@ -382,7 +386,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
             }}
           >
             <label htmlFor={`${baseId}-q`} className="sr-only">
-              Cari di website Victoria Insurance
+              {t("Cari di website Victoria Insurance")}
             </label>
             <input
               ref={searchInputRef}
@@ -400,14 +404,14 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                 setActiveResult(0);
               }}
               onKeyDown={onSearchKeyDown}
-              placeholder="Cari produk, layanan, atau informasi…"
+              placeholder={t("Cari produk, layanan, atau informasi…")}
               className="min-w-0 flex-1 rounded-full border border-line bg-surface px-5 py-2.5 text-sm text-ink-900 placeholder:text-muted focus:border-brand-600 focus:bg-white focus:outline-none"
             />
             <button
               type="submit"
               className="rounded-full bg-ink-800 px-5 py-2.5 text-sm font-semibold text-white hover:bg-ink-900"
             >
-              Cari
+              {t("Cari")}
             </button>
           </form>
 
@@ -416,7 +420,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
               <ul
                 id={resultListId}
                 role="listbox"
-                aria-label="Hasil pencarian"
+                aria-label={t("Hasil pencarian")}
                 className="mt-3 max-h-[60vh] divide-y divide-line overflow-y-auto rounded-xl border border-line"
               >
                 {results.map((entry, i) => (
@@ -446,13 +450,14 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
               </ul>
             ) : (
               <p className="mt-3 px-1 text-sm text-muted">
-                Tidak ada hasil untuk &ldquo;{query.trim()}&rdquo;. Coba kata kunci lain, misalnya &ldquo;kendaraan&rdquo;
-                atau &ldquo;klaim&rdquo;.
+                {t("Tidak ada hasil untuk “{q}”. Coba kata kunci lain, misalnya “kendaraan” atau “klaim”.", {
+                  q: query.trim(),
+                })}
               </p>
             )
           ) : (
             <div className="mt-3 flex flex-wrap items-center gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted">Populer</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted">{t("Populer")}</span>
               {suggestions.map((entry) => (
                 <Link
                   key={entry.href}
@@ -474,34 +479,34 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
         hidden={!mobileOpen}
         className="max-h-[calc(100dvh-4rem)] animate-menu-enter overflow-y-auto border-t border-line bg-white xl:hidden"
       >
-        <nav aria-label="Navigasi utama (seluler)" className="px-4 py-4 sm:px-6">
+        <nav aria-label={t("Navigasi utama (seluler)")} className="px-4 py-4 sm:px-6">
           <ul className="divide-y divide-line">
             {mainNav.map((item) => {
               const active = isItemActive(item, pathname);
               if (!item.groups) {
                 return (
-                  <li key={item.label}>
+                  <li key={t(item.label)}>
                     <SmartLink
                       href={item.href!}
                       onClick={closeAll}
                       aria-current={active ? "page" : undefined}
                       className={`block py-3 text-base font-medium ${active ? "text-brand-600" : "text-ink-900"}`}
                     >
-                      {item.label}
+                      {t(item.label)}
                     </SmartLink>
                   </li>
                 );
               }
               const currentHref = activeLinkHref(item, pathname);
               return (
-                <li key={item.label}>
+                <li key={t(item.label)}>
                   <details className="group">
                     <summary
                       className={`flex cursor-pointer list-none items-center justify-between py-3 text-base font-medium [&::-webkit-details-marker]:hidden ${
                         active ? "text-brand-600" : "text-ink-900"
                       }`}
                     >
-                      {item.label}
+                      {t(item.label)}
                       <ChevronDown aria-hidden="true" className="size-5 transition-transform group-open:rotate-180" />
                     </summary>
                     <div className="space-y-3 pb-4 pl-3">
@@ -510,7 +515,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                           {/* Gaya judul grup & link sama dengan dropdown desktop (garis merah, link aktif berlatar merah muda) */}
                           {group.title && (
                             <p className="relative mb-1 px-3 py-1 text-xs font-bold uppercase tracking-wider text-muted before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-full before:bg-brand-600">
-                              {group.title}
+                              {t(group.title)}
                             </p>
                           )}
                           <ul>
@@ -528,7 +533,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                                         : "text-ink-800 hover:bg-surface hover:text-brand-600"
                                     }`}
                                   >
-                                    {link.label}
+                                    {t(link.label)}
                                   </SmartLink>
                                 </li>
                               );
@@ -542,7 +547,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
                           onClick={closeAll}
                           className="flex items-center gap-2 py-2 text-sm font-semibold text-brand-600"
                         >
-                          {item.viewAll.label}
+                          {t(item.viewAll.label)}
                           <ArrowRight aria-hidden="true" className="size-4" />
                         </SmartLink>
                       )}
@@ -557,7 +562,7 @@ export function Navbar({ searchIndex }: { searchIndex: SearchEntry[] }) {
             onClick={closeAll}
             className="mt-4 flex w-full items-center justify-center rounded-full bg-brand-600 px-5 py-3 text-base font-semibold text-white hover:bg-brand-700"
           >
-            Hubungi Kami
+            {t("Hubungi Kami")}
           </Link>
           <div className="mt-6 md:hidden">
             <MobileLanguageOptions />

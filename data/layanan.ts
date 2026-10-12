@@ -1,3 +1,7 @@
+import type { Locale } from "@/lib/i18n/locale";
+import { overlay } from "@/lib/i18n/overlay";
+import { layananEn } from "./en/layanan";
+
 export type Doc = { title: string; url: string };
 
 /** Teks dari halaman Layanan website resmi (KB Bagian 6); spasi dirapikan tanpa mengubah isi. */
@@ -211,3 +215,13 @@ export const literacy = {
     },
   ] as LiteracyYear[],
 };
+
+/** Teks halaman layanan; versi Inggris dari data/en/layanan.ts (judul dokumen lewat kamus). */
+export const layananContent = { workshop, complaint, transaction, literacy };
+
+const contentByLocale: Record<Locale, typeof layananContent> = {
+  id: layananContent,
+  en: overlay(layananContent, layananEn),
+};
+
+export const getLayananContent = (locale: Locale) => contentByLocale[locale];

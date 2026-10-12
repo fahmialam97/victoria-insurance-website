@@ -2,49 +2,54 @@
 
 import { Check, ChevronDown, Globe } from "lucide-react";
 import { useEffect, useId, useRef, useState, type ComponentType, type SVGProps } from "react";
+import { localizeHref, type Locale } from "@/lib/i18n/locale";
+import { useI18n, usePagePath } from "./LocaleProvider";
 import { FlagIndonesia, FlagUnitedKingdom } from "./ui/Flags";
 
 type Language = {
-  code: string;
+  code: Locale;
   label: string;
   Flag: ComponentType<SVGProps<SVGSVGElement>>;
-  /** Versi bahasa belum siap: tampil di menu tapi tidak bisa dipilih. */
-  comingSoon?: boolean;
 };
 
 const languages: Language[] = [
-  { code: "ID", label: "Bahasa Indonesia", Flag: FlagIndonesia },
-  { code: "EN", label: "English", Flag: FlagUnitedKingdom, comingSoon: true },
+  { code: "id", label: "Bahasa Indonesia", Flag: FlagIndonesia },
+  { code: "en", label: "English", Flag: FlagUnitedKingdom },
 ];
 
 const flagClass = "h-4 w-6 shrink-0 overflow-hidden rounded-[3px] ring-1 ring-ink-800/10";
 
-/** Daftar pilihan bahasa; bahasa Inggris belum tersedia sehingga website tetap Bahasa Indonesia. */
+/**
+ * Daftar pilihan bahasa: tiap pilihan menuju halaman yang sama dalam bahasa tersebut (/produk/ ↔ /en/produk/).
+ * Memakai <a> biasa karena versi Indonesia & Inggris memakai root layout berbeda (pindah = muat ulang penuh).
+ */
 function LanguageOptions({ onPick }: { onPick: () => void }) {
+  const { locale } = useI18n();
+  const path = usePagePath();
   return (
     <ul className="space-y-0.5">
-      {languages.map(({ code, label, Flag, comingSoon }) => {
-        const current = code === "ID";
+      {languages.map(({ code, label, Flag }) => {
+        const current = code === locale;
         return (
           <li key={code}>
-            <button
-              type="button"
+            <a
+              href={localizeHref(path, code)}
+              hrefLang={code}
+              lang={code}
               role="menuitemradio"
               aria-checked={current}
-              aria-disabled={comingSoon || undefined}
-              onClick={onPick}
-              className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
+              onClick={(e) => {
+                if (current) e.preventDefault();
+                onPick();
+              }}
+              className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors hover:bg-surface ${
                 current ? "font-semibold text-ink-900" : "text-ink-800"
-              } ${comingSoon ? "cursor-not-allowed" : "hover:bg-surface"}`}
+              }`}
             >
-              <Flag className={`${flagClass} ${comingSoon ? "opacity-60" : ""}`} />
-              <span className={`flex-1 ${comingSoon ? "text-muted" : ""}`}>{label}</span>
-              {comingSoon ? (
-                <span className="rounded-full bg-surface px-2 py-0.5 text-[11px] font-semibold text-muted">Segera hadir</span>
-              ) : (
-                current && <Check aria-hidden="true" className="size-4 text-brand-600" />
-              )}
-            </button>
+              <Flag className={flagClass} />
+              <span className="flex-1">{label}</span>
+              {current && <Check aria-hidden="true" className="size-4 text-brand-600" />}
+            </a>
           </li>
         );
       })}
@@ -54,9 +59,11 @@ function LanguageOptions({ onPick }: { onPick: () => void }) {
 
 /** Pemilih bahasa di header (≥ md); di bawahnya tampil di menu mobile. */
 export function LanguageSwitcher() {
+  const { locale, t } = useI18n();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
+  const currentLabel = languages.find((l) => l.code === locale)!.label;
 
   // Tutup saat klik di luar atau tekan Escape
   useEffect(() => {
@@ -83,11 +90,11 @@ export function LanguageSwitcher() {
         aria-expanded={open}
         aria-controls={menuId}
         aria-haspopup="menu"
-        aria-label="Pilih bahasa (saat ini Bahasa Indonesia)"
+        aria-label={t("Pilih bahasa (saat ini {bahasa})", { bahasa: currentLabel })}
         className="inline-flex h-10 items-center gap-1.5 rounded-full border border-line bg-white px-3 text-sm font-semibold text-ink-800 transition-colors hover:border-brand-600/40 hover:text-brand-600"
       >
         <Globe aria-hidden="true" className="size-[18px]" />
-        ID
+        {locale.toUpperCase()}
         <ChevronDown
           aria-hidden="true"
           className={`size-4 transition-transform duration-200 ease-nav ${open ? "rotate-180" : ""}`}
@@ -110,11 +117,12 @@ export function LanguageSwitcher() {
 
 /** Versi menu mobile: pilihan bahasa langsung tampil di bagian bawah menu. */
 export function MobileLanguageOptions() {
+  const { t } = useI18n();
   return (
     <div className="border-t border-line pt-4">
       <p className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted">
         <Globe aria-hidden="true" className="size-4" />
-        Bahasa
+        {t("Bahasa")}
       </p>
       <LanguageOptions onPick={() => {}} />
     </div>

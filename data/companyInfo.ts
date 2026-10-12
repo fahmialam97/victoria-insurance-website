@@ -1,3 +1,6 @@
+import type { Locale } from "@/lib/i18n/locale";
+import { overlay } from "@/lib/i18n/overlay";
+import { companyInfoEn } from "./en/companyInfo";
 import { articlesHref, csrHref } from "./hrefs";
 import type { Doc } from "./layanan";
 
@@ -128,3 +131,13 @@ export const supportingInstitutions = [
     email: "opr@adimitra-jk.co.id",
   },
 ];
+
+/** Teks halaman Informasi Perusahaan; versi Inggris dari data/en/companyInfo.ts. */
+export const companyInfoContent = { governance, committees, corporateSecretary, articlesOfAssociation, annualReports, supportingInstitutions };
+
+const contentByLocale: Record<Locale, typeof companyInfoContent> = {
+  id: companyInfoContent,
+  en: overlay(companyInfoContent, companyInfoEn),
+};
+
+export const getCompanyInfoContent = (locale: Locale) => contentByLocale[locale];

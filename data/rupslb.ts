@@ -1,3 +1,7 @@
+import type { Locale } from "@/lib/i18n/locale";
+import { overlay } from "@/lib/i18n/overlay";
+import { rupslbEventsEn } from "./en/rupslb";
+
 export type RupslbDocument = {
   title: string;
   shortTitle: string;
@@ -72,3 +76,8 @@ export const rupslbEvents: RupslbEvent[] = [
 export const currentRupslb = rupslbEvents[0];
 
 export const rupslbHref = (event: RupslbEvent) => `/rupslb/${event.year}`;
+
+const eventsByLocale: Record<Locale, RupslbEvent[]> = { id: rupslbEvents, en: overlay(rupslbEvents, rupslbEventsEn) };
+
+/** Data RUPSLB sesuai bahasa (teks Inggris dari data/en/rupslb.ts). */
+export const getRupslbEvents = (locale: Locale) => eventsByLocale[locale];

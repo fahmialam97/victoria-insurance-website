@@ -2,6 +2,7 @@
 
 import { CheckCircle2, Loader2, Send, TriangleAlert } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useI18n } from "@/components/LocaleProvider";
 import { Captcha } from "@/components/ui/Captcha";
 import { FormField, type FieldControlProps } from "@/components/ui/FormField";
 import { ReferenceId } from "@/components/ui/ReferenceId";
@@ -28,19 +29,24 @@ type FieldProps = {
   children: (props: FieldControlProps) => ReactNode;
 };
 
-function Field({ name, state, ...rest }: FieldProps) {
+/** Label & hint ditulis dalam Bahasa Indonesia lalu diterjemahkan. */
+function Field({ name, state, label, hint, ...rest }: FieldProps) {
+  const { t } = useI18n();
   return (
     <FormField
       id={`pengaduan-${name}`}
       name={name}
       error={state.errors?.[name]}
       defaultValue={state.values?.[name]}
+      label={t(label)}
+      hint={hint && t(hint)}
       {...rest}
     />
   );
 }
 
 function ComplaintFormInner({ onReset }: { onReset: () => void }) {
+  const { t } = useI18n();
   const [state, setState] = useState<ComplaintState>(initialState);
   const [pending, setPending] = useState(false);
   const [captchaVerified, setCaptchaVerified] = useState(false);
@@ -62,11 +68,11 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
     if (String(formData.get("website") ?? "") !== "") return setState({ status: "success", referenceId: "-" });
 
     const values = readComplaint(formData);
-    const errors = validateComplaint(values);
+    const errors = validateComplaint(values, t);
     const hasFieldErrors = !!errors && Object.keys(errors).length > 0;
-    setCaptchaError(captchaVerified ? undefined : "Centang verifikasi \"Saya bukan robot\" terlebih dahulu.");
+    setCaptchaError(captchaVerified ? undefined : t("Centang verifikasi \"Saya bukan robot\" terlebih dahulu."));
     if (hasFieldErrors || !captchaVerified) {
-      return setState({ status: "error", message: "Periksa kembali data yang Anda isi.", errors, values });
+      return setState({ status: "error", message: t("Periksa kembali data yang Anda isi."), errors, values });
     }
 
     setPending(true);
@@ -79,9 +85,9 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
     return (
       <div role="status" className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 sm:p-8">
         <CheckCircle2 aria-hidden="true" className="size-10 text-emerald-600" />
-        <h2 className="mt-4 text-xl font-bold text-ink-900">Pengaduan Anda telah terkirim</h2>
+        <h2 className="mt-4 text-xl font-bold text-ink-900">{t("Pengaduan Anda telah terkirim")}</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted">
-          Terima kasih. Simpan nomor referensi berikut untuk keperluan tindak lanjut.
+          {t("Terima kasih. Simpan nomor referensi berikut untuk keperluan tindak lanjut.")}
         </p>
         <ReferenceId value={state.referenceId ?? "-"} />
         <div>
@@ -90,7 +96,7 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
             onClick={onReset}
             className="mt-6 rounded-full border border-line bg-white px-5 py-2.5 text-sm font-semibold text-ink-800 hover:border-brand-600 hover:text-brand-600"
           >
-            Kirim pengaduan lain
+            {t("Kirim pengaduan lain")}
           </button>
         </div>
       </div>
@@ -117,7 +123,7 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <Field name="email" label="Email" required hint="Tanggapan akan dikirim ke email ini." state={state}>
-          {(props) => <input {...props} type="email" autoComplete="email" maxLength={254} placeholder="nama@email.com" />}
+          {(props) => <input {...props} type="email" autoComplete="email" maxLength={254} placeholder={t("nama@email.com")} />}
         </Field>
         <Field name="name" label="Nama Lengkap" required state={state}>
           {(props) => <input {...props} type="text" autoComplete="name" maxLength={100} />}
@@ -144,17 +150,17 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
         {pending ? (
           <>
             <Loader2 aria-hidden="true" className="size-5 animate-spin" />
-            Mengirim…
+            {t("Mengirim…")}
           </>
         ) : (
           <>
             <Send aria-hidden="true" className="size-5" />
-            Kirim Pengaduan
+            {t("Kirim Pengaduan")}
           </>
         )}
       </button>
       <p className="text-xs text-muted">
-        <span className="text-brand-600">*</span> wajib diisi
+        <span className="text-brand-600">*</span> {t("wajib diisi")}
       </p>
     </form>
   );

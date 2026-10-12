@@ -1,3 +1,6 @@
+import type { Locale } from "@/lib/i18n/locale";
+import { overlay } from "@/lib/i18n/overlay";
+import { csrEn } from "./en/csr";
 import { csrHref } from "./hrefs";
 
 export type CsrImage = { src: string; width: number; height: number; alt: string };
@@ -120,3 +123,8 @@ export const csr = {
     },
   ] as { icon: "environment" | "safety" | "community" | "customer"; title: string; paragraphs: string[]; points?: string[] }[],
 };
+
+const csrByLocale: Record<Locale, typeof csr> = { id: csr, en: overlay(csr, csrEn) };
+
+/** Konten CSR sesuai bahasa (teks Inggris dari data/en/csr.ts). */
+export const getCsr = (locale: Locale) => csrByLocale[locale];

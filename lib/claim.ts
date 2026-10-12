@@ -1,4 +1,5 @@
 import type { ClaimDocument } from "@/data/claimDocuments";
+import { translator, type Translate } from "./i18n/translate";
 
 const CLAIM_TEXT_FIELDS = [
   "name",
@@ -55,39 +56,40 @@ export const claimTextValues = (values: ClaimValues) =>
 
 /**
  * Semua isian teks wajib (sama seperti form pengaduan); dokumen wajib kecuali yang ditandai opsional.
- * `today` = YYYY-MM-DD (tanggal kejadian tidak boleh di masa depan).
+ * `today` = YYYY-MM-DD (tanggal kejadian tidak boleh di masa depan). Pesan error diterjemahkan lewat `t`.
  */
 export function validateClaim(
   values: ClaimValues,
   docs: ClaimDocument[],
   today = new Date().toISOString().slice(0, 10),
+  t: Translate = translator("id"),
 ): Record<string, string> {
   const errors: Record<string, string> = {};
-  if (!values.name) errors.name = "Nama lengkap wajib diisi.";
-  if (!values.email) errors.email = "Email wajib diisi.";
-  else if (!EMAIL_PATTERN.test(values.email)) errors.email = "Format email tidak valid.";
-  if (!values.phone) errors.phone = "Nomor telepon wajib diisi.";
-  else if (!/^[0-9+\-\s()]+$/.test(values.phone)) errors.phone = "Nomor telepon hanya boleh berisi angka.";
-  if (!values.policyNumber) errors.policyNumber = "Nomor polis wajib diisi.";
-  if (!values.product) errors.product = "Pilih jenis asuransi.";
-  if (!values.incidentDate) errors.incidentDate = "Tanggal kejadian wajib diisi.";
-  else if (values.incidentDate > today) errors.incidentDate = "Tanggal kejadian tidak boleh melewati hari ini.";
-  if (!values.incidentLocation) errors.incidentLocation = "Lokasi kejadian wajib diisi.";
-  if (!values.chronology) errors.chronology = "Kronologi kejadian wajib diisi.";
-  else if (values.chronology.length < 20) errors.chronology = "Kronologi kejadian minimal 20 karakter.";
+  if (!values.name) errors.name = t("Nama lengkap wajib diisi.");
+  if (!values.email) errors.email = t("Email wajib diisi.");
+  else if (!EMAIL_PATTERN.test(values.email)) errors.email = t("Format email tidak valid.");
+  if (!values.phone) errors.phone = t("Nomor telepon wajib diisi.");
+  else if (!/^[0-9+\-\s()]+$/.test(values.phone)) errors.phone = t("Nomor telepon hanya boleh berisi angka.");
+  if (!values.policyNumber) errors.policyNumber = t("Nomor polis wajib diisi.");
+  if (!values.product) errors.product = t("Pilih jenis asuransi.");
+  if (!values.incidentDate) errors.incidentDate = t("Tanggal kejadian wajib diisi.");
+  else if (values.incidentDate > today) errors.incidentDate = t("Tanggal kejadian tidak boleh melewati hari ini.");
+  if (!values.incidentLocation) errors.incidentLocation = t("Lokasi kejadian wajib diisi.");
+  if (!values.chronology) errors.chronology = t("Kronologi kejadian wajib diisi.");
+  else if (values.chronology.length < 20) errors.chronology = t("Kronologi kejadian minimal 20 karakter.");
   for (const key of Object.keys(LIMITS) as (keyof typeof LIMITS)[]) {
-    if (!errors[key] && values[key].length > LIMITS[key]) errors[key] = `Maksimal ${LIMITS[key]} karakter.`;
+    if (!errors[key] && values[key].length > LIMITS[key]) errors[key] = t("Maksimal {n} karakter.", { n: LIMITS[key] });
   }
 
   for (const doc of docs) {
     const file = values.documents[doc.id];
     const key = documentFieldName(doc);
     if (!file) {
-      if (!doc.optional) errors[key] = `${doc.label} wajib diunggah.`;
+      if (!doc.optional) errors[key] = t("{dokumen} wajib diunggah.", { dokumen: t(doc.label) });
     } else if (!(doc.kind === "photo" ? IMAGE_TYPES : DOCUMENT_TYPES).includes(file.type)) {
-      errors[key] = doc.kind === "photo" ? "Format foto harus JPG atau PNG." : "Format file harus JPG, PNG, atau PDF.";
+      errors[key] = doc.kind === "photo" ? t("Format foto harus JPG atau PNG.") : t("Format file harus JPG, PNG, atau PDF.");
     } else if (file.size > MAX_FILE_BYTES) {
-      errors[key] = "Ukuran file maksimal 10 MB.";
+      errors[key] = t("Ukuran file maksimal 10 MB.");
     }
   }
   return errors;

@@ -31,7 +31,7 @@ export const heroImages: HeroImage[] = [
     alt: "Petugas berhelm proyek mengamati kapal kontainer di pelabuhan saat matahari terbenam",
     // Fokus di antara petugas dan kapal agar keduanya tetap terlihat saat banner dipotong
     focus: "62% 50%",
-    title: "Kerja Sama dengan Masa Depan yang Lebih Baik",
+    title: "Bersama untuk Masa Depan yang Lebih Baik",
   },
   {
     src: "/images/banner/keluarga-suv.png",

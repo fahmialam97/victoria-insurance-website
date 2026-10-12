@@ -2,6 +2,7 @@
 
 import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useI18n } from "@/components/LocaleProvider";
 
 /** Salin teks; fallback execCommand untuk browser/konteks tanpa Clipboard API (mis. http non-localhost). */
 async function copyText(text: string) {
@@ -23,6 +24,7 @@ async function copyText(text: string) {
 
 /** Nomor referensi hasil kirim form beserta tombol salin. */
 export function ReferenceId({ value }: { value: string }) {
+  const { t } = useI18n();
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -46,11 +48,11 @@ export function ReferenceId({ value }: { value: string }) {
         }`}
       >
         {copied ? <Check aria-hidden="true" className="size-4" /> : <Copy aria-hidden="true" className="size-4" />}
-        {copied ? "Tersalin" : "Salin"}
-        <span className="sr-only"> nomor referensi</span>
+        {copied ? t("Tersalin") : t("Salin")}
+        <span className="sr-only"> {t("nomor referensi")}</span>
       </button>
       <span aria-live="polite" className="sr-only">
-        {copied ? "Nomor referensi tersalin" : ""}
+        {copied ? t("Nomor referensi tersalin") : ""}
       </span>
     </div>
   );

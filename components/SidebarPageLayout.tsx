@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { getI18n } from "@/lib/i18n/server";
 import { Container } from "./ui/Container";
 import { PageHeader } from "./ui/PageHeader";
 import { SmartLink } from "./ui/SmartLink";
@@ -18,20 +19,21 @@ type SidebarPageLayoutProps = {
   children: ReactNode;
 };
 
-/** Kerangka halaman bagian: header, menu samping, dan konten. */
-export function SidebarPageLayout({ title, description, trail, menuLabel, menu, untitledAsStandalone, activeHref, children }: SidebarPageLayoutProps) {
+/** Kerangka halaman bagian: header, menu samping, dan konten. Label menu (teks Indonesia di data) diterjemahkan di sini. */
+export async function SidebarPageLayout({ title, description, trail, menuLabel, menu, untitledAsStandalone, activeHref, children }: SidebarPageLayoutProps) {
+  const { t } = await getI18n();
   return (
     <>
       <PageHeader title={title} description={description} trail={trail} />
       <section className="py-12 sm:py-16">
         <Container className="grid gap-10 lg:grid-cols-[240px_1fr] lg:gap-12">
           <aside className="order-last lg:order-first">
-            <nav aria-label={`Menu ${menuLabel}`} className="rounded-2xl border border-line bg-surface p-3 lg:sticky lg:top-24">
+            <nav aria-label={t("Menu {nama}", { nama: t(menuLabel) })} className="rounded-2xl border border-line bg-surface p-3 lg:sticky lg:top-24">
               {menu.map((group, i) => (
                 <div key={group.title ?? i} className={i > 0 ? "mt-6" : undefined}>
                   {(group.title || !untitledAsStandalone) && (
                     <p className="relative mb-3 border-b border-ink-800/20 px-3 pb-3 pt-1 text-xs font-bold uppercase tracking-wider text-muted before:absolute before:left-0 before:top-1 before:h-[1.3em] before:w-1 before:rounded-full before:bg-brand-600">
-                      {group.title ?? menuLabel}
+                      {t(group.title ?? menuLabel)}
                     </p>
                   )}
                   <ul>
@@ -48,7 +50,7 @@ export function SidebarPageLayout({ title, description, trail, menuLabel, menu, 
                                 : "text-ink-800 hover:bg-white hover:text-brand-600"
                             }`}
                           >
-                            {link.label}
+                            {t(link.label)}
                           </SmartLink>
                         </li>
                       );

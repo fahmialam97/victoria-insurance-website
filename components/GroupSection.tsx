@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { groupCompanies } from "@/data/site";
+import { getI18n } from "@/lib/i18n/server";
 import { Container } from "./ui/Container";
 import { SectionHeader } from "./ui/SectionHeader";
 
@@ -11,11 +12,12 @@ const displayDomain = (href: string) => href.replace(/^https?:\/\/(www\.)?/, "")
 const minWordmarkRatio = Math.min(...groupCompanies.map((company) => company.logo.wordmarkRatio));
 
 /** Grup Finansial Victoria: logo → bidang usaha → nama → domain. */
-export function GroupSection() {
+export async function GroupSection() {
+  const { t } = await getI18n();
   return (
     <section aria-labelledby="grup-heading" className="pb-16 sm:pb-20">
       <Container>
-        <SectionHeader id="grup-heading" title="Grup Finansial Victoria" />
+        <SectionHeader id="grup-heading" title={t("Grup Finansial Victoria")} />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {groupCompanies.map((company) => (
             <li key={company.href}>
@@ -44,7 +46,7 @@ export function GroupSection() {
                   />
                 </span>
                 <span className="mt-4 text-xs font-semibold uppercase tracking-wider text-brand-600">
-                  {company.field}
+                  {t(company.field)}
                 </span>
                 <span className="mt-1 pb-4 text-base font-semibold leading-snug text-ink-900 group-hover:text-brand-600">
                   {company.label}
@@ -52,7 +54,7 @@ export function GroupSection() {
                 <span className="mt-auto border-t border-line pt-3 text-sm text-muted">
                   {displayDomain(company.href)}
                 </span>
-                <span className="sr-only"> (terbuka di tab baru)</span>
+                <span className="sr-only"> {t("(terbuka di tab baru)")}</span>
               </a>
             </li>
           ))}
