@@ -12,7 +12,7 @@ export function GroupSection() {
   return (
     <section aria-labelledby="grup-heading" className="pb-16 sm:pb-20">
       <Container>
-        <SectionHeader id="grup-heading" eyebrow="Victoria Group" title="Grup Finansial Victoria" />
+        <SectionHeader id="grup-heading" title="Grup Finansial Victoria" />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {groupCompanies.map((company) => (
             <li key={company.href}>

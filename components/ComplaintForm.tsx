@@ -1,8 +1,10 @@
 "use client";
 
 import { CheckCircle2, Loader2, Send, TriangleAlert } from "lucide-react";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { Captcha } from "@/components/ui/Captcha";
 import { FormField, type FieldControlProps } from "@/components/ui/FormField";
+import { ReferenceId } from "@/components/ui/ReferenceId";
 import {
   createReferenceId,
   readComplaint,
@@ -10,6 +12,7 @@ import {
   type ComplaintField,
   type ComplaintState,
 } from "@/lib/complaint";
+import { focusFirstError } from "@/lib/focusFirstError";
 
 const initialState: ComplaintState = { status: "idle" };
 
@@ -40,6 +43,17 @@ function Field({ name, state, ...rest }: FieldProps) {
 function ComplaintFormInner({ onReset }: { onReset: () => void }) {
   const [state, setState] = useState<ComplaintState>(initialState);
   const [pending, setPending] = useState(false);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [captchaError, setCaptchaError] = useState<string>();
+  const formRef = useRef<HTMLFormElement>(null);
+  // Validasi gagal: arahkan ke isian bermasalah paling atas, bukan tetap di dekat tombol kirim
+  useEffect(() => {
+    if (state.status === "error") focusFirstError(formRef.current);
+  }, [state]);
+  const handleCaptchaChange = useCallback((verified: boolean) => {
+    setCaptchaVerified(verified);
+    if (verified) setCaptchaError(undefined);
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -49,7 +63,9 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
 
     const values = readComplaint(formData);
     const errors = validateComplaint(values);
-    if (errors && Object.keys(errors).length > 0) {
+    const hasFieldErrors = !!errors && Object.keys(errors).length > 0;
+    setCaptchaError(captchaVerified ? undefined : "Centang verifikasi \"Saya bukan robot\" terlebih dahulu.");
+    if (hasFieldErrors || !captchaVerified) {
       return setState({ status: "error", message: "Periksa kembali data yang Anda isi.", errors, values });
     }
 
@@ -67,9 +83,7 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
         <p className="mt-2 text-sm leading-relaxed text-muted">
           Terima kasih. Simpan nomor referensi berikut untuk keperluan tindak lanjut.
         </p>
-        <p className="mt-4 inline-block rounded-lg bg-white px-4 py-2 font-mono text-base font-semibold text-ink-900">
-          {state.referenceId}
-        </p>
+        <ReferenceId value={state.referenceId ?? "-"} />
         <div>
           <button
             type="button"
@@ -84,7 +98,7 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
+    <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-5">
       {state.status === "error" && state.message && (
         <div
           role="alert"
@@ -119,6 +133,8 @@ function ComplaintFormInner({ onReset }: { onReset: () => void }) {
       <Field name="message" label="Isi Pengaduan" required hint="Maksimal 3.000 karakter." state={state}>
         {(props) => <textarea {...props} rows={6} maxLength={3000} className={`${props.className} resize-y`} />}
       </Field>
+
+      <Captcha id="pengaduan-captcha" error={captchaError} onVerifiedChange={handleCaptchaChange} />
 
       <button
         type="submit"

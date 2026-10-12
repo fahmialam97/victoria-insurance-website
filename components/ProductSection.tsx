@@ -10,6 +10,7 @@ export function ProductSection() {
         <SectionHeader
           id="produk-heading"
           title="Produk Asuransi"
+          description="Solusi Perlindungan untuk Setiap Kebutuhan"
           action={{ label: "Lihat Semua Produk", href: productsHref }}
         />
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

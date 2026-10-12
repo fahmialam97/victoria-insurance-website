@@ -2,7 +2,7 @@ import { aboutLinks } from "@/data/company";
 import { articleHref, articles } from "@/data/articles";
 import { companyInfoGroups } from "@/data/companyInfo";
 import { productHref, products, productsHref } from "@/data/products";
-import { claimHref, claimMenuLinks, complaintFormLink, services } from "@/data/services";
+import { claimMenuLinks, complaintFormLink, services } from "@/data/services";
 import type { SearchEntry } from "./search";
 
 const clip = (text: string, max = 140) => (text.length > max ? `${text.slice(0, max).trimEnd()}…` : text);
@@ -24,7 +24,6 @@ export function buildSearchIndex(): SearchEntry[] {
       category: claimMenuLinks.some((link) => link.href === service.href) ? "Klaim" : "Tentang Kami",
       description: service.description,
     })),
-    { title: "Klaim Asuransi", href: claimHref, category: "Klaim", description: "Pengajuan klaim asuransi secara online." },
     { title: complaintFormLink.label, href: complaintFormLink.href, category: "Klaim", description: "Kirim pengaduan secara online." },
     ...articles.map((article) => ({
       title: article.title,

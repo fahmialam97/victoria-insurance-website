@@ -1,8 +1,10 @@
 "use client";
 
 import { CheckCircle2, Loader2, Send, TriangleAlert } from "lucide-react";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { UploadTile } from "@/components/UploadTile";
+import { Captcha } from "@/components/ui/Captcha";
+import { ReferenceId } from "@/components/ui/ReferenceId";
 import { FormField, type FieldControlProps } from "@/components/ui/FormField";
 import type { ClaimDocument } from "@/data/claimDocuments";
 import {
@@ -14,6 +16,7 @@ import {
   type ClaimTextField,
 } from "@/lib/claim";
 import { createReferenceId } from "@/lib/complaint";
+import { focusFirstError } from "@/lib/focusFirstError";
 
 export type ClaimProductOption = { name: string; documents: ClaimDocument[] };
 
@@ -52,6 +55,17 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
   const [state, setState] = useState<ClaimState>(initialState);
   const [pending, setPending] = useState(false);
   const [product, setProduct] = useState("");
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [captchaError, setCaptchaError] = useState<string>();
+  const formRef = useRef<HTMLFormElement>(null);
+  // Validasi gagal: arahkan ke isian bermasalah paling atas, bukan tetap di dekat tombol kirim
+  useEffect(() => {
+    if (state.status === "error") focusFirstError(formRef.current);
+  }, [state]);
+  const handleCaptchaChange = useCallback((verified: boolean) => {
+    setCaptchaVerified(verified);
+    if (verified) setCaptchaError(undefined);
+  }, []);
   // Dokumen pendukung menyesuaikan jenis asuransi yang dipilih
   const documents = products.find((p) => p.name === product)?.documents ?? [];
   const photos = documents.filter((doc) => doc.kind === "photo");
@@ -65,7 +79,8 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
 
     const values = readClaim(formData, documents);
     const errors = validateClaim(values, documents);
-    if (Object.keys(errors).length > 0) {
+    setCaptchaError(captchaVerified ? undefined : "Centang verifikasi \"Saya bukan robot\" terlebih dahulu.");
+    if (Object.keys(errors).length > 0 || !captchaVerified) {
       // File tidak bisa diisi ulang ke input, jadi hanya nilai teks yang disimpan
       return setState({
         status: "error",
@@ -89,9 +104,7 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
         <p className="mt-2 text-sm leading-relaxed text-muted">
           Terima kasih. Simpan nomor referensi berikut untuk memantau proses klaim Anda.
         </p>
-        <p className="mt-4 inline-block rounded-lg bg-white px-4 py-2 font-mono text-base font-semibold text-ink-900">
-          {state.referenceId}
-        </p>
+        <ReferenceId value={state.referenceId ?? "-"} />
         <div>
           <button
             type="button"
@@ -106,7 +119,7 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-8">
+    <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-8">
       {state.status === "error" && state.message && (
         <div
           role="alert"
@@ -217,6 +230,8 @@ function ClaimFormInner({ products, onReset }: { products: ClaimProductOption[];
           </div>
         )}
       </div>
+
+      <Captcha id="klaim-captcha" error={captchaError} onVerifiedChange={handleCaptchaChange} />
 
       <div>
         <button

@@ -3,8 +3,8 @@ import {
   Building2,
   ChevronRight,
   ClipboardList,
+  FileCheck2,
   MessageSquareWarning,
-  MonitorSmartphone,
   Wrench,
   type LucideIcon,
 } from "lucide-react";
@@ -12,11 +12,11 @@ import type { Service, ServiceIcon } from "@/data/services";
 import { SmartLink } from "./ui/SmartLink";
 
 const icons: Record<ServiceIcon, LucideIcon> = {
-  claim: ClipboardList,
+  claim: FileCheck2,
   workshop: Wrench,
   complaint: MessageSquareWarning,
   office: Building2,
-  digital: MonitorSmartphone,
+  transaction: ClipboardList,
   literacy: BookOpen,
 };
 

@@ -1,4 +1,4 @@
-export type ServiceIcon = "claim" | "workshop" | "complaint" | "office" | "digital" | "literacy";
+export type ServiceIcon = "claim" | "workshop" | "complaint" | "office" | "transaction" | "literacy";
 
 export type Service = {
   name: string;
@@ -9,7 +9,8 @@ export type Service = {
 
 /**
  * Layanan dari submenu "Layanan" website resmi (KB Bagian 6); halaman tetap di /layanan/* agar link lama tidak rusak.
- * Di navigasi mockup, layanan dibagi ke menu Tentang Kami (grup "Layanan") dan menu Klaim. Digital Product dihapus.
+ * Di navigasi mockup, layanan dibagi ke menu Tentang Kami (grup "Layanan") dan menu Klaim. Digital Product dihapus;
+ * Klaim Asuransi (form baru di /klaim) ditambahkan.
  */
 export const services: Service[] = [
   {
@@ -17,6 +18,12 @@ export const services: Service[] = [
     description: "Kantor Pusat Jakarta dan Kantor Pemasaran Surabaya.",
     icon: "office",
     href: "/layanan/kantor",
+  },
+  {
+    name: "Klaim Asuransi",
+    description: "Laporkan klaim secara online beserta dokumen pendukungnya.",
+    icon: "claim",
+    href: "/klaim",
   },
   {
     name: "Bengkel Rekanan",
@@ -39,7 +46,7 @@ export const services: Service[] = [
   {
     name: "Informasi Transaksi",
     description: "Prosedur pembelian polis dan tahapan pengajuan klaim.",
-    icon: "claim",
+    icon: "transaction",
     href: "/layanan/informasi-transaksi",
   },
 ];
